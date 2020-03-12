@@ -30,6 +30,7 @@ namespace Videothèque2
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ListView.ItemsSource = new MainWindowViewModel().ListElements;
+            //test git hub connection
         }
     }
 }
