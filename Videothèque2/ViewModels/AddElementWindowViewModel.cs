@@ -71,6 +71,8 @@ namespace Videothèque2.ViewModels
         {
             film = new Film();
             serie = new Serie();
+            LastViewF = DateTime.Now;
+            LastViewS = DateTime.Now;
 
             AFilmCommand = new RelayCommand(AddFilm);
             ASerieCommand = new RelayCommand(AddSerie);

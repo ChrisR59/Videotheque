@@ -29,8 +29,7 @@
         <ListView x:Name="ListView" HorizontalAlignment="Left" Height="210" Margin="57,66,0,0" VerticalAlignment="Top" Width="297">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="25" Header="#" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Width="265" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Width="297" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
                 </GridView>
             </ListView.View>
         </ListView>
