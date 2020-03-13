@@ -66,5 +66,24 @@ namespace Videothèque2.Models
 
             return l;
         }
+        public Boolean UpdateLastView()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE Series SET LastView = @LastView, ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@LastView", LastView));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
     }
 }

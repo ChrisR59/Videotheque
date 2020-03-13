@@ -42,6 +42,7 @@ namespace Videothèque2.Models
                 Element e = new Element();
                 e.Id = DataBase.Instance.reader.GetInt32(0);
                 e.Title = DataBase.Instance.reader.GetString(1);
+                e.Type = "Film";
                 int w = DataBase.Instance.reader.GetInt32(2);
                 if (w == 1)
                     e.ToWatch = true;
@@ -60,6 +61,7 @@ namespace Videothèque2.Models
                 Element s = new Element();
                 s.Id = DataBase.Instance.reader.GetInt32(0);
                 s.Title = DataBase.Instance.reader.GetString(1);
+                s.Type = "Serie";
                 int w = DataBase.Instance.reader.GetInt32(2);
                 if (w == 1)
                     s.ToWatch = true;
@@ -111,6 +113,51 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
 
             return l;
+        }
+
+        public Film GetOneFilm()
+        {
+            Film f = new Film();
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,LastView,ToWatch FROM Films WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while (DataBase.Instance.reader.Read())
+            {
+                f.Id = DataBase.Instance.reader.GetInt32(0);
+                f.Title = DataBase.Instance.reader.GetString(1);
+                f.LastView = DataBase.Instance.reader.GetDateTime(2);
+                int w = DataBase.Instance.reader.GetInt32(3);
+                if (w == 1)
+                    f.ToWatch = true;
+            }
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return f;
+        }
+        public Serie GetOneSerie()
+        {
+            Serie s = new Serie();
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,LastView,ToWatch FROM Series WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while (DataBase.Instance.reader.Read())
+            {
+                s.Id = DataBase.Instance.reader.GetInt32(0);
+                s.Title = DataBase.Instance.reader.GetString(1);
+                s.LastView = DataBase.Instance.reader.GetDateTime(2);
+                int w = DataBase.Instance.reader.GetInt32(3);
+                if (w == 1)
+                    s.ToWatch = true;
+            }
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return s;
         }
 
         public Boolean UpdateElement()

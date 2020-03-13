@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Videothèque2"
         xmlns:viewModel="clr-namespace:Videothèque2.ViewModels"
         mc:Ignorable="d"
-        Title="Vidéothèque" Height="339.344" Width="410">
+        Title="Vidéothèque" Height="375" Width="410">
     <Window.DataContext>
         <viewModel:MainWindowViewModel></viewModel:MainWindowViewModel>
     </Window.DataContext>
@@ -29,9 +29,11 @@
         <ListView x:Name="ListView" HorizontalAlignment="Left" Height="210" Margin="57,66,0,0" VerticalAlignment="Top" Width="297">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="297" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Width="197" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Width="100" Header="Type" DisplayMemberBinding="{Binding Type}" />
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Click="Button_Click_1" Content="Vu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Margin="151,0,151,30"></Button>
     </Grid>
 </Window>

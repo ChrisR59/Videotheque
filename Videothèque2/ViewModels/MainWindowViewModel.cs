@@ -17,6 +17,7 @@ namespace Videothèque2.ViewModels
         private ObservableCollection<Element> listElements = new ObservableCollection<Element>();
         private Element e = new Element();
 
+
         public ObservableCollection<Element> ListElements { get => listElements; set => listElements = value; }
         public ICommand LFilmCommand { get; set; }
         public ICommand LSerieCommand { get; set; }
@@ -26,6 +27,7 @@ namespace Videothèque2.ViewModels
         public MainWindowViewModel()
         {
             ListElements = e.GetProgram();
+
             LFilmCommand = new RelayCommand(() =>
             {
                 ListFilmWindow lFw = new ListFilmWindow();
@@ -49,6 +51,7 @@ namespace Videothèque2.ViewModels
                 ProgrammationWindow p = new ProgrammationWindow();
                 p.Show();
             });
+
         }
     }
 }
