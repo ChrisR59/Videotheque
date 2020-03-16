@@ -27,7 +27,8 @@
                 <GridView>
                     <GridViewColumn Width="50" Header="#" DisplayMemberBinding="{Binding Id}"/>
                     <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Width="200" Header="Vu le" DisplayMemberBinding="{Binding LastView}"/>
+                    <GridViewColumn Width="100" Header="Ajouté le" DisplayMemberBinding="{Binding DateAddFormated}"/>
+                    <GridViewColumn Width="100" Header="Vu le" DisplayMemberBinding="{Binding LastViewFormated}"/>
                 </GridView>
             </ListView.View>
         </ListView>

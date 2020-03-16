@@ -12,20 +12,29 @@ namespace Videothèque2.Models
     {
         private int id;
         private string title;
+        private string content;
+        private DateTime dateAdd;
+        private string dateAddFormated;
         private DateTime lastView;
+        private string lastViewFormated;
         private Boolean toWatch;
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
+        public string Content { get => content; set => content = value; }
+        public DateTime DateAdd { get => dateAdd; set => dateAdd = value; }
+        public string DateAddFormated { get => dateAddFormated; set => dateAddFormated = value; }
         public DateTime LastView { get => lastView; set => lastView = value; }
+        public string LastViewFormated { get => lastViewFormated; set => lastViewFormated = value; }
         public bool ToWatch { get => toWatch; set => toWatch = value; }
 
         public Boolean Add()
         {
             bool res = false;
-            DataBase.Instance.command = new SqlCommand("INSERT INTO Films(Title,LastView,ToWatch) OUTPUT INSERTED.ID VALUES(@title,@lastView,'0')",DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("INSERT INTO Films(Title,Content,DateAdd,ToWatch) OUTPUT INSERTED.ID VALUES(@title,@content,@dateAdd,'0')",DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("title",Title));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("lastView",LastView));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("content",Content));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("dateAdd",DateAdd));
             DataBase.Instance.connection.Open();
             Id = (int)DataBase.Instance.command.ExecuteScalar();
             DataBase.Instance.command.Dispose();
@@ -40,7 +49,7 @@ namespace Videothèque2.Models
         public List<Film> GetFilms()
         {
             List<Film> l = new List<Film>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,LastView,ToWatch FROM Films",DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Content,DateAdd,LastView,ToWatch FROM Films",DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -49,10 +58,19 @@ namespace Videothèque2.Models
                 Film f = new Film();
                 f.Id = DataBase.Instance.reader.GetInt32(0);
                 f.Title = DataBase.Instance.reader.GetString(1);
-                f.LastView = DataBase.Instance.reader.GetDateTime(2);
-                int w = DataBase.Instance.reader.GetInt32(3);
+                f.Content = DataBase.Instance.reader.GetString(2);
+                f.DateAdd = DataBase.Instance.reader.GetDateTime(3);
+                f.DateAddFormated = f.DateAdd.ToString("dd/MM/yyyy");
+                f.LastViewFormated = "Pas visionné";
+                if (!DataBase.Instance.reader.IsDBNull(4))
+                {
+                    f.LastView = DataBase.Instance.reader.GetDateTime(4);
+                    f.LastViewFormated = f.LastView.ToString("dd/MM/yyyy");
+                }
+                int w = DataBase.Instance.reader.GetInt32(5);
                 if (w == 1)
                     f.ToWatch = true;
+
                 l.Add(f);
             }
             DataBase.Instance.command.Dispose();

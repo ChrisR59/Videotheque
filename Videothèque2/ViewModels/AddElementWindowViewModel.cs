@@ -26,12 +26,22 @@ namespace Videothèque2.ViewModels
             }
         }
 
-        public DateTime LastViewF
+        public string ContentF
         {
-            get => film.LastView;
+            get => film.Content;
             set
             {
-                film.LastView = value;
+                film.Content = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public DateTime DateAddF
+        {
+            get => film.DateAdd;
+            set
+            {
+                film.DateAdd = value;
                 RaisePropertyChanged();
             }
         }
@@ -55,12 +65,21 @@ namespace Videothèque2.ViewModels
             }
         }
 
-        public DateTime LastViewS
+        public string ContentS
         {
-            get => serie.LastView;
+            get => serie.Content;
             set
             {
-                serie.LastView = value;
+                serie.Content = value;
+                RaisePropertyChanged();
+            }
+        }
+        public DateTime DateAddS
+        {
+            get => serie.DateAdd;
+            set
+            {
+                serie.DateAdd = value;
                 RaisePropertyChanged();
             }
         }
@@ -71,8 +90,8 @@ namespace Videothèque2.ViewModels
         {
             film = new Film();
             serie = new Serie();
-            LastViewF = DateTime.Now;
-            LastViewS = DateTime.Now;
+            DateAddF = DateTime.Now;
+            DateAddS = DateTime.Now;
 
             AFilmCommand = new RelayCommand(AddFilm);
             ASerieCommand = new RelayCommand(AddSerie);
@@ -85,7 +104,7 @@ namespace Videothèque2.ViewModels
                 MessageBox.Show("add film");
                 film = new Film();
                 TitleF = "";
-                LastViewF = DateTime.Now;
+                ContentF = "";
             }
             else
                 MessageBox.Show("Error Insertion");
@@ -99,7 +118,7 @@ namespace Videothèque2.ViewModels
                 serie = new Serie();
                 TitleS = "";
                 NbSeasonS = "";
-                LastViewS = DateTime.Now;
+                ContentS = "";
             }
             else
                 MessageBox.Show("Error insertion");
