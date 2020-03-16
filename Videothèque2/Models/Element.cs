@@ -127,7 +127,8 @@ namespace Videothèque2.Models
             {
                 f.Id = DataBase.Instance.reader.GetInt32(0);
                 f.Title = DataBase.Instance.reader.GetString(1);
-                f.LastView = DataBase.Instance.reader.GetDateTime(2);
+                if(!DataBase.Instance.reader.IsDBNull(2))
+                    f.LastView = DataBase.Instance.reader.GetDateTime(2);
                 int w = DataBase.Instance.reader.GetInt32(3);
                 if (w == 1)
                     f.ToWatch = true;
@@ -149,7 +150,8 @@ namespace Videothèque2.Models
             {
                 s.Id = DataBase.Instance.reader.GetInt32(0);
                 s.Title = DataBase.Instance.reader.GetString(1);
-                s.LastView = DataBase.Instance.reader.GetDateTime(2);
+                if(!DataBase.Instance.reader.IsDBNull(2))
+                    s.LastView = DataBase.Instance.reader.GetDateTime(2);
                 int w = DataBase.Instance.reader.GetInt32(3);
                 if (w == 1)
                     s.ToWatch = true;
