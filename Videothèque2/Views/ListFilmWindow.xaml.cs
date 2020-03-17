@@ -34,7 +34,9 @@ namespace Videothèque2
             if (f != null)
             {
                 TitleF.Text = f.Title;
+                ContentF.Text = f.Content;
                 LastView.SelectedDate = f.LastView;
+                NbViewF.Content = f.NbView;
             }
         }
     }

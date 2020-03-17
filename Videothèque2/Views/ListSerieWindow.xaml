@@ -19,10 +19,14 @@
         </Style>
     </Window.Style>
     <Grid>
-        <TextBox x:Name="TitleS" HorizontalAlignment="Left" Height="23" Margin="150,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <DatePicker x:Name="LastView" HorizontalAlignment="Left" Margin="366,72,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="NbSeason" HorizontalAlignment="Left" Height="23" Margin="613,75,0,0" TextWrapping="Wrap" Text="NbSaison" VerticalAlignment="Top" Width="120"/>
-        
+        <TextBox x:Name="TitleS" HorizontalAlignment="Left" Height="23" Margin="63,36,0,0" TextWrapping="Wrap" Text="Titre" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="NbSeason" HorizontalAlignment="Left" Height="23" Margin="274,36,0,0" TextWrapping="Wrap" Text="NbSaison" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Vu le :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="492,31,350,0" Width="50"/>
+        <DatePicker x:Name="LastView" HorizontalAlignment="Left" Margin="547,33,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="NbViewS" Content="0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="22" Margin="747,33,123,0"/>
+        <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="774,33,68,0"/>
+        <TextBox x:Name="ContentS" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Résumé" Width="331" Margin="63,85,0,0" Height="71"/>
+
         <ListView x:Name="ListSerieView" HorizontalAlignment="Left" Height="210" Margin="63,180,0,0" VerticalAlignment="Top" Width="792">
             <ListView.View>
                 <GridView>

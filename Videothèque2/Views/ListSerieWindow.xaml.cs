@@ -36,6 +36,8 @@ namespace Videothèque2
                 TitleS.Text = s.Title;
                 LastView.SelectedDate = s.LastView;
                 NbSeason.Text = s.NbSeason;
+                ContentS.Text = s.Content;
+                NbViewS.Content = s.NbView;
             }
         }
     }

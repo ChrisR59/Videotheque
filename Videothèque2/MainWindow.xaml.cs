@@ -43,6 +43,7 @@ namespace Videothèque2
                 {
                     Film f = elt.GetOneFilm();
                     f.LastView = DateTime.Now;
+                    f.NbView++;
                     f.ToWatch = false;
                     Boolean res = f.UpdateLastView();
                     if (res)
@@ -52,6 +53,7 @@ namespace Videothèque2
                 {
                     Serie s = elt.GetOneSerie();
                     s.LastView = DateTime.Now;
+                    s.NbView++;
                     s.ToWatch = false;
                     Boolean res = s.UpdateLastView();
                     if (res)

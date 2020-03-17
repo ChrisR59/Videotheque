@@ -19,8 +19,12 @@
         </Style>
     </Window.Style>
     <Grid>
-        <TextBox x:Name="TitleF" HorizontalAlignment="Left" Height="23" Margin="232,99,0,0" TextWrapping="Wrap" Text="Titre" VerticalAlignment="Top" Width="120"/>
-        <DatePicker x:Name="LastView" HorizontalAlignment="Left" Margin="559,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.325,0.014"/>
+        <TextBox x:Name="TitleF" HorizontalAlignment="Left" Height="23" Margin="59,28,0,0" TextWrapping="Wrap" Text="Titre" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ContentF" HorizontalAlignment="Left" Height="53" Margin="59,85,0,0" TextWrapping="Wrap" Text="Résumé" VerticalAlignment="Top" Width="300"/>
+        <Label Content="Vu le :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="284,27,548,0" Width="60"/>
+        <Label x:Name="NbViewF" Content="0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="22" Margin="556,26,314,0"/>
+        <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="611,27,231,0"/>
+        <DatePicker x:Name="LastView" HorizontalAlignment="Left" Margin="349,28,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.325,0.014"/>
 
         <ListView x:Name="ListFilmView" HorizontalAlignment="Left" Height="203" Margin="59,197,0,0" VerticalAlignment="Top" Width="764">
             <ListView.View>
@@ -32,6 +36,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Click="Button_Click" Content="Voir" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="348,0,394,27" Width="150"></Button>
+        <Button Click="Button_Click" Content="Voir" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="348,0,394,27" Width="100"></Button>
     </Grid>
 </Window>
