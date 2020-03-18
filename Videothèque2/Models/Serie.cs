@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -51,9 +52,9 @@ namespace Videothèque2.Models
             return res;
         }
 
-        public List<Serie> GetSerie()
+        public ObservableCollection<Serie> GetSerie()
         {
-            List<Serie> l = new List<Serie>();
+            ObservableCollection<Serie> l = new ObservableCollection<Serie>();
 
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbSeason,Content,DateAdd,LastView,NbView,ToWatch FROM Series", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
@@ -97,6 +98,45 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
+
+        public Boolean UpdateSerie()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE Series SET Title = @Title, NbSeason = @NbSeason, Content = @Content WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Title", Title));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@NbSeason", NbSeason));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Content", Content));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
+
+        public Boolean DeleteSerie()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("DELETE FROM Series WHERE id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id",Id));
+            DataBase.Instance.connection.Open();
+
+            if(DataBase.Instance.command.ExecuteNonQuery() > 0)
             {
                 res = true;
             }

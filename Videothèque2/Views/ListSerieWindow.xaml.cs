@@ -21,24 +21,9 @@ namespace Videothèque2
     /// </summary>
     public partial class ListSerieWindow : Window
     {
-        private Serie s = new Serie();
         public ListSerieWindow()
         {
             InitializeComponent();
-            ListSerieView.ItemsSource = new ListSerieWindowViewModel().LSerie;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            s = ListSerieView.SelectedItem as Serie;
-            if (s != null)
-            {
-                TitleS.Text = s.Title;
-                LastView.SelectedDate = s.LastView;
-                NbSeason.Text = s.NbSeason;
-                ContentS.Text = s.Content;
-                NbViewS.Content = s.NbView;
-            }
         }
     }
 }

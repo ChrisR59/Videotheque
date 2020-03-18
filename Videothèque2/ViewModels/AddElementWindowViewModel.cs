@@ -105,6 +105,7 @@ namespace Videothèque2.ViewModels
                 film = new Film();
                 TitleF = "";
                 ContentF = "";
+                DateAddF = DateTime.Now;
             }
             else
                 MessageBox.Show("Error Insertion");
@@ -119,6 +120,7 @@ namespace Videothèque2.ViewModels
                 TitleS = "";
                 NbSeasonS = "";
                 ContentS = "";
+                DateAddS = DateTime.Now;
             }
             else
                 MessageBox.Show("Error insertion");
