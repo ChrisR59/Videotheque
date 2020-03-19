@@ -23,7 +23,7 @@ namespace Videothèque2.ViewModels
             set
             {
                 Serie.Id = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Id");
             }
         }
         public string Title
@@ -32,7 +32,7 @@ namespace Videothèque2.ViewModels
             set
             {
                 Serie.Title = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Title");
             }
         }
 
@@ -42,7 +42,7 @@ namespace Videothèque2.ViewModels
             set
             {
                 Serie.NbSeason = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("NbSeason");
             }
         }
 
@@ -52,7 +52,7 @@ namespace Videothèque2.ViewModels
             set
             {
                 Serie.Content = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Content");
             }
         }
 
@@ -62,7 +62,7 @@ namespace Videothèque2.ViewModels
             set
             {
                 Serie.LastView = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("LastView");
             }
         }
 
@@ -72,7 +72,7 @@ namespace Videothèque2.ViewModels
             set
             {
                 Serie.NbView = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("NbView");
             }
         }
 
@@ -104,6 +104,7 @@ namespace Videothèque2.ViewModels
             if (Serie.UpdateSerie())
             {
                 MessageBox.Show("La serie a bien été modifié.");
+                EditList();
             }
         }
 
@@ -112,7 +113,14 @@ namespace Videothèque2.ViewModels
             if (Serie.DeleteSerie())
             {
                 MessageBox.Show("La serie a bien été supprimé.");
+                EditList();
             }
+        }
+
+        private void EditList()
+        {
+            ListSerieView = Serie.GetSerie();
+            RaisePropertyChanged("ListSerieView");
         }
     }
 }

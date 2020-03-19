@@ -25,8 +25,8 @@
             <MenuItem Header="Ajout éléments" Command="{Binding AEltCommand}"/>
             <MenuItem Header="Programmation" Command="{Binding ProgrammationCommand}"/>
         </Menu>
-        <Button Click="Button_Click" Content="Actualiser" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="35" Width="100"></Button>
-        <ListView x:Name="ListView" HorizontalAlignment="Left" Height="210" Margin="57,66,0,0" VerticalAlignment="Top" Width="297">
+        <Button Command="{Binding UpdateListCommand}" Content="Actualiser" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="35" Width="100"></Button>
+        <ListView ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}" HorizontalAlignment="Left" Height="210" Margin="57,66,0,0" VerticalAlignment="Top" Width="297">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="197" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
@@ -34,6 +34,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Click="Button_Click_1" Content="Vu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Margin="151,0,151,30"></Button>
+        <Button Command="{Binding ProgramEltCommand}" Content="Vu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90" Margin="151,0,151,30"></Button>
     </Grid>
 </Window>

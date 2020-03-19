@@ -25,19 +25,6 @@ namespace Videothèque2
         public ListFilmWindow()
         {
             InitializeComponent();
-            ListFilmView.ItemsSource = new ListFilmWindowViewModel().LFilm;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            f = ListFilmView.SelectedItem as Film;
-            if (f != null)
-            {
-                TitleF.Text = f.Title;
-                ContentF.Text = f.Content;
-                LastView.SelectedDate = f.LastView;
-                NbViewF.Content = f.NbView;
-            }
         }
     }
 }

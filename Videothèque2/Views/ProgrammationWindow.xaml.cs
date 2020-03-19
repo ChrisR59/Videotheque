@@ -25,23 +25,6 @@ namespace Videothèque2.Views
         public ProgrammationWindow()
         {
             InitializeComponent();
-            ListView.ItemsSource = new ProgrammationWindowViewModel().ListElements;
-            //Actualisation de l'information dans la liste
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            elt = ListView.SelectedItem as Element;
-            if (elt != null)
-            {
-                elt.ToWatch = true;
-                elt.UpdateElement();
-            }
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            ListView.ItemsSource = new ProgrammationWindowViewModel().ListElements;
         }
     }
 }

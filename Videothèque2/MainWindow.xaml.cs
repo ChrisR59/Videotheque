@@ -26,40 +26,6 @@ namespace Videothèque2
         public MainWindow()
         {
             InitializeComponent();
-            ListView.ItemsSource = new MainWindowViewModel().ListElements;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ListView.ItemsSource = new MainWindowViewModel().ListElements;
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            elt = ListView.SelectedItem as Element;
-            if (elt != null)
-            {
-                if(elt.Type == "Film")
-                {
-                    Film f = elt.GetOneFilm();
-                    f.LastView = DateTime.Now;
-                    f.NbView++;
-                    f.ToWatch = false;
-                    Boolean res = f.UpdateLastView();
-                    if (res)
-                        MessageBox.Show("Le date du film a bien été modifié");
-                }
-                else if(elt.Type == "Serie")
-                {
-                    Serie s = elt.GetOneSerie();
-                    s.LastView = DateTime.Now;
-                    s.NbView++;
-                    s.ToWatch = false;
-                    Boolean res = s.UpdateLastView();
-                    if (res)
-                        MessageBox.Show("La date de la série a bien été modifié");
-                }
-            }
         }
     }
 }

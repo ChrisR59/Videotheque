@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -48,9 +49,9 @@ namespace Videothèque2.Models
             return res;
         }
 
-        public List<Film> GetFilms()
+        public ObservableCollection<Film> GetFilms()
         {
-            List<Film> l = new List<Film>();
+            ObservableCollection<Film> l = new ObservableCollection<Film>();
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Content,DateAdd,LastView,NbView,ToWatch FROM Films",DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -100,6 +101,41 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
 
+            return res;
+        }
+
+        public Boolean UpdateFilm()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE Films SET Title = @Title, Content = @Content WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Title", Title));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Content", Content));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+            return res;
+        }
+        public Boolean DeleteFilm()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("DELETE FROM Films WHERE id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
             return res;
         }
     }
