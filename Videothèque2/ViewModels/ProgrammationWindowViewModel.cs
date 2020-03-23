@@ -35,14 +35,14 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Title");
             }
         }
-
-        public Boolean ToWatch
+        
+        public string ToWatchString
         {
-            get => Element.ToWatch;
+            get => Element.ToWatchString;
             set
             {
-                Element.ToWatch = value;
-                RaisePropertyChanged("ToWatch");
+                Element.ToWatchString = value;
+                RaisePropertyChanged("ToWatchString");
             }
         }
 

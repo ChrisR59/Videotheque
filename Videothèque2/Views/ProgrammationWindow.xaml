@@ -14,9 +14,8 @@
         <ListView ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}" HorizontalAlignment="Left" Height="269" Margin="63,70,0,0" VerticalAlignment="Top" Width="681">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="50" Header="#" DisplayMemberBinding="{Binding Id}"/>
                     <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Width="200" Header="Programmation" DisplayMemberBinding="{Binding ToWatch}"/>
+                    <GridViewColumn Width="200" Header="Programmation" DisplayMemberBinding="{Binding ToWatchString}"/>
                 </GridView>
             </ListView.View>
         </ListView>

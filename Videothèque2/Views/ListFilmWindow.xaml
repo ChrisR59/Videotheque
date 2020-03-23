@@ -20,7 +20,7 @@
     </Window.Style>
     <Grid>
         <Label Content="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="20" Margin="71,26,801,0" Height="26" RenderTransformOrigin="1.4,0.682"/>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="117,26,0,0" TextWrapping="Wrap" Text="{Binding Title}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="117,26,0,0" TextWrapping="Wrap" Text="{Binding TitleF}" VerticalAlignment="Top" Width="180"/>
         <TextBox HorizontalAlignment="Left" Height="61" Margin="59,85,0,0" TextWrapping="Wrap" Text="{Binding Content}" VerticalAlignment="Top" Width="300"/>
         <Label Content="Vu le :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="392,26,440,0" Width="60" Height="27"/>
         <DatePicker x:Name="LastView" HorizontalAlignment="Left" Margin="469,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.325,0.014" Height="26"/>

@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -79,7 +79,7 @@ namespace Videothèque2.ViewModels
         public ListFilmWindowViewModel()
         {
             ListFilmView = Film.GetFilms();
-            EditFilmCommand = new RelayCommand(EditFilm);
+            EditFilmCommand = new RelayCommand(EditFilm,EditFilmCanExecute);
             DeleteFilmCommand = new RelayCommand(DeleteFilm);
             SelectFilmCommand = new RelayCommand(GetFilm);
         }
@@ -91,6 +91,16 @@ namespace Videothèque2.ViewModels
             Content = Film.Content;
             NbView = Film.NbView;
             LastView = Film.LastView;
+        }
+
+        private Boolean EditFilmCanExecute()
+        {
+            Boolean res = false;
+            if(Title == null && Content == null)
+            {
+                res = true;
+            }
+            return res;
         }
 
         private void EditFilm()

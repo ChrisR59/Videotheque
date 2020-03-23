@@ -15,6 +15,7 @@ namespace Videothèque2.Models
         private int id;
         private string title;
         private Boolean toWatch;
+        private string toWatchString;
         private string type;
 
         public int Id { get => id; set => id = value; }
@@ -26,6 +27,7 @@ namespace Videothèque2.Models
             } 
         }
         public bool ToWatch { get => toWatch; set => toWatch = value; }
+        public string ToWatchString { get => toWatchString; set => toWatchString = value; }
         public string Type { get => type; set => type = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -85,8 +87,12 @@ namespace Videothèque2.Models
                 e.Id = DataBase.Instance.reader.GetInt32(0);
                 e.Title = DataBase.Instance.reader.GetString(1);
                 int w = DataBase.Instance.reader.GetInt32(2);
+                e.ToWatchString = "Non programmé";
                 if (w == 1)
+                {
                     e.ToWatch = true;
+                    e.ToWatchString = "Programmé";
+                }
                 e.Type = "Films";
                 l.Add(e);
             }
@@ -103,8 +109,12 @@ namespace Videothèque2.Models
                 s.Id = DataBase.Instance.reader.GetInt32(0);
                 s.Title = DataBase.Instance.reader.GetString(1);
                 int w = DataBase.Instance.reader.GetInt32(2);
+                s.ToWatchString = "Non programmé";
                 if (w == 1)
+                {
                     s.ToWatch = true;
+                    s.ToWatchString = "Programmé";
+                }
                 s.Type = "Series";
                 l.Add(s);
             }

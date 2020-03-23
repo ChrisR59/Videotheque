@@ -25,7 +25,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged();
             }
         }
-
         public string ContentF
         {
             get => film.Content;
@@ -35,7 +34,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged();
             }
         }
-
         public DateTime DateAddF
         {
             get => film.DateAdd;
@@ -64,7 +62,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged();
             }
         }
-
         public string ContentS
         {
             get => serie.Content;
@@ -83,6 +80,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged();
             }
         }
+
         public ICommand AFilmCommand { get; set; }
         public ICommand ASerieCommand { get; set; }
 
@@ -99,31 +97,39 @@ namespace Videothèque2.ViewModels
 
         private void AddFilm()
         {
-            if (film.Add())
+            if(TitleF != null && ContentF != null)
             {
-                MessageBox.Show("add film");
-                film = new Film();
-                TitleF = "";
-                ContentF = "";
-                DateAddF = DateTime.Now;
+                if (film.Add())
+                {
+                    MessageBox.Show("Le Film '" + film.Title + "' a bien été ajouté");
+                }
+                else
+                    MessageBox.Show("Error Insertion");
             }
-            else
-                MessageBox.Show("Error Insertion");
+                
+            film = new Film();
+            TitleF = null;
+            ContentF = null;
+            DateAddF = DateTime.Now;
         }
 
         private void AddSerie()
         {
-            if (serie.Add())
+            if(serie.Title != null || serie.NbSeason != null || serie.Content != null)
             {
-                MessageBox.Show("add serie");
-                serie = new Serie();
-                TitleS = "";
-                NbSeasonS = "";
-                ContentS = "";
-                DateAddS = DateTime.Now;
+                if (serie.Add())
+                {
+                    MessageBox.Show("La série '" + serie.Title + "' a bien été ajouté");
+                }
+                else
+                    MessageBox.Show("Error insertion");
             }
-            else
-                MessageBox.Show("Error insertion");
+
+            serie = new Serie();
+            TitleS = null;
+            NbSeasonS = null;
+            ContentS = null;
+            DateAddS = DateTime.Now;
         }
     }
 }
