@@ -18,8 +18,11 @@ namespace Videothèque2.ViewModels
     public class ListFilmWindowViewModel:ViewModelBase
     {
         private Film film = new Film();
-        public ObservableCollection<Film> ListFilmView { get; set; }
+        private ObservableCollection<Film> listFilmView;
 
+        public Film Film { get => film; set => film = value; }
+        public ObservableCollection<Film> ListFilmView { get => listFilmView; set => listFilmView = value; }
+        /*
         public int Id
         {
             get => Film.Id;
@@ -68,13 +71,12 @@ namespace Videothèque2.ViewModels
                 Film.NbView = value;
                 RaisePropertyChanged("NbView");
             }
-        }
+        }*/
 
 
         public ICommand EditFilmCommand { get; set; }
         public ICommand DeleteFilmCommand { get; set; }
         public ICommand SelectFilmCommand { get; set; }
-        public Film Film { get => film; set => film = value; }
 
         public ListFilmWindowViewModel()
         {
@@ -86,19 +88,19 @@ namespace Videothèque2.ViewModels
 
         private void GetFilm()
         {
-            Id = Film.Id;
+            /*Id = Film.Id;
             Title = Film.Title;
             Content = Film.Content;
             NbView = Film.NbView;
-            LastView = Film.LastView;
+            LastView = Film.LastView;*/
         }
 
         private Boolean EditFilmCanExecute()
         {
-            Boolean res = false;
-            if(Title == null && Content == null)
+            Boolean res = true;
+            if(Film.Title == null && Film.Content == null)
             {
-                res = true;
+                res = false;
             }
             return res;
         }
