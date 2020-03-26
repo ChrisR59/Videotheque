@@ -19,25 +19,15 @@
         </Style>
     </Window.Style>
     <Grid>
-        <Label Content="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="59,26,783,0" Height="26"/>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="117,26,0,0" Text="{Binding Film.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="180"/>
-        <TextBox HorizontalAlignment="Left" Height="61" Margin="59,85,0,0" Text="{Binding Content}" VerticalAlignment="Top" Width="300"/>
+        <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="59,26,783,0" Height="26"/>
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="117,26,0,0" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="180"/>
+        <TextBox HorizontalAlignment="Left" Height="61" Margin="59,85,0,0" Text="{Binding Content,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="300"/>
         <Label Content="Vu le :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="392,26,440,0" Width="60" Height="27"/>
-        <DatePicker x:Name="LastView" HorizontalAlignment="Left" Margin="469,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.325,0.014" Height="26"/>
-        <Label Content="{Binding NbView}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="27" Margin="659,26,206,0" RenderTransformOrigin="3.136,0.615" Height="26"/>
+        <DatePicker SelectedDate="{Binding LastView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="469,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.325,0.014" Height="26"/>
+        <Label Content="{Binding NbView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="27" Margin="659,26,206,0" RenderTransformOrigin="3.136,0.615" Height="26"/>
         <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="711,26,131,0" Height="27"/>
         <Button Command="{Binding EditFilmCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="90" Content="Modifier" Margin="586,126,206,0"/>
 
-        <!--<ListView ItemsSource="{Binding ListFilmView}" SelectedItem="{Binding Film}" HorizontalAlignment="Left" Height="203" Margin="59,170,0,0" VerticalAlignment="Top" Width="764">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="50" Header="#" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Width="100" Header="Ajouté le" DisplayMemberBinding="{Binding DateAddFormated}"/>
-                    <GridViewColumn Width="100" Header="Vu le" DisplayMemberBinding="{Binding LastViewFormated}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
         <DataGrid 
             ItemsSource="{Binding ListFilmView}" 
             SelectedItem="{Binding Film,Mode=TwoWay}" 
@@ -50,7 +40,7 @@
                 <DataGridTextColumn Width="100" IsReadOnly="True"  Header="Vu le" Binding="{Binding LastViewFormated, UpdateSourceTrigger=PropertyChanged}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Command="{Binding SelectFilmCommand}" Content="Voir" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="259,0,533,27" Width="90"/>
-        <Button Command="{Binding DeleteFilmCommand}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="586,0,206,27" Width="90"/>
+        
+        <Button Command="{Binding DeleteFilmCommand}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="392,0,410,49" Width="90"/>
     </Grid>
 </Window>

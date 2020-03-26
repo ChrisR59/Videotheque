@@ -19,29 +19,30 @@
         </Style>
     </Window.Style>
     <Grid>
-        <Label Content="{Binding Id}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="35" Margin="81,31,776,0" Height="28"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="139,36,0,0" TextWrapping="Wrap" Text="{Binding Title}" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="274,36,0,0" TextWrapping="Wrap" Text="{Binding NbSeason}" VerticalAlignment="Top" Width="120"/>
+        <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="35" Margin="81,31,776,0" Height="28"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="139,36,0,0" TextWrapping="Wrap" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="274,36,0,0" TextWrapping="Wrap" Text="{Binding NbSeason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
         <Label Content="Vu le :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="492,31,350,0" Width="50"/>
-        <DatePicker SelectedDate="{Binding LastView}" HorizontalAlignment="Left" Margin="547,33,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding NbView}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="22" Margin="747,33,123,0"/>
+        <DatePicker SelectedDate="{Binding LastView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="547,33,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding NbView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="22" Margin="747,33,123,0"/>
         <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="774,33,68,0"/>
-        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Content}" Width="331" Margin="63,85,0,0" Height="71"/>
-        <Button Command="{Binding EditSerieCommand}" Content="Modifier" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Margin="547,136,195,0"></Button>
+        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="331" Margin="63,85,0,0" Height="71"/>
+        <Button Command="{Binding EditSerieCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Margin="547,136,195,0">Modifier</Button>
 
-        <ListView ItemsSource="{Binding ListSerieView}" SelectedItem="{Binding Serie}"  HorizontalAlignment="Left" Height="210" Margin="63,180,0,0" VerticalAlignment="Top" Width="790">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="50" Header="#" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Width="50" Header="Saison" DisplayMemberBinding="{Binding NbSeason}"/>
-                    <GridViewColumn Width="100" Header="Ajouté le" DisplayMemberBinding="{Binding DateAddFormated}"/>
-                    <GridViewColumn Width="100" Header="Vu le" DisplayMemberBinding="{Binding LastViewFormated}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        
-        <Button Command="{Binding SelectListCommand}" Content="Voir" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="226,0,516,25" Width="100"></Button>
+        <DataGrid 
+            ItemsSource="{Binding ListSerieView}" 
+            SelectedItem="{Binding Serie,Mode=TwoWay}" 
+            AutoGenerateColumns="False" 
+            HorizontalAlignment="Left" Height="203" Margin="61,170,0,0" VerticalAlignment="Top" Width="762">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True"  Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="360" IsReadOnly="True"  Header="Titre" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="75" IsReadOnly="True"  Header="Saison" Binding="{Binding NbSeason, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="100" IsReadOnly="True"  Header="Ajouté le" Binding="{Binding DateAddFormated, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="100" IsReadOnly="True"  Header="Vu le" Binding="{Binding LastViewFormated, UpdateSourceTrigger=PropertyChanged}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
         <Button Command="{Binding DeleteSerieCommand}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Margin="547,0,195,25"/>
     </Grid>
 </Window>

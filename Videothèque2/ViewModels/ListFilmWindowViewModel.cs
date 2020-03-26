@@ -17,12 +17,26 @@ namespace Videothèque2.ViewModels
 {
     public class ListFilmWindowViewModel:ViewModelBase
     {
-        private Film film = new Film();
+        private Film film;
         private ObservableCollection<Film> listFilmView;
 
-        public Film Film { get => film; set => film = value; }
+        public Film Film
+        {
+            get => film;
+            set
+            {
+                film = value;
+                if (film == null)
+                    film = new Film();
+                RaisePropertyChanged("Id");
+                RaisePropertyChanged("Title");
+                RaisePropertyChanged("Content");
+                RaisePropertyChanged("LastView");
+                RaisePropertyChanged("NbView");
+            }
+        }
         public ObservableCollection<Film> ListFilmView { get => listFilmView; set => listFilmView = value; }
-        /*
+        
         public int Id
         {
             get => Film.Id;
@@ -42,7 +56,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Title");
             }
         }
-
+        
         public string Content
         {
             get => Film.Content;
@@ -71,55 +85,51 @@ namespace Videothèque2.ViewModels
                 Film.NbView = value;
                 RaisePropertyChanged("NbView");
             }
-        }*/
+        }
 
 
         public ICommand EditFilmCommand { get; set; }
         public ICommand DeleteFilmCommand { get; set; }
-        public ICommand SelectFilmCommand { get; set; }
 
         public ListFilmWindowViewModel()
         {
+            Film = new Film();
             ListFilmView = Film.GetFilms();
-            EditFilmCommand = new RelayCommand(EditFilm,EditFilmCanExecute);
+            EditFilmCommand = new RelayCommand(EditFilm, EditCanExecute);
             DeleteFilmCommand = new RelayCommand(DeleteFilm);
-            SelectFilmCommand = new RelayCommand(GetFilm);
         }
 
-        private void GetFilm()
-        {
-            /*Id = Film.Id;
-            Title = Film.Title;
-            Content = Film.Content;
-            NbView = Film.NbView;
-            LastView = Film.LastView;*/
-        }
-
-        private Boolean EditFilmCanExecute()
+        private Boolean EditCanExecute()
         {
             Boolean res = true;
-            if(Film.Title == null && Film.Content == null)
-            {
+
+            if(Title == null && Content == null)
                 res = false;
-            }
+
             return res;
         }
 
         private void EditFilm()
         {
-            if (Film.UpdateFilm())
+            if (Film.Title != null && Film.Content != null)
             {
-                MessageBox.Show("Le Film a bien été modifié.");
-                EditList();
+                if (Film.UpdateFilm())
+                {
+                    MessageBox.Show("Le Film a bien été modifié.");
+                    EditList();
+                }
             }
         }
 
         private void DeleteFilm()
         {
-            if (Film.DeleteFilm())
+            if(Film.Id != 0)
             {
-                MessageBox.Show("Le Film a bien été modifié.");
-                EditList();
+                if (Film.DeleteFilm())
+                {
+                    MessageBox.Show("Le Film a bien été supprimé.");
+                    EditList();
+                }
             }
         }
 

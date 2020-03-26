@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,9 +14,29 @@ namespace Videothèque2.ViewModels
 {
     public class ListSerieWindowViewModel:ViewModelBase
     {
-        public ObservableCollection<Serie> ListSerieView { get; set; }
-        private Serie serie = new Serie();
 
+        private ObservableCollection<Serie> listSerieView;
+        private Serie serie;
+        private Boolean isEnable;
+
+        public ObservableCollection<Serie> ListSerieView { get => listSerieView; set => listSerieView = value; }
+        public Serie Serie
+        {
+            get => serie;
+            set
+            {
+                serie = value;
+                if (serie == null)
+                    serie = new Serie();
+                RaisePropertyChanged("Id");
+                RaisePropertyChanged("Title");
+                RaisePropertyChanged("NbSeason");
+                RaisePropertyChanged("Content");
+                RaisePropertyChanged("LastView");
+                RaisePropertyChanged("NbView");
+                IsEnable = true;
+            }
+        }
         public int Id
         {
             get => Serie.Id;
@@ -75,45 +95,52 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("NbView");
             }
         }
+        public bool IsEnable { get => isEnable; set => isEnable = value; }
+
 
         public ICommand EditSerieCommand { get; set; }
-        public ICommand SelectListCommand { get; set; }
         public ICommand DeleteSerieCommand { get; set; }
-        public Serie Serie { get => serie; set => serie = value; }
 
         public ListSerieWindowViewModel()
         {
+            Serie = new Serie();
             ListSerieView = Serie.GetSerie();
-            EditSerieCommand = new RelayCommand(EditSerie);
-            SelectListCommand = new RelayCommand(SelectSerie);
+            EditSerieCommand = new RelayCommand(EditSerie,EditCanExecute);
             DeleteSerieCommand = new RelayCommand(DeleteSerie);
+            IsEnable = false;
         }
 
-        private void SelectSerie()
+        private Boolean EditCanExecute()
         {
-            Id = Serie.Id;
-            Title = Serie.Title;
-            NbSeason = Serie.NbSeason;
-            NbView = Serie.NbView;
-            Content = Serie.Content;
-            LastView = Serie.LastView;
+            Boolean res = true;
+
+            if (Title == null && Content == null)
+                res = false;
+
+            return res;
         }
 
         private void EditSerie()
         {
-            if (Serie.UpdateSerie())
+            if(Serie.Title != null && Serie.Content != null)
             {
-                MessageBox.Show("La serie a bien été modifié.");
-                EditList();
+                if (Serie.UpdateSerie())
+                {
+                    MessageBox.Show("La serie a bien été modifié.");
+                    EditList();
+                }
             }
         }
 
         private void DeleteSerie()
         {
-            if (Serie.DeleteSerie())
+            if(Serie.Id != 0)
             {
-                MessageBox.Show("La serie a bien été supprimé.");
-                EditList();
+                if (Serie.DeleteSerie())
+                {
+                    MessageBox.Show("La serie a bien été supprimé.");
+                    EditList();
+                }
             }
         }
 

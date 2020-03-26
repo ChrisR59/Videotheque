@@ -84,13 +84,13 @@ namespace Videothèque2.ViewModels
                         MessageBox.Show("La date de la série a bien été modifié");
                 }
                 Element.ToWatch = false;
-                ListElements = Element.GetProgram();
-                RaisePropertyChanged("ListElements");
+                UpList();
             }
         }
 
         private void UpList()
         {
+            Element = new Element();
             ListElements = Element.GetProgram();
             RaisePropertyChanged("ListElements");
         }
