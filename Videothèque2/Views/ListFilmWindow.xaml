@@ -38,9 +38,11 @@
                 <DataGridTextColumn Width="360" IsReadOnly="True"  Header="Titre" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="100" IsReadOnly="True"  Header="Ajouté le" Binding="{Binding DateAddFormated, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="100" IsReadOnly="True"  Header="Vu le" Binding="{Binding LastViewFormated, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="124" Header="Programmation" Binding="{Binding ToWatchString, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
-        
-        <Button Command="{Binding DeleteFilmCommand}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="392,0,410,49" Width="90"/>
+
+        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="323,0,469,48" Width="100"></Button>
+        <Button Command="{Binding DeleteFilmCommand}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="515,0,274,48" Width="103"/>
     </Grid>
 </Window>

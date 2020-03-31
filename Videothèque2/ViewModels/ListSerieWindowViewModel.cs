@@ -17,7 +17,6 @@ namespace Videothèque2.ViewModels
 
         private ObservableCollection<Serie> listSerieView;
         private Serie serie;
-        private Boolean isEnable;
 
         public ObservableCollection<Serie> ListSerieView { get => listSerieView; set => listSerieView = value; }
         public Serie Serie
@@ -34,7 +33,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Content");
                 RaisePropertyChanged("LastView");
                 RaisePropertyChanged("NbView");
-                IsEnable = true;
             }
         }
         public int Id
@@ -95,11 +93,21 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("NbView");
             }
         }
-        public bool IsEnable { get => isEnable; set => isEnable = value; }
+
+        public string ToWatchString
+        {
+            get => Serie.ToWatchString;
+            set
+            {
+                Serie.ToWatchString = value;
+                RaisePropertyChanged("ToWatchString");
+            }
+        }
 
 
         public ICommand EditSerieCommand { get; set; }
         public ICommand DeleteSerieCommand { get; set; }
+        public ICommand ProgramEltCommand { get; set; }
 
         public ListSerieWindowViewModel()
         {
@@ -107,7 +115,7 @@ namespace Videothèque2.ViewModels
             ListSerieView = Serie.GetSerie();
             EditSerieCommand = new RelayCommand(EditSerie,EditCanExecute);
             DeleteSerieCommand = new RelayCommand(DeleteSerie);
-            IsEnable = false;
+            ProgramEltCommand = new RelayCommand(EditElt);
         }
 
         private Boolean EditCanExecute()
@@ -148,6 +156,15 @@ namespace Videothèque2.ViewModels
         {
             ListSerieView = Serie.GetSerie();
             RaisePropertyChanged("ListSerieView");
+        }
+        private void EditElt()
+        {
+            if (Serie != null)
+            {
+                Serie.ToWatch = true;
+                Serie.UpdateElement();
+                EditList();
+            }
         }
     }
 }

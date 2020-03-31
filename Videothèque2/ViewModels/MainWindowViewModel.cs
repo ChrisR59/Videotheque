@@ -25,6 +25,7 @@ namespace Videothèque2.ViewModels
         public ICommand ProgrammationCommand { get; set; }
         public ICommand ProgramEltCommand { get; set; }
         public ICommand UpdateListCommand { get; set; }
+        public ICommand CycleCommand { get; set; }
         public Element Element { get => element; set => element = value; }
 
         public MainWindowViewModel()

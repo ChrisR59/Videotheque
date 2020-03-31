@@ -73,12 +73,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\CycleContent.cs" />
+    <Compile Include="Models\CycleStatus.cs" />
     <Compile Include="Models\Element.cs" />
+    <Compile Include="ViewModels\GestionCycleViewModel.cs" />
     <Compile Include="ViewModels\ProgrammationWindowViewModel.cs" />
+    <Compile Include="Views\GestionCycleWindow.xaml.cs">
+      <DependentUpon>GestionCycleWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProgrammationWindow.xaml.cs">
       <DependentUpon>ProgrammationWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AddElementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GestionCycleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

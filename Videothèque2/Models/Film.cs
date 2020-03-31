@@ -20,6 +20,7 @@ namespace Videothèque2.Models
         private string lastViewFormated;
         private int nbView;
         private Boolean toWatch;
+        private string toWatchString;
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
@@ -30,6 +31,7 @@ namespace Videothèque2.Models
         public string LastViewFormated { get => lastViewFormated; set => lastViewFormated = value; }
         public int NbView { get => nbView; set => nbView = value; }
         public bool ToWatch { get => toWatch; set => toWatch = value; }
+        public string ToWatchString { get => toWatchString; set => toWatchString = value; }
 
         public Boolean Add()
         {
@@ -72,8 +74,12 @@ namespace Videothèque2.Models
                 }
                 f.NbView = DataBase.Instance.reader.GetInt32(5);
                 int w = DataBase.Instance.reader.GetInt32(6);
+                f.ToWatchString = "Non programmé";
                 if (w == 1)
+                {
                     f.ToWatch = true;
+                    f.ToWatchString = "Programmé";
+                }
 
                 l.Add(f);
             }
@@ -89,6 +95,25 @@ namespace Videothèque2.Models
             DataBase.Instance.command = new SqlCommand("UPDATE Films SET LastView = @LastView, NbView = @NbView, ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@LastView", LastView));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@NbView", NbView));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
+        public Boolean UpdateElement()
+        {
+            Boolean res = false;
+            string req = "UPDATE Films SET ToWatch = @ToWatch WHERE id = @Id";
+            DataBase.Instance.command = new SqlCommand(req, DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
             DataBase.Instance.connection.Open();

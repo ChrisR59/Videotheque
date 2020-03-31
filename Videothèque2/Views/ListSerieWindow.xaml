@@ -33,16 +33,18 @@
             ItemsSource="{Binding ListSerieView}" 
             SelectedItem="{Binding Serie,Mode=TwoWay}" 
             AutoGenerateColumns="False" 
-            HorizontalAlignment="Left" Height="203" Margin="61,170,0,0" VerticalAlignment="Top" Width="762">
+            HorizontalAlignment="Left" Height="203" Margin="50,170,0,0" VerticalAlignment="Top" Width="800">
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True"  Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="360" IsReadOnly="True"  Header="Titre" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="75" IsReadOnly="True"  Header="Saison" Binding="{Binding NbSeason, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="100" IsReadOnly="True"  Header="Ajouté le" Binding="{Binding DateAddFormated, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="100" IsReadOnly="True"  Header="Vu le" Binding="{Binding LastViewFormated, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="124" Header="Programmation" Binding="{Binding ToWatchString, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
-
+        
+        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="322,0,320,25" Width="100"></Button>
         <Button Command="{Binding DeleteSerieCommand}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Margin="547,0,195,25"/>
     </Grid>
 </Window>

@@ -87,9 +87,19 @@ namespace Videothèque2.ViewModels
             }
         }
 
+        public string ToWatchString
+        {
+            get => Film.ToWatchString;
+            set
+            {
+                Film.ToWatchString = value;
+                RaisePropertyChanged("ToWatchString");
+            }
+        }
 
         public ICommand EditFilmCommand { get; set; }
         public ICommand DeleteFilmCommand { get; set; }
+        public ICommand ProgramEltCommand { get; set; }
 
         public ListFilmWindowViewModel()
         {
@@ -97,6 +107,7 @@ namespace Videothèque2.ViewModels
             ListFilmView = Film.GetFilms();
             EditFilmCommand = new RelayCommand(EditFilm, EditCanExecute);
             DeleteFilmCommand = new RelayCommand(DeleteFilm);
+            ProgramEltCommand = new RelayCommand(EditElt);
         }
 
         private Boolean EditCanExecute()
@@ -118,6 +129,15 @@ namespace Videothèque2.ViewModels
                     MessageBox.Show("Le Film a bien été modifié.");
                     EditList();
                 }
+            }
+        }
+        private void EditElt()
+        {
+            if (Film != null)
+            {
+                Film.ToWatch = true;
+                Film.UpdateElement();
+                EditList();
             }
         }
 

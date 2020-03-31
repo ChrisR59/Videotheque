@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Videothèque2"
         xmlns:viewModel="clr-namespace:Videothèque2.ViewModels"
         mc:Ignorable="d"
-        Title="Vidéothèque" Height="375" Width="410">
+        WindowState="Maximized"
+        Title="Vidéothèque">
     <Window.DataContext>
         <viewModel:MainWindowViewModel></viewModel:MainWindowViewModel>
     </Window.DataContext>
@@ -19,11 +20,12 @@
         </Style>
     </Window.Style>
     <Grid>
-        <Menu HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Margin="0" Width="402">
+        <Menu VerticalAlignment="Top" Height="25" DockPanel.Dock="Top" >
             <MenuItem Header="Films" Command="{Binding LFilmCommand}"/>
             <MenuItem Header="Séries" Command="{Binding LSerieCommand}"/>
             <MenuItem Header="Ajout éléments" Command="{Binding AEltCommand}"/>
             <MenuItem Header="Programmation" Command="{Binding ProgrammationCommand}"/>
+            <MenuItem Header="Gestion des Cycles" Command="{Binding CycleCommand}"/>
         </Menu>
         
         <Button Command="{Binding UpdateListCommand}" Content="Actualiser" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="35" Width="100"></Button>

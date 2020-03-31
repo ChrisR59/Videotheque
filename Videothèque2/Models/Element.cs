@@ -14,6 +14,7 @@ namespace Videothèque2.Models
     {
         private int id;
         private string title;
+        private int place;
         private Boolean toWatch;
         private string toWatchString;
         private string type;
@@ -24,8 +25,9 @@ namespace Videothèque2.Models
             set  { 
                 title = value;
                 NotifyPropertyChange("Title");
-            } 
+            }
         }
+        public int Place { get => place; set => place = value; }
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
         public string Type { get => type; set => type = value; }
