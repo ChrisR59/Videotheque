@@ -174,7 +174,7 @@ namespace Videothèque2.Models
             return s;
         }
 
-        public Boolean UpdateElement()
+        public Boolean UpdateElement()//Inutile normalement
         {
             Boolean res = false;
             string req = "UPDATE " + Type + " SET ToWatch = @ToWatch WHERE id = @Id";

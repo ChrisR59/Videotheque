@@ -24,7 +24,6 @@
             <MenuItem Header="Films" Command="{Binding LFilmCommand}"/>
             <MenuItem Header="Séries" Command="{Binding LSerieCommand}"/>
             <MenuItem Header="Ajout éléments" Command="{Binding AEltCommand}"/>
-            <MenuItem Header="Programmation" Command="{Binding ProgrammationCommand}"/>
             <MenuItem Header="Gestion des Cycles" Command="{Binding CycleCommand}"/>
         </Menu>
         

@@ -19,12 +19,11 @@ namespace Videothèque2.ViewModels
         private Element element = new Element();
 
 
+        public ICommand ProgramEltCommand { get; set; }//Button
+        public ICommand UpdateListCommand { get; set; }//Button
         public ICommand LFilmCommand { get; set; }
         public ICommand LSerieCommand { get; set; }
         public ICommand AEltCommand { get; set; }
-        public ICommand ProgrammationCommand { get; set; }
-        public ICommand ProgramEltCommand { get; set; }
-        public ICommand UpdateListCommand { get; set; }
         public ICommand CycleCommand { get; set; }
         public Element Element { get => element; set => element = value; }
 
@@ -50,11 +49,11 @@ namespace Videothèque2.ViewModels
                 aEw.Show();
             });
 
-            ProgrammationCommand = new RelayCommand(() =>
-            {
-                ProgrammationWindow p = new ProgrammationWindow();
-                p.Show();
-            });
+            CycleCommand = new RelayCommand(() =>
+           {
+               GestionCycleWindow gc = new GestionCycleWindow();
+               gc.Show();
+           });
 
             ProgramEltCommand = new RelayCommand(EditElt);
             UpdateListCommand = new RelayCommand(UpList);

@@ -12,9 +12,12 @@
     </Window.DataContext>
     <Grid>
         <Button Command="{Binding AddCycleCommand}" Margin="323,30,317,351">Nouveau Cycle</Button>
-        <Button Margin="513,98,96,288">Ajouter Element</Button>
-        <DataGrid Margin="89,151,37,47">
-            
+        
+        <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="183,98,0,0" VerticalAlignment="Top" Width="149" Height="33"/>
+        <Button Command="{Binding AddEltCycleCommand}" Margin="513,98,96,288">Ajouter Element</Button>
+
+        <DataGrid ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}" Margin="89,151,37,47">
+
         </DataGrid>
     </Grid>
 </Window>
