@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -38,6 +39,31 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
 
             return res;
+        }
+
+        public ObservableCollection<CycleContent> GetCycleActually(int idCycleS)
+        {
+            ObservableCollection<CycleContent> listC = new ObservableCollection<CycleContent>();
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Status,Rank FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", idCycleS));
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while(DataBase.Instance.reader.Read())
+            {
+                CycleContent c = new CycleContent()
+                {
+                    Id = DataBase.Instance.reader.GetInt32(0),
+                    Title = DataBase.Instance.reader.GetString(1),
+                    Status = DataBase.Instance.reader.GetString(2),
+                    Rank = DataBase.Instance.reader.GetInt32(3)
+                };
+                listC.Add(c);
+            }
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return listC;
         }
 
         public void GetRank()

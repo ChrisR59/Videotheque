@@ -15,8 +15,15 @@ namespace Videothèque2.ViewModels
 {
     public class MainWindowViewModel: ViewModelBase
     {
+        private ObservableCollection<CycleContent> listCycleContent;
+        private Element element;
+        private CycleContent cycleC;
+        private CycleStatus cycleS;
         public ObservableCollection<Element> ListElements { get; set; }
-        private Element element = new Element();
+        public ObservableCollection<CycleContent> ListCycleContent { get => listCycleContent; set => listCycleContent = value; }
+        public Element Element { get => element; set => element = value; }
+        public CycleContent CycleC { get => cycleC; set => cycleC = value; }
+        public CycleStatus CycleS { get => cycleS; set => cycleS = value; }
 
 
         public ICommand ProgramEltCommand { get; set; }//Button
@@ -25,11 +32,16 @@ namespace Videothèque2.ViewModels
         public ICommand LSerieCommand { get; set; }
         public ICommand AEltCommand { get; set; }
         public ICommand CycleCommand { get; set; }
-        public Element Element { get => element; set => element = value; }
 
         public MainWindowViewModel()
         {
+            //Recuperer l'id du cycle en cours
+            Element = new Element();
+            CycleS = new CycleStatus();
+            CycleC = new CycleContent();
+            CycleS.GetIdCycle();
             ListElements = Element.GetProgram();
+            ListCycleContent = CycleC.GetCycleActually(CycleS.Id);
 
             LFilmCommand = new RelayCommand(() =>
             {

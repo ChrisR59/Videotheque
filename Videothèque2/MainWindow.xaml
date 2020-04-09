@@ -36,8 +36,11 @@
                     <GridViewColumn Width="100" Header="Type" DisplayMemberBinding="{Binding Type}" />
                 </GridView>
             </ListView.View>
-        </ListView
-                  >
+        </ListView>
+
+        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleContent}" Margin="74,317,52,-119">
+
+        </DataGrid>
         <Button Command="{Binding ProgramEltCommand}" Content="Vu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90" Margin="151,0,151,30"></Button>
     </Grid>
 </Window>

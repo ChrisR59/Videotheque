@@ -21,7 +21,7 @@ namespace Videothèque2.Models
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("INSERT INTO CycleStatus(Status) OUTPUT INSERTED.ID VALUES(@StatusC)", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("StatusC", Status.EnCours));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@StatusC", StatusC));
             DataBase.Instance.connection.Open();
             if ((int)DataBase.Instance.command.ExecuteScalar() > 0)
                 res = true;
@@ -36,11 +36,37 @@ namespace Videothèque2.Models
 
         }
 
+        public void GetIdCycle()
+        {
+            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '0'", DataBase.Instance.connection);
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+            if (DataBase.Instance.reader.Read())
+            {
+                Id = DataBase.Instance.reader.GetInt32(0);
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+        }
+
+        public void CheckCycleExist()
+        {
+            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '0'",DataBase.Instance.connection);
+            DataBase.Instance.connection.Open();
+            if ((int)DataBase.Instance.command.ExecuteScalar() > 0)
+                StatusC = Status.Prevu;
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+        }
+
         public ObservableCollection<int> GetListCycle()
         {
             ObservableCollection<int> l = new ObservableCollection<int>();
 
-            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status != '2'",DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status != @statu",DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@statu",StatusC));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
