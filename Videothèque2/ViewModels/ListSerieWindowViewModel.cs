@@ -118,6 +118,9 @@ namespace Videothèque2.ViewModels
             ProgramEltCommand = new RelayCommand(EditElt);
         }
 
+        /**
+         * Verifie si le bouton peux être utiliser
+         */
         private Boolean EditCanExecute()
         {
             Boolean res = true;
@@ -128,6 +131,9 @@ namespace Videothèque2.ViewModels
             return res;
         }
 
+        /**
+         * Modifie la série selectionné
+         */
         private void EditSerie()
         {
             if(Serie.Title != null && Serie.Content != null)
@@ -140,6 +146,9 @@ namespace Videothèque2.ViewModels
             }
         }
 
+        /**
+         * Supprime la série selectionné
+         */
         private void DeleteSerie()
         {
             if(Serie.Id != 0)
@@ -152,11 +161,18 @@ namespace Videothèque2.ViewModels
             }
         }
 
+        /**
+         * Maj de la liste affiché
+         */
         private void EditList()
         {
             ListSerieView = Serie.GetSerie();
             RaisePropertyChanged("ListSerieView");
         }
+
+        /**
+         * Confirme la programmation d'un élément de la liste
+         */
         private void EditElt()
         {
             if (Serie != null)

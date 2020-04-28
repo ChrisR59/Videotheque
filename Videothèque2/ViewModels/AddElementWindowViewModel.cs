@@ -95,6 +95,9 @@ namespace Videothèque2.ViewModels
             ASerieCommand = new RelayCommand(AddSerie);
         }
 
+        /**
+         * Ajoute un film
+         */
         private void AddFilm()
         {
             if(TitleF != null && ContentF != null)
@@ -113,6 +116,9 @@ namespace Videothèque2.ViewModels
             DateAddF = DateTime.Now;
         }
 
+        /**
+         * Ajoute une série
+         */
         private void AddSerie()
         {
             if(serie.Title != null || serie.NbSeason != null || serie.Content != null)

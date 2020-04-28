@@ -54,6 +54,9 @@ namespace Videothèque2.ViewModels
             AddEltCycleCommand = new RelayCommand(AddElt);
         }
 
+        /**
+         * Ajoute un Cycle
+         */
         public void AddCycle()
         {
             CycleS.CheckCycleExist();
@@ -63,12 +66,17 @@ namespace Videothèque2.ViewModels
             }
         }
 
+        /**
+         * Ajoute un element au cycle selectioné
+         */
         public void AddElt()
         {
             CycleC.IdCycle = IdCycle;
             CycleC.GetRank();
             CycleC.Title = Element.Title;
             CycleC.Status = "A voir";
+            CycleC.Type = Element.Type;
+            CycleC.IdElt = Element.Id;
             if(CycleC.AddElement())
             {
                 if (Element != null)

@@ -65,8 +65,7 @@ namespace Videothèque2.Models
         {
             ObservableCollection<int> l = new ObservableCollection<int>();
 
-            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status != @statu",DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@statu",StatusC));
+            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status != '2'",DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 

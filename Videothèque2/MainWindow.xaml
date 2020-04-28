@@ -29,16 +29,16 @@
         
         <Button Command="{Binding UpdateListCommand}" Content="Actualiser" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="35" Width="100"></Button>
         
-        <ListView ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}" HorizontalAlignment="Left" Height="210" Margin="57,66,0,0" VerticalAlignment="Top" Width="297">
+        <!--<ListView ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}" HorizontalAlignment="Left" Height="210" Margin="57,66,0,0" VerticalAlignment="Top" Width="297">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="197" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
                     <GridViewColumn Width="100" Header="Type" DisplayMemberBinding="{Binding Type}" />
                 </GridView>
             </ListView.View>
-        </ListView>
+        </ListView>-->
 
-        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleContent}" Margin="74,317,52,-119">
+        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleContent}" Margin="63,77,63,68">
 
         </DataGrid>
         <Button Command="{Binding ProgramEltCommand}" Content="Vu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90" Margin="151,0,151,30"></Button>

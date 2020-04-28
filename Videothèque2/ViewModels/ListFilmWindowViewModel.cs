@@ -110,6 +110,9 @@ namespace Videothèque2.ViewModels
             ProgramEltCommand = new RelayCommand(EditElt);
         }
 
+        /**
+         * Verifie si le bouton peux être utiliser
+         */
         private Boolean EditCanExecute()
         {
             Boolean res = true;
@@ -120,6 +123,9 @@ namespace Videothèque2.ViewModels
             return res;
         }
 
+        /**
+         * Modifie le film selectionné
+         */
         private void EditFilm()
         {
             if (Film.Title != null && Film.Content != null)
@@ -131,6 +137,10 @@ namespace Videothèque2.ViewModels
                 }
             }
         }
+
+        /**
+         * Confirme la programmation d'un élément de la liste
+         */
         private void EditElt()
         {
             if (Film != null)
@@ -141,6 +151,9 @@ namespace Videothèque2.ViewModels
             }
         }
 
+        /**
+         * Supprime le film selectionné
+         */
         private void DeleteFilm()
         {
             if(Film.Id != 0)
@@ -153,6 +166,9 @@ namespace Videothèque2.ViewModels
             }
         }
 
+        /**
+         * Maj de la liste affiché
+         */
         private void EditList()
         {
             ListFilmView = Film.GetFilms();

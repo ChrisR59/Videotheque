@@ -73,11 +73,11 @@ namespace Videothèque2.ViewModels
 
         private void EditElt()
         {
-            if (Element != null)
+            if (CycleC != null)
             {
-                if (Element.Type == "Film")
+                if (CycleC.Type == "Film")
                 {
-                    Film f = Element.GetOneFilm();
+                    Film f = CycleC.GetOneFilm();
                     f.LastView = DateTime.Now;
                     f.NbView++;
                     f.ToWatch = false;
@@ -85,9 +85,9 @@ namespace Videothèque2.ViewModels
                     if (res)
                         MessageBox.Show("Le date du film a bien été modifié");
                 }
-                else if (Element.Type == "Serie")
+                else if (CycleC.Type == "Serie")
                 {
-                    Serie s = Element.GetOneSerie();
+                    Serie s = CycleC.GetOneSerie();
                     s.LastView = DateTime.Now;
                     s.NbView++;
                     s.ToWatch = false;
@@ -95,16 +95,16 @@ namespace Videothèque2.ViewModels
                     if (res)
                         MessageBox.Show("La date de la série a bien été modifié");
                 }
-                Element.ToWatch = false;
+                Element.ToWatch = false;//ligne à supprimer?
                 UpList();
             }
         }
 
         private void UpList()
         {
-            Element = new Element();
-            ListElements = Element.GetProgram();
-            RaisePropertyChanged("ListElements");
+            CycleC = new CycleContent();
+            ListCycleContent = CycleC.GetCycleActually(CycleS.Id);
+            RaisePropertyChanged("ListCycleContent");
         }
     }
 }
