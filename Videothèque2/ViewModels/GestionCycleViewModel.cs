@@ -13,57 +13,47 @@ namespace Videothèque2.ViewModels
 {
     class GestionCycleViewModel : ViewModelBase
     {
-        public ObservableCollection<Element> ListElements { get; set; }
-        private Element element = new Element();
+        public ObservableCollection<CycleStatus> ListCycles { get; set; }
+        private CycleStatus cycle;
 
         public int Id
         {
-            get => Element.Id;
+            get => Cycle.Id;
             set
             {
-                Element.Id = value;
+                Cycle.Id = value;
                 RaisePropertyChanged("Id");
             }
         }
 
-        public string Title
+        public Status StatusC
         {
-            get => Element.Title;
+            get => Cycle.StatusC;
             set
             {
-                Element.Title = value;
+                Cycle.StatusC = value;
                 RaisePropertyChanged("Title");
             }
         }
 
-        public string ToWatchString
-        {
-            get => Element.ToWatchString;
-            set
-            {
-                Element.ToWatchString = value;
-                RaisePropertyChanged("ToWatchString");
-            }
-        }
-
-        public Element Element { get => element; set => element = value; }
-        public ICommand ProgramEltCommand { get; set; }
+        public CycleStatus Cycle { get => cycle; set => cycle = value; }
+        public ICommand DeleteCycleCommand { get; set; }
 
         public GestionCycleViewModel()
         {
-            ListElements = Element.GetElements();
-            ProgramEltCommand = new RelayCommand(EditElt);
+            Cycle = new CycleStatus();
+            ListCycles = Cycle.GetCycles();
+            DeleteCycleCommand = new RelayCommand(DeleteCycle);
         }
 
-        private void EditElt()
+        private void DeleteCycle()
         {
-            if (Element != null)
+            if (Cycle != null && Cycle.DeleteOne())
             {
-                Element.ToWatch = true;
-                Element.UpdateElement();
-                ListElements = Element.GetElements();
-                RaisePropertyChanged("ListElements");
+                ListCycles.Remove(Cycle);
+                RaisePropertyChanged("ListCycles");
             }
+
         }
     }
 }

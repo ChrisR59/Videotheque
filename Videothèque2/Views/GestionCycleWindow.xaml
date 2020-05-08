@@ -11,15 +11,15 @@
         <viewModel:GestionCycleViewModel></viewModel:GestionCycleViewModel>
     </Window.DataContext>
     <Grid>
-        <ListView ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}" HorizontalAlignment="Left" Height="269" Margin="63,70,0,0" VerticalAlignment="Top" Width="681">
+        <ListView ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" HorizontalAlignment="Left" Height="269" Margin="63,70,0,0" VerticalAlignment="Top" Width="681">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Width="200" Header="Programmation" DisplayMemberBinding="{Binding ToWatchString}"/>
+                    <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Width="200" Header="Programmation" DisplayMemberBinding="{Binding StatusC}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="322,0,320,25" Width="100"></Button>
+        <Button Command="{Binding DeleteCycleCommand}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="322,0,320,25" Width="100"></Button>
 
     </Grid>
 </Window>

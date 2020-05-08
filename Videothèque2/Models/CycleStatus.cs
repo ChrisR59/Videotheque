@@ -36,6 +36,28 @@ namespace Videothèque2.Models
 
         }
 
+        public ObservableCollection<CycleStatus> GetCycles()
+        {
+            ObservableCollection<CycleStatus> l = new ObservableCollection<CycleStatus>();
+
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Status FROM CycleStatus", DataBase.Instance.connection);
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while (DataBase.Instance.reader.Read())
+            {
+                CycleStatus c = new CycleStatus();
+                c.Id = DataBase.Instance.reader.GetInt32(0);
+                c.StatusC = (Status)DataBase.Instance.reader.GetInt32(1);
+                l.Add(c);
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return l;
+        }
+
         public void GetIdCycle()
         {
             DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '0'", DataBase.Instance.connection);
@@ -76,6 +98,21 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
 
             return l;
+        }
+
+        public Boolean DeleteOne()
+        {
+            bool res = false;
+            DataBase.Instance.command = new SqlCommand("DELETE FROM CycleStatus WHERE id = @id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@id", Id));
+            DataBase.Instance.connection.Open();
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+            return res;
         }
     }
 
