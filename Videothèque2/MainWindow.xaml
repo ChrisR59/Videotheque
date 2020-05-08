@@ -24,7 +24,8 @@
             <MenuItem Header="Films" Command="{Binding LFilmCommand}"/>
             <MenuItem Header="Séries" Command="{Binding LSerieCommand}"/>
             <MenuItem Header="Ajout éléments" Command="{Binding AEltCommand}"/>
-            <MenuItem Header="Gestion des Cycles" Command="{Binding CycleCommand}"/>
+            <MenuItem Header="Programmation" Command="{Binding ProgrammationCommand}" Height="25"/><!-- programmation -->
+            <MenuItem Header="Cycles" Command="{Binding CyclesCommand}"/>
         </Menu>
         
         <Button Command="{Binding UpdateListCommand}" Content="Actualiser" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="35" Width="100"></Button>
@@ -38,9 +39,9 @@
             </ListView.View>
         </ListView>-->
 
-        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleContent}" Margin="63,77,63,68">
+        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}" Margin="63,77,63,68">
 
         </DataGrid>
-        <Button Command="{Binding ProgramEltCommand}" Content="Vu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90" Margin="151,0,151,30"></Button>
+        <Button Command="{Binding ValidateViewCommand}" Content="Vu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90" Margin="151,0,151,30"></Button>
     </Grid>
 </Window>

@@ -1,12 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using Videothèque2.Models;
 
@@ -14,90 +13,56 @@ namespace Videothèque2.ViewModels
 {
     class GestionCycleViewModel : ViewModelBase
     {
-        private ObservableCollection<int> listCycle;
-        private ObservableCollection<Element> listElements;
-        private CycleStatus cycleS;
-        private CycleContent cycleC;
-        private Element element;
-        private int idCycle;
+        public ObservableCollection<Element> ListElements { get; set; }
+        private Element element = new Element();
 
-        public ObservableCollection<int> ListCycle { get => listCycle; set => listCycle = value; }
-        public ObservableCollection<Element> ListElements { get => listElements; set => listElements = value; }
-        public CycleStatus CycleS { get => cycleS; set => cycleS = value; }
-        public CycleContent CycleC { get => cycleC; set => cycleC = value; }
-        public Element Element { get => element; set => element = value; }
-        public int IdCycle { get => idCycle; set => idCycle = value; }
-
-        public Status Status
+        public int Id
         {
-            get => CycleS.StatusC;
+            get => Element.Id;
             set
             {
-                CycleS.StatusC = value;
-                RaisePropertyChanged("StatusC");
+                Element.Id = value;
+                RaisePropertyChanged("Id");
             }
-
         }
 
+        public string Title
+        {
+            get => Element.Title;
+            set
+            {
+                Element.Title = value;
+                RaisePropertyChanged("Title");
+            }
+        }
 
-        public ICommand AddCycleCommand { get; set; }
-        public ICommand AddEltCycleCommand { get; set; }
+        public string ToWatchString
+        {
+            get => Element.ToWatchString;
+            set
+            {
+                Element.ToWatchString = value;
+                RaisePropertyChanged("ToWatchString");
+            }
+        }
+
+        public Element Element { get => element; set => element = value; }
+        public ICommand ProgramEltCommand { get; set; }
 
         public GestionCycleViewModel()
         {
-            CycleS = new CycleStatus();
-            CycleC = new CycleContent();
-            Element = new Element();
-            ListCycle = CycleS.GetListCycle();
-            ListElements = Element.GetProgram();
-            AddCycleCommand = new RelayCommand(AddCycle);
-            AddEltCycleCommand = new RelayCommand(AddElt);
+            ListElements = Element.GetElements();
+            ProgramEltCommand = new RelayCommand(EditElt);
         }
 
-        /**
-         * Ajoute un Cycle
-         */
-        public void AddCycle()
+        private void EditElt()
         {
-            CycleS.CheckCycleExist();
-            if(CycleS.AddCycle())
+            if (Element != null)
             {
-                MessageBox.Show("Un nouveau Cycle a été crée.");//Verifier d'abord si un cycle exsite et son status
-            }
-        }
-
-        /**
-         * Ajoute un element au cycle selectioné
-         */
-        public void AddElt()
-        {
-            CycleC.IdCycle = IdCycle;
-            CycleC.GetRank();
-            CycleC.Title = Element.Title;
-            CycleC.Status = "A voir";
-            CycleC.Type = Element.Type;
-            CycleC.IdElt = Element.Id;
-            if(CycleC.AddElement())
-            {
-                if (Element != null)
-                {
-                    if (Element.Type == "Film")
-                    {
-                        Film f = Element.GetOneFilm();
-                        f.ToWatch = false;
-                        Boolean res = f.UpdateElement();
-                    }
-                    else if (Element.Type == "Serie")
-                    {
-                        Serie s = Element.GetOneSerie();
-                        s.ToWatch = false;
-                        Boolean res = s.UpdateElement();
-                    }
-                }
-                ListElements.Remove(Element);
+                Element.ToWatch = true;
+                Element.UpdateElement();
+                ListElements = Element.GetElements();
                 RaisePropertyChanged("ListElements");
-                MessageBox.Show("Element bien ajouté au cycle.");
-                CycleC.Rank = 0;
             }
         }
     }

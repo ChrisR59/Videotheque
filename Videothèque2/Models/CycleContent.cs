@@ -18,6 +18,7 @@ namespace Videothèque2.Models
         private string type;
         private int idElt;
         private int idCycle;
+        private Boolean toWatch;
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
@@ -26,11 +27,12 @@ namespace Videothèque2.Models
         public string Type { get => type; set => type = value; }
         public int IdElt { get => idElt; set => idElt = value; }
         public int IdCycle { get => idCycle; set => idCycle = value; }
+        public bool ToWatch { get => toWatch; set => toWatch = value; }
 
         public Boolean AddElement()
         {
             Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("INSERT INTO CycleContent(Title,Status,Rank,Type,IdElt,IdCycle) OUTPUT INSERTED.ID VALUES(@title,@status,@rank,@type,@idElt,@idCycle)", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("INSERT INTO CycleContent(Title,Status,Rank,Type,IdElt,IdCycle,ToWatch) OUTPUT INSERTED.ID VALUES(@title,@status,@rank,@type,@idElt,@idCycle,'0')", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@title",Title));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@status", Status));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@rank", Rank));
@@ -50,7 +52,7 @@ namespace Videothèque2.Models
         public ObservableCollection<CycleContent> GetCycleActually(int idCycleS)
         {
             ObservableCollection<CycleContent> listC = new ObservableCollection<CycleContent>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Status,Rank,Type,IdElt FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Status,Rank,Type,IdElt,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", idCycleS));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -65,8 +67,14 @@ namespace Videothèque2.Models
                     Rank = DataBase.Instance.reader.GetInt32(3),
                     Type = DataBase.Instance.reader.GetString(4),
                     IdElt = DataBase.Instance.reader.GetInt32(5),
-                    IdCycle = idCycleS
+                    IdCycle = idCycleS,
                 };
+                int w = DataBase.Instance.reader.GetInt32(6);
+                c.ToWatch = false;
+                if (w == 1)
+                {
+                    c.ToWatch = true;
+                }
                 listC.Add(c);
             }
             DataBase.Instance.command.Dispose();
@@ -101,7 +109,7 @@ namespace Videothèque2.Models
         {
             Serie s = new Serie();
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,LastView,ToWatch FROM Series WHERE Id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", IdElt));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -136,6 +144,25 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
 
+        }
+
+        public Boolean UpdateToWatch()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE CycleContent SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
         }
     }
 }

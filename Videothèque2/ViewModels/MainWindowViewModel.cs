@@ -26,12 +26,13 @@ namespace Videothèque2.ViewModels
         public CycleStatus CycleS { get => cycleS; set => cycleS = value; }
 
 
-        public ICommand ProgramEltCommand { get; set; }//Button
-        public ICommand UpdateListCommand { get; set; }//Button
+        public ICommand ValidateViewCommand { get; set; }//Button validation vu element
+        public ICommand UpdateListCommand { get; set; }//Button actualiser la liste
         public ICommand LFilmCommand { get; set; }
         public ICommand LSerieCommand { get; set; }
         public ICommand AEltCommand { get; set; }
-        public ICommand CycleCommand { get; set; }
+        public ICommand CyclesCommand { get; set; }
+        public ICommand ProgrammationCommand { get; set; }
 
         public MainWindowViewModel()
         {
@@ -61,13 +62,19 @@ namespace Videothèque2.ViewModels
                 aEw.Show();
             });
 
-            CycleCommand = new RelayCommand(() =>
-           {
+            CyclesCommand = new RelayCommand(() =>
+            {
                GestionCycleWindow gc = new GestionCycleWindow();
                gc.Show();
-           });
+            });
 
-            ProgramEltCommand = new RelayCommand(EditElt);
+            ProgrammationCommand = new RelayCommand(() =>
+            {
+               ProgrammationWindow pc = new ProgrammationWindow();
+               pc.Show();
+            });
+
+            ValidateViewCommand = new RelayCommand(EditElt);
             UpdateListCommand = new RelayCommand(UpList);
         }
 
@@ -75,14 +82,17 @@ namespace Videothèque2.ViewModels
         {
             if (CycleC != null)
             {
+                Boolean resCycle = false;
+                CycleC.ToWatch = true;
                 if (CycleC.Type == "Film")
                 {
                     Film f = CycleC.GetOneFilm();
                     f.LastView = DateTime.Now;
                     f.NbView++;
                     f.ToWatch = false;
-                    Boolean res = f.UpdateLastView();
-                    if (res)
+                    Boolean resFilm = f.UpdateLastView();
+                    resCycle = CycleC.UpdateToWatch();
+                    if (resFilm && resCycle)
                         MessageBox.Show("Le date du film a bien été modifié");
                 }
                 else if (CycleC.Type == "Serie")
@@ -91,12 +101,13 @@ namespace Videothèque2.ViewModels
                     s.LastView = DateTime.Now;
                     s.NbView++;
                     s.ToWatch = false;
-                    Boolean res = s.UpdateLastView();
-                    if (res)
+                    Boolean resSerie = s.UpdateLastView();
+                    resCycle = CycleC.UpdateToWatch();
+                    if (resSerie && resCycle)
                         MessageBox.Show("La date de la série a bien été modifié");
                 }
-                Element.ToWatch = false;//ligne à supprimer?
-                UpList();
+                //Ne se coche pas manque un RaisePropertyChanged
+                RaisePropertyChanged("ListCycleContent");
             }
         }
 
