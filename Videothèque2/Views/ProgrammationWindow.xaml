@@ -6,17 +6,19 @@
         xmlns:local="clr-namespace:Videothèque2.Views"
         xmlns:viewModel="clr-namespace:Videothèque2.ViewModels"
         mc:Ignorable="d"
-        Title="ProgrammationWindow" Height="450" Width="800">
+        WindowState="Maximized"
+        Title="ProgrammationWindow">
     <Window.DataContext>
         <viewModel:ProgrammationWindowViewModel></viewModel:ProgrammationWindowViewModel>
     </Window.DataContext>
     <Grid>
-        <Button Command="{Binding AddCycleCommand}" Margin="323,30,317,351">Nouveau Cycle</Button>
+        <Button Command="{Binding AddCycleCommand}" Width="136" Height="29" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="322,33,302,0">Nouveau Cycle</Button>
 
         <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="183,98,0,0" VerticalAlignment="Top" Width="149" Height="33"/>
-        <Button Command="{Binding AddEltCycleCommand}" Margin="513,98,96,288">Ajouter Element</Button>
+        <Button Command="{Binding AddEltCycleCommand}" Width="136" Height="33" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,98,130,0">Ajouter Element</Button>
 
         <DataGrid ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}" Margin="89,151,37,47">
 
-        </DataGrid></Grid>
+        </DataGrid>
+    </Grid>
 </Window>

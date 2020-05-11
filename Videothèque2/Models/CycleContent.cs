@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using Videothèque2.Tools;
 
 namespace Videothèque2.Models
 {
-    public class CycleContent
+    public class CycleContent:INotifyPropertyChanged
     {
         private int id;
         private string title;
@@ -27,7 +28,17 @@ namespace Videothèque2.Models
         public string Type { get => type; set => type = value; }
         public int IdElt { get => idElt; set => idElt = value; }
         public int IdCycle { get => idCycle; set => idCycle = value; }
-        public bool ToWatch { get => toWatch; set => toWatch = value; }
+        public bool ToWatch
+        {
+            get => toWatch;
+            set
+            {
+                toWatch = value;
+                NotifyPropertyChange("ToWatch");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Boolean AddElement()
         {
@@ -163,6 +174,12 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
 
             return res;
+        }
+
+        private void NotifyPropertyChange(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

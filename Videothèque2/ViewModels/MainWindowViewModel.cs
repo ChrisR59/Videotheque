@@ -106,7 +106,23 @@ namespace Videothèque2.ViewModels
                     if (resSerie && resCycle)
                         MessageBox.Show("La date de la série a bien été modifié");
                 }
-                //Ne se coche pas manque un RaisePropertyChanged
+                //Verifie si les élement ont tous était vu
+                Boolean cycleEnd = true;
+                foreach (CycleContent c in ListCycleContent)
+                {
+                    if (!c.ToWatch)
+                    {
+                        cycleEnd = false;
+                    }
+                }
+                //Changement de status du cycle
+                if (cycleEnd)
+                {
+                    CycleS.StatusC = Status.Termine;
+                    if (CycleS.EditStatusCycle())
+                        MessageBox.Show("Cycle Terminé");
+                }
+
                 RaisePropertyChanged("ListCycleContent");
             }
         }

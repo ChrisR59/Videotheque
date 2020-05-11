@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Videothèque2"
         xmlns:viewModel="clr-namespace:Videothèque2.ViewModels"
         mc:Ignorable="d"
-        Title="ListFilmWindow" Height="500" Width="900">
+        WindowState="Maximized"
+        Title="ListFilmWindow">
     <Window.DataContext>
         <viewModel:ListFilmWindowViewModel></viewModel:ListFilmWindowViewModel>
     </Window.DataContext>
@@ -32,7 +33,7 @@
             ItemsSource="{Binding ListFilmView}" 
             SelectedItem="{Binding Film,Mode=TwoWay}" 
             AutoGenerateColumns="False" 
-            HorizontalAlignment="Left" Height="203" Margin="61,170,0,0" VerticalAlignment="Top" Width="762">
+            Margin="60,170,60,170">
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True"  Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="360" IsReadOnly="True"  Header="Titre" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />

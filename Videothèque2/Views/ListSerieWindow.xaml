@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Videothèque2"
         xmlns:viewModel="clr-namespace:Videothèque2.ViewModels"
         mc:Ignorable="d"
-        Title="Liste des Séries" Height="500" Width="900">
+        WindowState="Maximized"
+        Title="Liste des Séries">
     <Window.DataContext>
         <viewModel:ListSerieWindowViewModel></viewModel:ListSerieWindowViewModel>
     </Window.DataContext>
@@ -32,8 +33,8 @@
         <DataGrid 
             ItemsSource="{Binding ListSerieView}" 
             SelectedItem="{Binding Serie,Mode=TwoWay}" 
-            AutoGenerateColumns="False" 
-            HorizontalAlignment="Left" Height="203" Margin="50,170,0,0" VerticalAlignment="Top" Width="800">
+            AutoGenerateColumns="False"
+            Margin="60,170,60,170">
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="True"  Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="360" IsReadOnly="True"  Header="Titre" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />

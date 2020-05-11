@@ -48,7 +48,7 @@ namespace Videothèque2.ViewModels
 
         private void DeleteCycle()
         {
-            if (Cycle != null && Cycle.DeleteOne())
+            if (Cycle != null && Cycle.DeleteOne())//!! si supression du cycle en cours changé status du cycle suivant
             {
                 ListCycles.Remove(Cycle);
                 RaisePropertyChanged("ListCycles");

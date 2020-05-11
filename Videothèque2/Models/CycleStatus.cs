@@ -31,9 +31,23 @@ namespace Videothèque2.Models
             return res;
         }
 
-        public void EditCycle()
+        public Boolean EditStatusCycle()
         {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE CycleStatus SET Status = @Status WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Status", StatusC));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
 
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
         }
 
         public ObservableCollection<CycleStatus> GetCycles()

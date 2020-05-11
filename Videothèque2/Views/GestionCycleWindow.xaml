@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:Videothèque2.Views"
         xmlns:viewModel="clr-namespace:Videothèque2.ViewModels"
         mc:Ignorable="d"
-        Title="GestionCycleWindow" Height="450" Width="800">
+        WindowState="Maximized"
+        Title="GestionCycleWindow">
     <Window.DataContext>
         <viewModel:GestionCycleViewModel></viewModel:GestionCycleViewModel>
     </Window.DataContext>
     <Grid>
-        <ListView ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" HorizontalAlignment="Left" Height="269" Margin="63,70,0,0" VerticalAlignment="Top" Width="681">
+        <ListView ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" Margin="63,77,63,68">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Id}"/>
