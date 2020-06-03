@@ -86,11 +86,35 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
         }
 
+        public void GetNewCycle()
+        {
+            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '1'", DataBase.Instance.connection);
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            int i = 0;
+            while (DataBase.Instance.reader.Read())
+            {
+                if(i == 0)
+                {
+                    Id = DataBase.Instance.reader.GetInt32(0);
+                    StatusC = Status.EnCours;
+                    i++;
+                }
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+        }
+
         public void CheckCycleExist()
         {
             DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '0'",DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
-            if ((int)DataBase.Instance.command.ExecuteScalar() > 0)
+
+            if (DataBase.Instance.command.ExecuteScalar() == null)
+                StatusC = Status.EnCours;
+            else
                 StatusC = Status.Prevu;
 
             DataBase.Instance.command.Dispose();

@@ -121,9 +121,13 @@ namespace Videothèque2.ViewModels
                     CycleS.StatusC = Status.Termine;
                     if (CycleS.EditStatusCycle())
                         MessageBox.Show("Cycle Terminé");
-                }
 
-                RaisePropertyChanged("ListCycleContent");
+                    CycleS = new CycleStatus();
+                    CycleS.GetNewCycle();
+                    if (CycleS.EditStatusCycle())
+                        MessageBox.Show("Nouveau cycle chargé");
+                }
+                UpList();
             }
         }
 
