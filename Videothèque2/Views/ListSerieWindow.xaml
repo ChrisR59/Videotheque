@@ -31,12 +31,13 @@
         <Button Command="{Binding EditSerieCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Margin="547,136,195,0">Modifier</Button>
 
         <DataGrid 
-            ItemsSource="{Binding ListSerieView}" 
-            SelectedItem="{Binding Serie,Mode=TwoWay}" 
-            AutoGenerateColumns="False"
-            Margin="60,170,60,170">
+            ItemsSource="{Binding ListSerieView}" SelectedItem="{Binding Serie,Mode=TwoWay}"  AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
+            AutoGenerateColumns="False" FontSize="16" HeadersVisibility="Column" FontFamily="Verdana"
+            Margin="0,170,0,100">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/><!-- ligne click -->
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="True"  Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="360" IsReadOnly="True"  Header="Titre" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="75" IsReadOnly="True"  Header="Saison" Binding="{Binding NbSeason, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="100" IsReadOnly="True"  Header="Ajouté le" Binding="{Binding DateAddFormated, UpdateSourceTrigger=PropertyChanged}" />

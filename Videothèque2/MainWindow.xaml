@@ -39,9 +39,10 @@
             </ListView.View>
         </ListView>-->
 
-        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}" Margin="63,77,63,68">
-
+        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}"  AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
+            FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,170,0,100" >
         </DataGrid>
+        
         <Button Command="{Binding ValidateViewCommand}" Content="Vu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90" Margin="151,0,151,30"></Button>
     </Grid>
 </Window>

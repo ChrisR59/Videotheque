@@ -54,7 +54,7 @@ namespace Videothèque2.Models
         public ObservableCollection<Film> GetFilms()
         {
             ObservableCollection<Film> l = new ObservableCollection<Film>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Content,DateAdd,LastView,NbView,ToWatch FROM Films",DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Content,DateAdd,LastView,NbView,ToWatch FROM Films ORDER BY Title",DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 

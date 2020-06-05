@@ -17,8 +17,13 @@
         <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="183,98,0,0" VerticalAlignment="Top" Width="149" Height="33"/>
         <Button Command="{Binding AddEltCycleCommand}" Width="136" Height="33" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,98,130,0">Ajouter Element</Button>
 
-        <DataGrid ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}" Margin="89,151,37,47">
+        <DataGrid ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}"  AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
+                 FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,170,0,0">
 
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/>
+                <!-- ligne click -->
+            </DataGrid.Resources>
         </DataGrid>
     </Grid>
 </Window>
