@@ -28,7 +28,7 @@
             <MenuItem Header="Cycles" Command="{Binding CyclesCommand}"/>
         </Menu>
         
-        <Button Command="{Binding UpdateListCommand}" Content="Actualiser" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="35" Width="100"></Button>
+        <Button Command="{Binding UpdateListCommand}" Content="Actualiser" VerticalAlignment="Top" Margin="50" Width="95"></Button>
         
         <!--<ListView ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}" HorizontalAlignment="Left" Height="210" Margin="57,66,0,0" VerticalAlignment="Top" Width="297">
             <ListView.View>
@@ -43,6 +43,6 @@
             FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,170,0,100" >
         </DataGrid>
         
-        <Button Command="{Binding ValidateViewCommand}" Content="Vu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="90" Margin="151,0,151,30"></Button>
+        <Button Command="{Binding ValidateViewCommand}" Content="Vu" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="55" Margin="20"></Button>
     </Grid>
 </Window>

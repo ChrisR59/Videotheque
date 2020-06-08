@@ -28,7 +28,7 @@
         <Label Content="{Binding NbView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="22" Margin="747,33,123,0"/>
         <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="774,33,68,0"/>
         <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="331" Margin="63,85,0,0" Height="71"/>
-        <Button Command="{Binding EditSerieCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Margin="547,136,195,0">Modifier</Button>
+        <Button Command="{Binding EditSerieCommand}" Content="Modifier" VerticalAlignment="Top" Width="85" Margin="550,100,116,0" />
 
         <DataGrid 
             ItemsSource="{Binding ListSerieView}" SelectedItem="{Binding Serie,Mode=TwoWay}"  AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
@@ -45,8 +45,8 @@
                 <DataGridTextColumn Width="124" Header="Programmation" Binding="{Binding ToWatchString, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
-        
-        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="322,0,320,25" Width="100"></Button>
-        <Button Command="{Binding DeleteSerieCommand}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Margin="547,0,195,25"/>
+
+        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" VerticalAlignment="Bottom" Width="110" Margin="150,0,356,25"/>
+        <Button Command="{Binding DeleteSerieCommand}" Content="Supprimer" VerticalAlignment="Bottom" Width="100" Margin="400,0,145,25"/>
     </Grid>
 </Window>

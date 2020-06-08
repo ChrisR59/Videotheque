@@ -12,7 +12,7 @@
         <viewModel:GestionCycleViewModel></viewModel:GestionCycleViewModel>
     </Window.DataContext>
     <Grid>
-        <ListView ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" Margin="63,77,63,68">
+        <ListView ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" Margin="0,80,0,75">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Id}"/>
@@ -20,7 +20,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Command="{Binding DeleteCycleCommand}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="322,0,320,25" Width="100"></Button>
+        <Button Command="{Binding DeleteCycleCommand}" Content="Supprimer"  VerticalAlignment="Bottom" Margin="321,0,321,10" Width="95"/>
 
     </Grid>
 </Window>

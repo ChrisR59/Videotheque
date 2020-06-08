@@ -27,7 +27,7 @@
         <DatePicker SelectedDate="{Binding LastView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="469,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.325,0.014" Height="26"/>
         <Label Content="{Binding NbView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="27" Margin="659,26,206,0" RenderTransformOrigin="3.136,0.615" Height="26"/>
         <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="711,26,131,0" Height="27"/>
-        <Button Command="{Binding EditFilmCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="90" Content="Modifier" Margin="586,126,206,0"/>
+        <Button Command="{Binding EditFilmCommand}" VerticalAlignment="Top" Content="Modifier" Width="85" Margin="550,100,116,0" />
 
         <DataGrid 
             ItemsSource="{Binding ListFilmView}" SelectedItem="{Binding Film,Mode=TwoWay}" AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
@@ -44,7 +44,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="323,0,469,48" Width="100"></Button>
-        <Button Command="{Binding DeleteFilmCommand}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="515,0,274,48" Width="103"/>
+        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" Width="110" VerticalAlignment="Bottom" Margin="150,0,356,25"/>
+        <Button Command="{Binding DeleteFilmCommand}" Content="Supprimer" Width="100" VerticalAlignment="Bottom" Margin="400,0,145,25"/>
     </Grid>
 </Window>
