@@ -151,12 +151,16 @@ namespace Videothèque2.ViewModels
          */
         private void DeleteSerie()
         {
-            if(Serie.Id != 0)
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer cette série?", "Confirmation Suppression", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if (Serie.DeleteSerie())
+                if (Serie.Id != 0)
                 {
-                    MessageBox.Show("La serie a bien été supprimé.");
-                    EditList();
+                    if (Serie.DeleteSerie())
+                    {
+                        MessageBox.Show("La serie a bien été supprimé.");
+                        EditList();
+                    }
                 }
             }
         }

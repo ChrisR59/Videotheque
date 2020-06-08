@@ -156,12 +156,16 @@ namespace Videothèque2.ViewModels
          */
         private void DeleteFilm()
         {
-            if(Film.Id != 0)
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer ce film?", "Confirmation Suppression", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if (Film.DeleteFilm())
+                if (Film.Id != 0)
                 {
-                    MessageBox.Show("Le Film a bien été supprimé.");
-                    EditList();
+                    if (Film.DeleteFilm())
+                    {
+                        MessageBox.Show("Le Film a bien été supprimé.");
+                        EditList();
+                    }
                 }
             }
         }
