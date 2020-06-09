@@ -20,33 +20,62 @@
         </Style>
     </Window.Style>
     <Grid>
-        <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="35" Margin="81,31,776,0" Height="28"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="139,36,0,0" TextWrapping="Wrap" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="274,36,0,0" TextWrapping="Wrap" Text="{Binding NbSeason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Vu le :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="492,31,350,0" Width="50"/>
-        <DatePicker SelectedDate="{Binding LastView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="547,33,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding NbView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="22" Margin="747,33,123,0"/>
-        <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="774,33,68,0"/>
-        <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="331" Margin="63,85,0,0" Height="71"/>
-        <Button Command="{Binding EditSerieCommand}" Content="Modifier" VerticalAlignment="Top" Width="85" Margin="550,100,116,0" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="75"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding NbSeason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="0"/>
+        <Label Content="Vu le :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="3" Grid.Row="0"/>
+        <DatePicker SelectedDate="{Binding LastView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="0">
+            <DatePicker.Resources>
+                <Style TargetType="{x:Type DatePickerTextBox}">
+                    <Setter Property="Control.Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <TextBox x:Name="PART_TextBox" 
+                                    Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DatePicker.Resources>
+        </DatePicker>
+        <Label Content="{Binding NbView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Grid.Column="5" Grid.Row="0" Margin="30,29,0,29"/>
+        <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Grid.Row="0"/>
+        <TextBox Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Width="500" Height="60"/>
+        <Button Command="{Binding EditSerieCommand}" Content="Modifier" Grid.Column="4" Grid.Row="1" Width="85"  Height="55"/>
 
         <DataGrid 
             ItemsSource="{Binding ListSerieView}" SelectedItem="{Binding Serie,Mode=TwoWay}"  AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
             AutoGenerateColumns="False" FontSize="16" HeadersVisibility="Column" FontFamily="Verdana"
-            Margin="0,170,0,100">
+            Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2" Grid.RowSpan="3" Margin="0,50,0,50">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/><!-- ligne click -->
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Width="360" IsReadOnly="True"  Header="Titre" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="75" IsReadOnly="True"  Header="Saison" Binding="{Binding NbSeason, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Width="100" IsReadOnly="True"  Header="Ajouté le" Binding="{Binding DateAddFormated, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Width="100" IsReadOnly="True"  Header="Vu le" Binding="{Binding LastViewFormated, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Width="124" Header="Programmation" Binding="{Binding ToWatchString, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="120" IsReadOnly="True"  Header="Ajouté le" Binding="{Binding DateAddFormated, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="120" IsReadOnly="True"  Header="Vu le" Binding="{Binding LastViewFormated, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Width="150" Header="Programmation" Binding="{Binding ToWatchString, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" VerticalAlignment="Bottom" Width="110" Margin="150,0,356,25"/>
-        <Button Command="{Binding DeleteSerieCommand}" Content="Supprimer" VerticalAlignment="Bottom" Width="100" Margin="400,0,145,25"/>
+        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" Width="110" />
+        <Button Command="{Binding DeleteSerieCommand}" Content="Supprimer" Grid.Column="3" Grid.Row="6" VerticalAlignment="Bottom" Width="100"/>
     </Grid>
 </Window>
