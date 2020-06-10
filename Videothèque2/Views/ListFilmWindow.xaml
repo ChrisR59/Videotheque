@@ -20,19 +20,37 @@
         </Style>
     </Window.Style>
     <Grid>
-        <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="59,26,783,0" Height="26"/>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="117,26,0,0" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="180"/>
-        <TextBox HorizontalAlignment="Left" Height="61" Margin="59,85,0,0" Text="{Binding Content,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="300"/>
-        <Label Content="Vu le :" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="392,26,440,0" Width="60" Height="27"/>
-        <DatePicker SelectedDate="{Binding LastView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="469,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.325,0.014" Height="26"/>
-        <Label Content="{Binding NbView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="27" Margin="659,26,206,0" RenderTransformOrigin="3.136,0.615" Height="26"/>
-        <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Margin="711,26,131,0" Height="27"/>
-        <Button Command="{Binding EditFilmCommand}" VerticalAlignment="Top" Content="Modifier" Width="85" Margin="550,100,116,0" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="75"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+        <TextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
+        <TextBox Text="{Binding Content,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Width="500" Height="60"/>
+        <Label Content="Vu le :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="3" Grid.Row="0"/>
+        <DatePicker SelectedDate="{Binding LastView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="0"
+                    Height="22" Width="110" Foreground="Blue" Margin="0,29,32,29"/>
+        <Label Content="{Binding NbView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Height="25" Grid.Column="5" Grid.Row="0" HorizontalContentAlignment="Left"/>
+        <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Grid.Row="0"/>
+        <Button Command="{Binding EditFilmCommand}" Content="Modifier" Grid.Column="4" Grid.Row="1" Width="85"  Height="55"/>
 
         <DataGrid 
             ItemsSource="{Binding ListFilmView}" SelectedItem="{Binding Film,Mode=TwoWay}" AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
             AutoGenerateColumns="False" FontSize="16" HeadersVisibility="Column" FontFamily="Verdana"
-            Margin="0,170,0,100" >
+            Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2" Grid.RowSpan="3" Margin="0,50,0,50">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/><!-- ligne click -->
             </DataGrid.Resources>
@@ -44,7 +62,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" Width="110" VerticalAlignment="Bottom" Margin="150,0,356,25"/>
-        <Button Command="{Binding DeleteFilmCommand}" Content="Supprimer" Width="100" VerticalAlignment="Bottom" Margin="400,0,145,25"/>
+        <Button Command="{Binding ProgramEltCommand}" Content="Programmer" Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" Width="110" />
+        <Button Command="{Binding DeleteFilmCommand}" Content="Supprimer"  Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="6" VerticalAlignment="Bottom" Width="100"/>
     </Grid>
 </Window>
