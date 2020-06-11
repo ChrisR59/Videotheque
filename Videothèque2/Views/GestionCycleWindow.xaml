@@ -11,8 +11,16 @@
     <Window.DataContext>
         <viewModel:GestionCycleViewModel></viewModel:GestionCycleViewModel>
     </Window.DataContext>
+    <Window.Resources>
+        <SolidColorBrush x:Key="WindowBrush" Color="#211059"/>
+    </Window.Resources>
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Background" Value="{StaticResource WindowBrush}"/>
+        </Style>
+    </Window.Style>
     <Grid>
-        <ListView ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" Margin="0,80,0,75">
+        <ListView ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" Margin="0,80,0,75" Background="#FF211059" Foreground="White">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Id}"/>
@@ -20,7 +28,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Command="{Binding DeleteCycleCommand}" Content="Supprimer"  VerticalAlignment="Bottom" Margin="321,0,321,10" Width="95"/>
+        <Button Command="{Binding DeleteCycleCommand}" Content="SUPPRIMER" FontFamily="Verdana" VerticalAlignment="Bottom" Margin="321,0,321,10" Width="112"/>
 
     </Grid>
 </Window>

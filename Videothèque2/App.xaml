@@ -5,31 +5,29 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <GradientStopCollection x:Key="MyGlassGradientStopsResource">
-            <GradientStop Color="Black" Offset="0.2" />
-            <GradientStop Color="Transparent" Offset="0.4" />
-            <GradientStop Color="Black" Offset="0.5" />
-            <GradientStop Color="Transparent" Offset="0.75" />
-            <GradientStop Color="Black" Offset="0.9" />
-            <GradientStop Color="Transparent" Offset="1" />
+            <GradientStop Color="#56876D" Offset="0.3" />
+            <GradientStop Color="#BFD9F3" Offset="0.5" />
+            <GradientStop Color="#56876D" Offset="0.8" />
+            <GradientStop Color="#BFD9F3" Offset="1" />
         </GradientStopCollection>
         <LinearGradientBrush x:Key="MyGlassBrushResource" StartPoint="0,0" EndPoint="1,1" Opacity="0.75"
                             GradientStops="{StaticResource MyGlassGradientStopsResource}" />
         <Style TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="{ StaticResource MyGlassBrushResource }"></Setter>
+            <Setter Property="Background" Value="#56876D"></Setter>
             <Setter Property="Margin" Value="10"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
 
-                            <!-- Outer Rectangle with rounded corners. -->
+                            <!-- Outer Rectangle with rounded corners. 
                             <Rectangle x:Name="outerRectangle" HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch" Stroke="{TemplateBinding Background}"
-                                       RadiusX="20" RadiusY="20" StrokeThickness="5" Fill="Transparent" />
+                                       RadiusX="20" RadiusY="20" StrokeThickness="5" Fill="Transparent" />-->
 
                             <!-- Inner Rectangle with rounded corners. -->
                             <Rectangle x:Name="innerRectangle" HorizontalAlignment="Stretch"
-                                       VerticalAlignment="Stretch" Stroke="Transparent" StrokeThickness="20"
+                                       VerticalAlignment="Stretch" Stroke="Transparent" StrokeThickness="10"
                                        Fill="{TemplateBinding Background}" RadiusX="20" RadiusY="20" />
 
                             <!-- Glass Rectangle -->
