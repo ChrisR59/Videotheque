@@ -11,7 +11,7 @@
         <viewModel:AddElementWindowViewModel></viewModel:AddElementWindowViewModel>
     </Window.DataContext>
     <Window.Resources>
-        <SolidColorBrush x:Key="WindowBrush" Color="Azure"/>
+        <SolidColorBrush x:Key="WindowBrush" Color="#211059"/>
     </Window.Resources>
     <Window.Style>
         <Style TargetType="{x:Type Window}">
@@ -19,22 +19,21 @@
         </Style>
     </Window.Style>
     <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="110,30,0,0" TextWrapping="Wrap" Text="Ajout d'un Film" VerticalAlignment="Top" Foreground="White" FontSize="16"/>
+        <Label Content="Nom" HorizontalAlignment="Left" Margin="49,62,0,0" VerticalAlignment="Top" Foreground="White" />
+        <TextBox HorizontalAlignment="Left" Margin="97,60,0,0" TextWrapping="Wrap" Text="{Binding TitleF}" VerticalAlignment="Top" Width="150"/>
+        <Label Content="Résumé" HorizontalAlignment="Left" Margin="33,97,0,0" VerticalAlignment="Top" Foreground="White" />
+        <TextBox HorizontalAlignment="Left" Margin="97,95,0,0" TextWrapping="Wrap" Text="{Binding ContentF}" VerticalAlignment="Top" Width="150"/>
+        <Button Command="{Binding AFilmCommand}" Content="VALIDER" FontFamily="Verdana" Margin="50,130,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="110,30,0,0" TextWrapping="Wrap" Text="Ajout d'un Film" VerticalAlignment="Top"/>
-        <Label Content="Nom" HorizontalAlignment="Left" Margin="49,60,0,0" VerticalAlignment="Top" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="97,60,0,0" TextWrapping="Wrap" Text="{Binding TitleF}" VerticalAlignment="Top" Width="149"/>
-        <Label Content="Résumé" HorizontalAlignment="Left" Margin="33,90,0,0" VerticalAlignment="Top" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="97,90,0,0" TextWrapping="Wrap" Text="{Binding ContentF}" VerticalAlignment="Top" Width="149"/>
-        <Button Command="{Binding AFilmCommand}" Content="Valider" Margin="50,130,0,0" VerticalAlignment="Top" Width="80"/>
-
-        <TextBlock HorizontalAlignment="Left" Margin="110,225,0,0" TextWrapping="Wrap" Text="Ajout d'une Série" VerticalAlignment="Top"/>
-        <Label Content="Nom" HorizontalAlignment="Left" Margin="49,250,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="97,250,0,0" TextWrapping="Wrap" Text="{Binding TitleS}" VerticalAlignment="Top" Width="149"/>
-        <Label Content="Nb Saison" HorizontalAlignment="Left" Margin="21,280,0,0" VerticalAlignment="Top" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="97,280,0,0" TextWrapping="Wrap" Text="{Binding NbSeasonS}" VerticalAlignment="Top" Width="149"/>
-        <Label Content="Résumé" HorizontalAlignment="Left" Margin="33,310,0,0" VerticalAlignment="Top" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="97,310,0,0" TextWrapping="Wrap" Text="{Binding ContentS}" VerticalAlignment="Top" Width="149"/>
-        <Button Command="{Binding ASerieCommand}" Content="Valider" Margin="50,350,0,0" VerticalAlignment="Top" Width="80"/>
+        <TextBlock HorizontalAlignment="Left" Margin="110,216,0,0" TextWrapping="Wrap" Text="Ajout d'une Série" VerticalAlignment="Top" FontSize="16" Foreground="White"/>
+        <Label Content="Nom" HorizontalAlignment="Left" Margin="49,252,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <TextBox HorizontalAlignment="Left" Margin="97,250,0,0" TextWrapping="Wrap" Text="{Binding TitleS}" VerticalAlignment="Top" Width="150"/>
+        <Label Content="Nb Saison" HorizontalAlignment="Left" Margin="21,287,0,0" VerticalAlignment="Top" Foreground="White" />
+        <TextBox HorizontalAlignment="Left" Margin="97,285,0,0" TextWrapping="Wrap" Text="{Binding NbSeasonS}" VerticalAlignment="Top" Width="150"/>
+        <Label Content="Résumé" HorizontalAlignment="Left" Margin="33,324,0,0" VerticalAlignment="Top" Foreground="White" />
+        <TextBox HorizontalAlignment="Left" Margin="97,320,0,0" TextWrapping="Wrap" Text="{Binding ContentS}" VerticalAlignment="Top" Width="150"/>
+        <Button Command="{Binding ASerieCommand}" Content="VALIDER" FontFamily="Verdana" Margin="124,354,74,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
 
     </Grid>
 </Window>
