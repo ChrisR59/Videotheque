@@ -12,7 +12,7 @@ using Videothèque2.Models;
 
 namespace Videothèque2.ViewModels
 {
-    public class ListSerieWindowViewModel:ViewModelBase
+    public class ListSerieWindowViewModel : ViewModelBase
     {
 
         private ObservableCollection<Serie> listSerieView;
@@ -113,7 +113,7 @@ namespace Videothèque2.ViewModels
         {
             Serie = new Serie();
             ListSerieView = Serie.GetSerie();
-            EditSerieCommand = new RelayCommand(EditSerie,EditCanExecute);
+            EditSerieCommand = new RelayCommand(EditSerie, EditCanExecute);
             DeleteSerieCommand = new RelayCommand(DeleteSerie);
             ProgramEltCommand = new RelayCommand(EditElt);
         }
@@ -136,7 +136,7 @@ namespace Videothèque2.ViewModels
          */
         private void EditSerie()
         {
-            if(Serie.Title != null && Serie.Content != null)
+            if (Serie.Title != null && Serie.Content != null)
             {
                 if (Serie.UpdateSerie())
                 {
@@ -179,11 +179,16 @@ namespace Videothèque2.ViewModels
          */
         private void EditElt()
         {
-            if (Serie != null)
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer cette série?", "Confirmation programmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                Serie.ToWatch = true;
-                Serie.UpdateElement();
-                EditList();
+                if (Serie != null)
+                {
+                    Serie.ToWatch = true;
+                    Serie.UpdateElement();
+                    MessageBox.Show("La serie a bien été programmé.");
+                    EditList();
+                }
             }
         }
     }

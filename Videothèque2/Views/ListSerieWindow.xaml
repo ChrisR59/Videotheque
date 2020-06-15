@@ -26,7 +26,6 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="75"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"></ColumnDefinition>
@@ -36,7 +35,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
         <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Foreground="White"/>
         <TextBox TextWrapping="Wrap" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
         <TextBox TextWrapping="Wrap" Text="{Binding NbSeason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="0"/>
@@ -52,21 +51,38 @@
         <DataGrid 
             ItemsSource="{Binding ListSerieView}" SelectedItem="{Binding Serie,Mode=TwoWay}"  AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
             AutoGenerateColumns="False" FontSize="16" HeadersVisibility="Column" FontFamily="Verdana"
-            Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2" Grid.RowSpan="3" Margin="0,50,0,50"
-            BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black" >
+            Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2" Grid.RowSpan="3" Margin="0,50,0,0"
+            BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black">
+
             <DataGrid.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/><!-- ligne click -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/>
             </DataGrid.Resources>
+
             <DataGrid.Columns>
                 <DataGridTextColumn Width="400" IsReadOnly="True"  Header="Titre" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="75" IsReadOnly="True"  Header="Saison" Binding="{Binding NbSeason, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="135" IsReadOnly="True"  Header="Ajouté le" Binding="{Binding DateAddFormated, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="135" IsReadOnly="True"  Header="Vu le" Binding="{Binding LastViewFormated, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="150" Header="Programmation" Binding="{Binding ToWatchString, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button Command="{Binding Path=DataContext.ProgramEltCommand, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}}" Content="Programmer" FontFamily="Verdana"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <Button Command="{Binding Path=DataContext.DeleteSerieCommand, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}}" Content="Supprimer" FontFamily="Verdana" Background="#FFDB7F67"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <Button Command="{Binding ProgramEltCommand}" Content="PROGRAMMER" FontFamily="Verdana" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
-        <Button Command="{Binding DeleteSerieCommand}" Content="SUPPRIMER" FontFamily="Verdana" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="6" VerticalAlignment="Bottom" Background="#FFDB7F67" HorizontalAlignment="Center"/>
     </Grid>
 </Window>

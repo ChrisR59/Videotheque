@@ -26,7 +26,6 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="75"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"></ColumnDefinition>
@@ -50,7 +49,7 @@
         <DataGrid 
             ItemsSource="{Binding ListFilmView}" SelectedItem="{Binding Film,Mode=TwoWay}" AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
             AutoGenerateColumns="False" FontSize="16" HeadersVisibility="Column" FontFamily="Verdana"
-            Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2" Grid.RowSpan="3" Margin="0,50,0,50">
+            Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2" Grid.RowSpan="3" Margin="0,50,0,0">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/><!-- ligne click -->
             </DataGrid.Resources>
@@ -59,10 +58,25 @@
                 <DataGridTextColumn Width="135" IsReadOnly="True"  Header="Ajouté le" Binding="{Binding DateAddFormated, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="135" IsReadOnly="True"  Header="Vu le" Binding="{Binding LastViewFormated, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Width="150" Header="Programmation" Binding="{Binding ToWatchString, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button Command="{Binding Path=DataContext.ProgramEltCommand, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}}" Content="Programmer" FontFamily="Verdana"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <Button Command="{Binding Path=DataContext.DeleteFilmCommand, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}}" Content="Supprimer" FontFamily="Verdana" Background="#FFDB7F67"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <Button Command="{Binding ProgramEltCommand}" Content="PROGRAMMER" FontFamily="Verdana" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
-        <Button Command="{Binding DeleteFilmCommand}" Content="SUPPRIMER"  FontFamily="Verdana" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#FFDB7F67"/>
     </Grid>
 </Window>

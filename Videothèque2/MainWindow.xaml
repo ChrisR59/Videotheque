@@ -41,9 +41,21 @@
         </ListView>-->
 
         <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}" AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
-                  FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,100" 
-                  BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black" />
-
-        <Button Command="{Binding ValidateViewCommand}" Content="Vu" Margin="20" FontFamily="Verdana" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                  FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
+                  BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Titre" Binding="{Binding Title,UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Status" Binding="{Binding ToWatch, UpdateSourceTrigger=PropertyChanged}"></DataGridCheckBoxColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <Button Command="{Binding Path=DataContext.ValidateViewCommand, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}}" Content="Vu" FontFamily="Verdana" Margin="20"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
