@@ -71,33 +71,37 @@ namespace Videothèque2.ViewModels
          */
         public void AddElt()
         {
-            CycleC.IdCycle = IdCycle;
-            CycleC.GetRank();
-            CycleC.Title = Element.Title;
-            CycleC.Status = "A voir";
-            CycleC.Type = Element.Type;
-            CycleC.IdElt = Element.Id;
-            if (CycleC.AddElement())
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment ajouter cet élément ?", "Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if (Element != null)
+                CycleC.IdCycle = IdCycle;
+                CycleC.GetRank();
+                CycleC.Title = Element.Title;
+                CycleC.Status = "A voir";
+                CycleC.Type = Element.Type;
+                CycleC.IdElt = Element.Id;
+                if (CycleC.AddElement())
                 {
-                    if (Element.Type == "Film")
+                    if (Element != null)
                     {
-                        Film f = Element.GetOneFilm();
-                        f.ToWatch = false;
-                        Boolean res = f.UpdateElement();
+                        if (Element.Type == "Film")
+                        {
+                            Film f = Element.GetOneFilm();
+                            f.ToWatch = false;
+                            Boolean res = f.UpdateElement();
+                        }
+                        else if (Element.Type == "Serie")
+                        {
+                            Serie s = Element.GetOneSerie();
+                            s.ToWatch = false;
+                            Boolean res = s.UpdateElement();
+                        }
                     }
-                    else if (Element.Type == "Serie")
-                    {
-                        Serie s = Element.GetOneSerie();
-                        s.ToWatch = false;
-                        Boolean res = s.UpdateElement();
-                    }
+                    ListElements.Remove(Element);
+                    RaisePropertyChanged("ListElements");
+                    MessageBox.Show("Element bien ajouté au cycle.");
+                    CycleC.Rank = 0;
                 }
-                ListElements.Remove(Element);
-                RaisePropertyChanged("ListElements");
-                MessageBox.Show("Element bien ajouté au cycle.");
-                CycleC.Rank = 0;
             }
         }
     }

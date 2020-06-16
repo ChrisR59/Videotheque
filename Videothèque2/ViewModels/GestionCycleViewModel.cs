@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Videothèque2.Models;
 
@@ -48,12 +49,15 @@ namespace Videothèque2.ViewModels
 
         private void DeleteCycle()
         {
-            if (Cycle != null && Cycle.DeleteOne())//!! si supression du cycle en cours changé status du cycle suivant
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer ce cycle?", "Confirmation suppression", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                ListCycles.Remove(Cycle);
-                RaisePropertyChanged("ListCycles");
+                if (Cycle != null && Cycle.DeleteOne())//!! si supression du cycle en cours changé status du cycle suivant
+                {
+                    ListCycles.Remove(Cycle);
+                    RaisePropertyChanged("ListCycles");
+                }
             }
-
         }
     }
 }

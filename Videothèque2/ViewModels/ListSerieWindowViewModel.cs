@@ -136,12 +136,16 @@ namespace Videothèque2.ViewModels
          */
         private void EditSerie()
         {
-            if (Serie.Title != null && Serie.Content != null)
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier cette série?", "Confirmation modification", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if (Serie.UpdateSerie())
+                if (Serie.Title != null && Serie.Content != null)
                 {
-                    MessageBox.Show("La serie a bien été modifié.");
-                    EditList();
+                    if (Serie.UpdateSerie())
+                    {
+                        MessageBox.Show("La serie a bien été modifié.");
+                        EditList();
+                    }
                 }
             }
         }
@@ -151,7 +155,7 @@ namespace Videothèque2.ViewModels
          */
         private void DeleteSerie()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer cette série?", "Confirmation Suppression", System.Windows.MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer cette série?", "Confirmation Suppression", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Serie.Id != 0)
@@ -179,7 +183,7 @@ namespace Videothèque2.ViewModels
          */
         private void EditElt()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer cette série?", "Confirmation programmation", System.Windows.MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer cette série?", "Confirmation programmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Serie != null)

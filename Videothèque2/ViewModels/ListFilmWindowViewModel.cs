@@ -128,12 +128,16 @@ namespace Videothèque2.ViewModels
          */
         private void EditFilm()
         {
-            if (Film.Title != null && Film.Content != null)
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier ce film?", "Confirmation modification", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if (Film.UpdateFilm())
+                if (Film.Title != null && Film.Content != null)
                 {
-                    MessageBox.Show("Le Film a bien été modifié.");
-                    EditList();
+                    if (Film.UpdateFilm())
+                    {
+                        MessageBox.Show("Le Film a bien été modifié.");
+                        EditList();
+                    }
                 }
             }
         }
@@ -143,11 +147,15 @@ namespace Videothèque2.ViewModels
          */
         private void EditElt()
         {
-            if (Film != null)
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer ce film?", "Confirmation programmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                Film.ToWatch = true;
-                Film.UpdateElement();
-                EditList();
+                if (Film != null)
+                {
+                    Film.ToWatch = true;
+                    Film.UpdateElement();
+                    EditList();
+                }
             }
         }
 
@@ -156,7 +164,7 @@ namespace Videothèque2.ViewModels
          */
         private void DeleteFilm()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer ce film?", "Confirmation Suppression", System.Windows.MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer ce film?", "Confirmation Suppression", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Film.Id != 0)

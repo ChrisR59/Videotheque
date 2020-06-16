@@ -80,54 +80,58 @@ namespace Videothèque2.ViewModels
 
         private void EditElt()
         {
-            if (CycleC != null)
+            MessageBoxResult messageBoxResult = MessageBox.Show("Vous avez vu ce film/série ?", "Confirmation!", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                Boolean resCycle = false;
-                CycleC.ToWatch = true;
-                if (CycleC.Type == "Film")
+                if (CycleC != null)
                 {
-                    Film f = CycleC.GetOneFilm();
-                    f.LastView = DateTime.Now;
-                    f.NbView++;
-                    f.ToWatch = false;
-                    Boolean resFilm = f.UpdateLastView();
-                    resCycle = CycleC.UpdateToWatch();
-                    if (resFilm && resCycle)
-                        MessageBox.Show("Le date du film a bien été modifié");
-                }
-                else if (CycleC.Type == "Serie")
-                {
-                    Serie s = CycleC.GetOneSerie();
-                    s.LastView = DateTime.Now;
-                    s.NbView++;
-                    s.ToWatch = false;
-                    Boolean resSerie = s.UpdateLastView();
-                    resCycle = CycleC.UpdateToWatch();
-                    if (resSerie && resCycle)
-                        MessageBox.Show("La date de la série a bien été modifié");
-                }
-                //Verifie si les élement ont tous était vu
-                Boolean cycleEnd = true;
-                foreach (CycleContent c in ListCycleContent)
-                {
-                    if (!c.ToWatch)
+                    Boolean resCycle = false;
+                    CycleC.ToWatch = true;
+                    if (CycleC.Type == "Film")
                     {
-                        cycleEnd = false;
+                        Film f = CycleC.GetOneFilm();
+                        f.LastView = DateTime.Now;
+                        f.NbView++;
+                        f.ToWatch = false;
+                        Boolean resFilm = f.UpdateLastView();
+                        resCycle = CycleC.UpdateToWatch();
+                        if (resFilm && resCycle)
+                            MessageBox.Show("Le date du film a bien été modifié");
                     }
-                }
-                //Changement de status du cycle
-                if (cycleEnd)
-                {
-                    CycleS.StatusC = Status.Termine;
-                    if (CycleS.EditStatusCycle())
-                        MessageBox.Show("Cycle Terminé");
+                    else if (CycleC.Type == "Serie")
+                    {
+                        Serie s = CycleC.GetOneSerie();
+                        s.LastView = DateTime.Now;
+                        s.NbView++;
+                        s.ToWatch = false;
+                        Boolean resSerie = s.UpdateLastView();
+                        resCycle = CycleC.UpdateToWatch();
+                        if (resSerie && resCycle)
+                            MessageBox.Show("La date de la série a bien été modifié");
+                    }
+                    //Verifie si les élement ont tous était vu
+                    Boolean cycleEnd = true;
+                    foreach (CycleContent c in ListCycleContent)
+                    {
+                        if (!c.ToWatch)
+                        {
+                            cycleEnd = false;
+                        }
+                    }
+                    //Changement de status du cycle
+                    if (cycleEnd)
+                    {
+                        CycleS.StatusC = Status.Termine;
+                        if (CycleS.EditStatusCycle())
+                            MessageBox.Show("Cycle Terminé");
 
-                    CycleS = new CycleStatus();
-                    CycleS.GetNewCycle();
-                    if (CycleS.EditStatusCycle())
-                        MessageBox.Show("Nouveau cycle chargé");
+                        CycleS = new CycleStatus();
+                        CycleS.GetNewCycle();
+                        if (CycleS.EditStatusCycle())
+                            MessageBox.Show("Nouveau cycle chargé");
+                    }
+                    UpList();
                 }
-                UpList();
             }
         }
 

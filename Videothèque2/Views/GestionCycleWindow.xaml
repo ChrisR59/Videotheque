@@ -20,15 +20,39 @@
         </Style>
     </Window.Style>
     <Grid>
-        <ListView ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" Margin="0,80,0,75" Background="#FF211059" Foreground="White">
+        <!--
+        <ListView x:Name="ListCycle" ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" Margin="0,80,0,75" Background="#FF211059" Foreground="White">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Id}"/>
                     <GridViewColumn Width="200" Header="Programmation" DisplayMemberBinding="{Binding StatusC}"/>
+                    <GridViewColumn Header="Action" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding Path=DeleteCycleCommand}" Content="Supprimer" FontFamily="Verdana" Width="105"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
-        </ListView>
-        <Button Command="{Binding DeleteCycleCommand}" Content="SUPPRIMER" FontFamily="Verdana" VerticalAlignment="Bottom" Margin="321,0,321,10" Width="112"/>
+
+        </ListView>-->
+        <DataGrid ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
+                  FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
+                  BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Width="350" Binding="{Binding Id,UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Width="200" Binding="{Binding StatusC, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding Path=DataContext.DeleteCycleCommand, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}}" Content="Supprimé" Background="#FFDB7F67" FontFamily="Verdana" Margin="20"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>
