@@ -16,9 +16,8 @@ namespace Videothèque2.ViewModels
     {
 
         private ObservableCollection<Serie> listSerieView;
-        private Serie serie;
-
         public ObservableCollection<Serie> ListSerieView { get => listSerieView; set => listSerieView = value; }
+        private Serie serie;
         public Serie Serie
         {
             get => serie;
@@ -35,6 +34,8 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("NbView");
             }
         }
+
+        //List a attributes a serie
         public int Id
         {
             get => Serie.Id;
@@ -53,7 +54,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Title");
             }
         }
-
         public string NbSeason
         {
             get => Serie.NbSeason;
@@ -63,7 +63,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("NbSeason");
             }
         }
-
         public string Content
         {
             get => Serie.Content;
@@ -73,7 +72,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Content");
             }
         }
-
         public DateTime LastView
         {
             get => Serie.LastView;
@@ -83,7 +81,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("LastView");
             }
         }
-
         public int NbView
         {
             get => Serie.NbView;
@@ -93,7 +90,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("NbView");
             }
         }
-
         public string ToWatchString
         {
             get => Serie.ToWatchString;
@@ -104,11 +100,17 @@ namespace Videothèque2.ViewModels
             }
         }
 
-
+        //Command
         public ICommand EditSerieCommand { get; set; }
         public ICommand DeleteSerieCommand { get; set; }
         public ICommand ProgramEltCommand { get; set; }
 
+        /*
+         * Resume : 
+         *      Initialize a serie
+         *      Initialize a commands with a methode as a parameter
+         *      For the EditSerieCommand added EditCanExecute in parameter
+         */
         public ListSerieWindowViewModel()
         {
             Serie = new Serie();
@@ -119,7 +121,8 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Verifie si le bouton peux être utiliser
+         * Resume :
+         *      Check if the button "Modifieré can be use
          */
         private Boolean EditCanExecute()
         {
@@ -132,7 +135,11 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Modifie la série selectionné
+         * Resume :
+         *      Confirm a editing of a serie 
+         *      Update a serie with a MessageBoxResult for confirmation
+         *      Edit in the Bdd with the UpdateSerie method
+         *      Call EditList Method for Maj a serie list
          */
         private void EditSerie()
         {
@@ -151,7 +158,11 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Supprime la série selectionné
+         * Resume :
+         *      Confirm a deleting of a serie
+         *      Delete a serie with a MessageBoxResult for confirmation
+         *      Delete in the Bdd with the DeleteSerie method
+         C      call EditList Method for Maj a serie list
          */
         private void DeleteSerie()
         {
@@ -170,7 +181,9 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Maj de la liste affiché
+         * Resume : 
+         *      Maj of the serie list
+         *      Call GetSeries method for initialize a list
          */
         private void EditList()
         {
@@ -179,7 +192,11 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Confirme la programmation d'un élément de la liste
+         * Resume :
+         *      Confirm a programming of an elements in the list. Attribute ToWatch
+         *      Update a serie with a MessageBoxResult for confirmation
+         *      Edit in the Bdd with the UpdateElement method
+         *      Call EditList Method for Maj a list of the serie
          */
         private void EditElt()
         {

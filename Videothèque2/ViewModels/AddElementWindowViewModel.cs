@@ -16,6 +16,7 @@ namespace Videothèque2.ViewModels
         private Film film;
         private Serie serie;
 
+        //Attribute related to the film
         public string TitleF
         {
             get => film.Title;
@@ -44,6 +45,7 @@ namespace Videothèque2.ViewModels
             }
         }
 
+        //Attribute related to the serie
         public string TitleS
         {
             get => serie.Title;
@@ -81,9 +83,16 @@ namespace Videothèque2.ViewModels
             }
         }
 
+        //Command
         public ICommand AFilmCommand { get; set; }
         public ICommand ASerieCommand { get; set; }
 
+        /*
+         * Resume : 
+         *      Initialize film and serie
+         *      Initialize DateAddF and DateAddS on today date
+         *      Initialize AFilmCommand and ASerieCommand with a methode as a parameter
+         */
         public AddElementWindowViewModel()
         {
             film = new Film();
@@ -96,7 +105,8 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Ajoute un film
+         * Resume :
+         *      Add a movie in the Bdd and then reset attribute film, TitleF,ContentF, DateAddF
          */
         private void AddFilm()
         {
@@ -117,7 +127,8 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Ajoute une série
+         * Resume : 
+         *      Add a serie in the Bdd and then reset attribute serie, TitleS, NbSeasonS, ContentS,DateAddS
          */
         private void AddSerie()
         {

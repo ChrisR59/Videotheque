@@ -17,9 +17,10 @@ namespace Videothèque2.ViewModels
 {
     public class ListFilmWindowViewModel:ViewModelBase
     {
-        private Film film;
         private ObservableCollection<Film> listFilmView;
+        public ObservableCollection<Film> ListFilmView { get => listFilmView; set => listFilmView = value; }
 
+        private Film film;
         public Film Film
         {
             get => film;
@@ -35,8 +36,9 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("NbView");
             }
         }
-        public ObservableCollection<Film> ListFilmView { get => listFilmView; set => listFilmView = value; }
         
+
+        //List a attributes a film
         public int Id
         {
             get => Film.Id;
@@ -97,10 +99,19 @@ namespace Videothèque2.ViewModels
             }
         }
 
+
+        //Command
         public ICommand EditFilmCommand { get; set; }
         public ICommand DeleteFilmCommand { get; set; }
         public ICommand ProgramEltCommand { get; set; }
 
+        /*
+         * Resume :
+         *      Initalize a film
+         *      Call the GetFilms methode to get a list of film
+         *      Initialize a commands with a methode as a parameter
+         *      For the EditFilmCommand added EditCanExecute in parameter
+         */
         public ListFilmWindowViewModel()
         {
             Film = new Film();
@@ -111,7 +122,8 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Verifie si le bouton peux être utiliser
+         * Resume :
+         *      Check if the button "Modifieré can be use
          */
         private Boolean EditCanExecute()
         {
@@ -124,7 +136,11 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Modifie le film selectionné
+         * Resume :
+         *      Confirm a editing of a film 
+         *      Update a film with a MessageBoxResult for confirmation
+         *      edit in the Bdd with the UpdateFilm method
+         *      call EditList Method for Maj a list of the film
          */
         private void EditFilm()
         {
@@ -143,7 +159,11 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Confirme la programmation d'un élément de la liste
+         * Resume :
+         *      Confirm a programming of an elements in the list. Attribute ToWatch
+         *      Update a film with a MessageBoxResult for confirmation
+         *      edit in the Bdd with the UpdateElement method
+         *      call EditList Method for Maj a list of the film
          */
         private void EditElt()
         {
@@ -160,7 +180,11 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Supprime le film selectionné
+         * Resume :
+         *      Confirm a deleting of a film
+         *      Delete a film with a MessageBoxResult for confirmation
+         *      Delete in the Bdd with the DeleteFilm method
+         *      call EditList Method for Maj a list of the film
          */
         private void DeleteFilm()
         {
@@ -179,7 +203,9 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Maj de la liste affiché
+         * Resume : 
+         *      Maj of the film list
+         *      Call GetFilms method for initialize a list
          */
         private void EditList()
         {

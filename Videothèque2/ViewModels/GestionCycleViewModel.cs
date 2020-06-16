@@ -16,7 +16,9 @@ namespace Videothèque2.ViewModels
     {
         public ObservableCollection<CycleStatus> ListCycles { get; set; }
         private CycleStatus cycle;
+        public CycleStatus Cycle { get => cycle; set => cycle = value; }
 
+        //Attribute related in the cycle
         public int Id
         {
             get => Cycle.Id;
@@ -26,7 +28,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Id");
             }
         }
-
         public Status StatusC
         {
             get => Cycle.StatusC;
@@ -37,9 +38,16 @@ namespace Videothèque2.ViewModels
             }
         }
 
-        public CycleStatus Cycle { get => cycle; set => cycle = value; }
+        //Command
         public ICommand DeleteCycleCommand { get; set; }
 
+
+        /*
+         * Resume :
+         *      Initialize a Cycle
+         *      Call the GetCycle methode to get a list of cycle
+         *      Initialize DeleteCycleCommand with a methode as a parameter
+         */
         public GestionCycleViewModel()
         {
             Cycle = new CycleStatus();
@@ -47,6 +55,11 @@ namespace Videothèque2.ViewModels
             DeleteCycleCommand = new RelayCommand(DeleteCycle);
         }
 
+        /*
+         * Resume :
+         *      Delete a cycle with a MessageBoxResult for confirmation
+         *      Delete in the Bdd and in the listCycles
+         */
         private void DeleteCycle()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer ce cycle?", "Confirmation suppression", MessageBoxButton.YesNo);

@@ -15,19 +15,25 @@ namespace Videothèque2.ViewModels
     class ProgrammationWindowViewModel:ViewModelBase
     {
         private ObservableCollection<int> listCycle;
-        private ObservableCollection<Element> listElements;
-        private CycleStatus cycleS;
-        private CycleContent cycleC;
-        private Element element;
-        private int idCycle;
-
         public ObservableCollection<int> ListCycle { get => listCycle; set => listCycle = value; }
-        public ObservableCollection<Element> ListElements { get => listElements; set => listElements = value; }
-        public CycleStatus CycleS { get => cycleS; set => cycleS = value; }
-        public CycleContent CycleC { get => cycleC; set => cycleC = value; }
-        public Element Element { get => element; set => element = value; }
-        public int IdCycle { get => idCycle; set => idCycle = value; }
 
+        private ObservableCollection<Element> listElements;
+        public ObservableCollection<Element> ListElements { get => listElements; set => listElements = value; }
+
+        //Cycle Status
+        private CycleStatus cycleS;
+        public CycleStatus CycleS { get => cycleS; set => cycleS = value; }
+
+        //Cycle Content
+        private CycleContent cycleC;
+        public CycleContent CycleC { get => cycleC; set => cycleC = value; }
+
+        private Element element;
+        public Element Element { get => element; set => element = value; }
+
+        //Cycle Statu item
+        private int idCycle;
+        public int IdCycle { get => idCycle; set => idCycle = value; }
         public Status Status
         {
             get => CycleS.StatusC;
@@ -39,10 +45,16 @@ namespace Videothèque2.ViewModels
 
         }
 
-
+        //Command
         public ICommand AddCycleCommand { get; set; }
         public ICommand AddEltCycleCommand { get; set; }
 
+        /*
+         * Resume : 
+         *      Initialize CycleS, CycleC and Element
+         *      Call GetListCycle for a ListCycle
+         *      Initialize Command
+         */
         public ProgrammationWindowViewModel()
         {
             CycleS = new CycleStatus();
@@ -55,7 +67,8 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Ajoute un Cycle
+         * Resume : 
+         *      Create a new Cycle. "Cycle Status"
          */
         public void AddCycle()
         {
@@ -67,7 +80,11 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * Ajoute un element au cycle selectioné
+         * Resume : 
+         *      Add an Element to the selected cycle
+         *      Call UpdateElement for maj Film or Serie selected
+         *      Edit BDD film or serie and Cycle Content
+         *      Remove an elemenet of the listElements
          */
         public void AddElt()
         {
