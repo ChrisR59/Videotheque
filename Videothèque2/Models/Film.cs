@@ -9,6 +9,10 @@ using Videothèque2.Tools;
 
 namespace Videothèque2.Models
 {
+    /*
+     * Resume
+     *      A film
+     */
     public class Film
     {
         private int id;
@@ -33,6 +37,11 @@ namespace Videothèque2.Models
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
 
+        /*
+         * Resume :
+         *      Add a new film in the bdd
+         * Return true if insert is successful
+         */
         public Boolean Add()
         {
             bool res = false;
@@ -51,6 +60,11 @@ namespace Videothèque2.Models
             return res;
         }
 
+        /*
+         * Resume :
+         *      Get a film list
+         * Return an ObservableCollection of the Film type order by Title
+         */
         public ObservableCollection<Film> GetFilms()
         {
             ObservableCollection<Film> l = new ObservableCollection<Film>();
@@ -89,6 +103,11 @@ namespace Videothèque2.Models
             return l;
         }
 
+        /*
+         * Resume :
+         *      Edit one film after watching the movie
+         * Return true if update is successful
+         */
         public Boolean UpdateLastView()
         {
             Boolean res = false;
@@ -109,6 +128,12 @@ namespace Videothèque2.Models
 
             return res;
         }
+
+        /*
+         * Resume :
+         *      Edit one film for program or deprogram
+         * Return true if update is successful
+         */
         public Boolean UpdateElement()
         {
             Boolean res = false;
@@ -129,6 +154,11 @@ namespace Videothèque2.Models
             return res;
         }
 
+        /*
+         * Resume :
+         *      Edit title and content of the film
+         * Return true if update is successful
+         */
         public Boolean UpdateFilm()
         {
             Boolean res = false;
@@ -147,6 +177,12 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
             return res;
         }
+
+        /*
+         * Resume :
+         *      Delete a film
+         * Return true if delete is successful
+         */
         public Boolean DeleteFilm()
         {
             Boolean res = false;

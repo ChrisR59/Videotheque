@@ -9,6 +9,10 @@ using Videothèque2.Tools;
 
 namespace Videothèque2.Models
 {
+    /**
+     * Resume
+     *      Status of a cycle
+     */
     public class CycleStatus
     {
         private int id;
@@ -17,6 +21,11 @@ namespace Videothèque2.Models
         public int Id { get => id; set => id = value; }
         public Status StatusC { get => statusC; set => statusC = value; }
 
+        /*
+         * Resume
+         *      Add one cycle in the bdd
+         * Return true if insert is successful
+         */
         public Boolean AddCycle()
         {
             Boolean res = false;
@@ -31,25 +40,11 @@ namespace Videothèque2.Models
             return res;
         }
 
-        public Boolean EditStatusCycle()
-        {
-            Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE CycleStatus SET Status = @Status WHERE Id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Status", StatusC));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
-            DataBase.Instance.connection.Open();
-
-            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
-                res = true;
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            return res;
-        }
-
+        /*
+         * Resume :
+         *      Get a cycle list
+         * Return an ObservableCollection of the CycleStatus type
+         */
         public ObservableCollection<CycleStatus> GetCycles()
         {
             ObservableCollection<CycleStatus> l = new ObservableCollection<CycleStatus>();
@@ -72,6 +67,10 @@ namespace Videothèque2.Models
             return l;
         }
 
+        /*
+         * Resume :
+         *      Get a Id of a Cycle
+         */
         public void GetIdCycle()
         {
             DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '0'", DataBase.Instance.connection);
@@ -86,6 +85,10 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
         }
 
+        /*
+         * Resume :
+         *      Get one cycle
+         */
         public void GetNewCycle()
         {
             DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '1'", DataBase.Instance.connection);
@@ -107,6 +110,10 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
         }
 
+        /*
+         * Resume : 
+         *      Check and get if a current cycle
+         */
         public void CheckCycleExist()
         {
             DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '0'",DataBase.Instance.connection);
@@ -121,6 +128,11 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
         }
 
+        /*
+         * Resume :
+         *      Get a cycle list which are not finished
+         * Return an ObservableCollection of the CycleStatus type which are not finished
+         */
         public ObservableCollection<int> GetListCycle()
         {
             ObservableCollection<int> l = new ObservableCollection<int>();
@@ -138,6 +150,35 @@ namespace Videothèque2.Models
             return l;
         }
 
+        /*
+         * Resume :
+         *      Edit "Status" of a cycle
+         * Return true if update is successful
+         */
+        public Boolean EditStatusCycle()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE CycleStatus SET Status = @Status WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Status", StatusC));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
+
+        /*
+         * Resume :
+         *      Delete one cycle
+         * Return true if delete is successful
+         */
         public Boolean DeleteOne()
         {
             bool res = false;

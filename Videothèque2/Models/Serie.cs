@@ -9,6 +9,10 @@ using Videothèque2.Tools;
 
 namespace Videothèque2.Models
 {
+    /*
+     * Resume
+     *      a serie
+     */
     public class Serie
     {
         private int id;
@@ -35,6 +39,11 @@ namespace Videothèque2.Models
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
 
+        /*
+         * Resume :
+         *      Add a new serie in the bdd
+         * Return true if insert is successful
+         */
         public Boolean Add()
         {
             bool res = false;
@@ -54,6 +63,11 @@ namespace Videothèque2.Models
             return res;
         }
 
+        /*
+         * Resume :
+         *      Get a serie list
+         * Return an ObservableCollection of the Serie type order by Title
+         */
         public ObservableCollection<Serie> GetSerie()
         {
             ObservableCollection<Serie> l = new ObservableCollection<Serie>();
@@ -93,6 +107,12 @@ namespace Videothèque2.Models
 
             return l;
         }
+
+        /*
+         * Resume :
+         *      Edit one serie after watching
+         * Return true if update is successful
+         */
         public Boolean UpdateLastView()
         {
             Boolean res = false;
@@ -113,6 +133,12 @@ namespace Videothèque2.Models
 
             return res;
         }
+
+        /*
+         * Resume :
+         *      Edit one serie for program or deprogram
+         * Return true if update is successful
+         */
         public Boolean UpdateElement()
         {
             Boolean res = false;
@@ -133,6 +159,11 @@ namespace Videothèque2.Models
             return res;
         }
 
+        /*
+         * Resume :
+         *      Edit title, nbSeason and content of the serie
+         * Return true if update is successful
+         */
         public Boolean UpdateSerie()
         {
             Boolean res = false;
@@ -154,6 +185,11 @@ namespace Videothèque2.Models
             return res;
         }
 
+        /*
+         * Resume :
+         *      Delete a serie
+         * Return true if selete is successful
+         */
         public Boolean DeleteSerie()
         {
             Boolean res = false;

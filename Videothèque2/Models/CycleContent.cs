@@ -10,6 +10,10 @@ using Videothèque2.Tools;
 
 namespace Videothèque2.Models
 {
+    /*
+     * Resume :
+     *      Content of the cycle
+     */
     public class CycleContent:INotifyPropertyChanged
     {
         private int id;
@@ -40,6 +44,12 @@ namespace Videothèque2.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /*
+         * Resume :
+         *      Add a Cycle in the Bdd
+         *      
+         * Return True if insert is successful
+         */
         public Boolean AddElement()
         {
             Boolean res = false;
@@ -60,6 +70,13 @@ namespace Videothèque2.Models
             return res;
         }
 
+        /*
+         * Resume 
+         *      Get an items list form the current cycle
+         * Parameter
+         *      An Integer corresponding to the id of the current cycle
+         * Return an ObservableCollection of the CycleContent type
+         */
         public ObservableCollection<CycleContent> GetCycleActually(int idCycleS)
         {
             ObservableCollection<CycleContent> listC = new ObservableCollection<CycleContent>();
@@ -93,6 +110,12 @@ namespace Videothèque2.Models
 
             return listC;
         }
+
+        /*
+         * Resume :
+         *      Get one Film
+         * Return a object of the film type
+         */
         public Film GetOneFilm()
         {
             Film f = new Film();
@@ -116,6 +139,12 @@ namespace Videothèque2.Models
 
             return f;
         }
+
+        /*
+         * Resume :
+         *      Get one serie
+         * Return a object of the serie type
+         */
         public Serie GetOneSerie()
         {
             Serie s = new Serie();
@@ -140,6 +169,10 @@ namespace Videothèque2.Models
             return s;
         }
 
+        /*
+         * Resume : 
+         *      get the rank of an element of a cycle
+         */
         public void GetRank()
         {
             DataBase.Instance.command = new SqlCommand("SELECT Rank FROM CycleContent WHERE IdCycle = @idCycle",DataBase.Instance.connection);
@@ -157,6 +190,11 @@ namespace Videothèque2.Models
 
         }
 
+        /*
+         * Resume
+         *      Edit "ToWatch" of an element of a cycle
+         * Return True if update is successful
+         */
         public Boolean UpdateToWatch()
         {
             Boolean res = false;

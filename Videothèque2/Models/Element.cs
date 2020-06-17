@@ -10,6 +10,10 @@ using Videothèque2.Tools;
 
 namespace Videothèque2.Models
 {
+    /*
+     * Resume : 
+     *      An element can be a Film or a Serie
+     */
     public class Element : INotifyPropertyChanged
     {
         private int id;
@@ -34,6 +38,11 @@ namespace Videothèque2.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /*
+         * Resume :
+         *      Get a element list which "ToWatch" = 1 in the base of the Film and Serie
+         * Return an ObservableCollection of the Element type Which "ToWatch" = 1
+         */
         public ObservableCollection<Element> GetProgram()
         {
             ObservableCollection<Element> l = new ObservableCollection<Element>();
@@ -76,6 +85,10 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
             return l;
         }
+
+        /*
+         * Methode a Delete ???
+         */
         public ObservableCollection<Element> GetElements()
         {
             ObservableCollection<Element> l = new ObservableCollection<Element>();
@@ -127,6 +140,11 @@ namespace Videothèque2.Models
             return l;
         }
 
+        /*
+         * Resume :
+         *      Get one film with his Id
+         * Return an Film object 
+         */
         public Film GetOneFilm()
         {
             Film f = new Film();
@@ -150,6 +168,12 @@ namespace Videothèque2.Models
 
             return f;
         }
+
+        /*
+         * Resume :
+         *      Get one serie with his Id
+         * Return an Serie object 
+         */
         public Serie GetOneSerie()
         {
             Serie s = new Serie();
@@ -174,7 +198,10 @@ namespace Videothèque2.Models
             return s;
         }
 
-        public Boolean UpdateElement()//Inutile normalement
+        /*
+         * Methode a Delete ???
+         */
+        public Boolean UpdateElement()
         {
             Boolean res = false;
             string req = "UPDATE " + Type + " SET ToWatch = @ToWatch WHERE id = @Id";
