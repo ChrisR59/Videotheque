@@ -31,27 +31,39 @@
 
         <Button Command="{Binding UpdateListCommand}" Content="ACTUALISER" VerticalAlignment="Top" Margin="322,60,322,0" FontFamily="Verdana" HorizontalAlignment="Center"/>
 
-        <!--<ListView ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}" HorizontalAlignment="Left" Height="210" Margin="57,66,0,0" VerticalAlignment="Top" Width="297">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="197" Header="Titre" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Width="100" Header="Type" DisplayMemberBinding="{Binding Type}" />
-                </GridView>
-            </ListView.View>
-        </ListView>-->
-
         <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}" AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
                   FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
-                  BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black" >
+                  BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Titre" Width="350" Binding="{Binding Title,UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Type" Binding="{Binding Type, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                <DataGridCheckBoxColumn Header="Status" Binding="{Binding ToWatch, UpdateSourceTrigger=PropertyChanged}"></DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="Titre" Width="350" Binding="{Binding Title,UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="70" Header="Type" Binding="{Binding Type, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridCheckBoxColumn Width="80" Header="Status" Binding="{Binding ToWatch, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.ElementStyle>
+                        <Style TargetType="CheckBox">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridCheckBoxColumn.ElementStyle>
+                </DataGridCheckBoxColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Command="{Binding Path=DataContext.ValidateViewCommand, RelativeSource= {RelativeSource FindAncestor,
-                                        AncestorType={x:Type DataGrid}}}" Content="Vu" FontFamily="Verdana" Margin="20"/>
+                                        AncestorType={x:Type DataGrid}}}" Content="Vu" FontFamily="Verdana" Width="60"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

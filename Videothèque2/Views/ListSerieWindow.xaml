@@ -52,18 +52,53 @@
             ItemsSource="{Binding ListSerieView}" SelectedItem="{Binding Serie,Mode=TwoWay}"  AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
             AutoGenerateColumns="False" FontSize="16" HeadersVisibility="Column" FontFamily="Verdana"
             Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2" Grid.RowSpan="3" Margin="0,50,0,0"
-            BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black">
+            BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
 
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/>
             </DataGrid.Resources>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Width="400" IsReadOnly="True"  Header="Titre" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Width="75" IsReadOnly="True"  Header="Saison" Binding="{Binding NbSeason, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Width="135" IsReadOnly="True"  Header="Ajouté le" Binding="{Binding DateAddFormated, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Width="135" IsReadOnly="True"  Header="Vu le" Binding="{Binding LastViewFormated, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Width="150" Header="Programmation" Binding="{Binding ToWatchString, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Width="400" IsReadOnly="True"  Header="Titre" Binding="{Binding Title, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="75" IsReadOnly="True"  Header="Saison" Binding="{Binding NbSeason, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="135" IsReadOnly="True"  Header="Ajouté le" Binding="{Binding DateAddFormated, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="135" IsReadOnly="True"  Header="Vu le" Binding="{Binding LastViewFormated, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="150" Header="Programmation" Binding="{Binding ToWatchString, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

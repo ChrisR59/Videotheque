@@ -39,15 +39,29 @@
         </ListView>-->
         <DataGrid ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
                   FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
-                  BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black">
+                  BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Width="350" Binding="{Binding Id,UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Status" Width="200" Binding="{Binding StatusC, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Id" Width="350" Binding="{Binding Id,UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Width="200" Binding="{Binding StatusC, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Command="{Binding Path=DataContext.DeleteCycleCommand, RelativeSource= {RelativeSource FindAncestor,
-                                        AncestorType={x:Type DataGrid}}}" Content="Supprimé" Background="#FFDB7F67" FontFamily="Verdana" Margin="20"/>
+                                        AncestorType={x:Type DataGrid}}}" Content="Supprimé" Background="#FFDB7F67" FontFamily="Verdana" Width="118"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
