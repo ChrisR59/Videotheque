@@ -118,7 +118,7 @@ namespace Videothèque2.ViewModels
             ListFilmView = Film.GetFilms();
             EditFilmCommand = new RelayCommand(EditFilm, EditCanExecute);
             DeleteFilmCommand = new RelayCommand(DeleteFilm);
-            ProgramEltCommand = new RelayCommand(EditElt);
+            ProgramEltCommand = new RelayCommand(ProgramFilm);
         }
 
         /**
@@ -152,7 +152,7 @@ namespace Videothèque2.ViewModels
                     if (Film.UpdateFilm())
                     {
                         MessageBox.Show("Le Film a bien été modifié.");
-                        EditList();
+                        UpList();
                     }
                 }
             }
@@ -165,7 +165,7 @@ namespace Videothèque2.ViewModels
          *      edit in the Bdd with the UpdateElement method
          *      call EditList Method for Maj a list of the film
          */
-        private void EditElt()
+        private void ProgramFilm()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer ce film?", "Confirmation programmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
@@ -173,8 +173,8 @@ namespace Videothèque2.ViewModels
                 if (Film != null)
                 {
                     Film.ToWatch = true;
-                    Film.UpdateElement();
-                    EditList();
+                    Film.UpFilmProgramm();
+                    UpList();
                 }
             }
         }
@@ -196,7 +196,7 @@ namespace Videothèque2.ViewModels
                     if (Film.DeleteFilm())
                     {
                         MessageBox.Show("Le Film a bien été supprimé.");
-                        EditList();
+                        UpList();
                     }
                 }
             }
@@ -207,7 +207,7 @@ namespace Videothèque2.ViewModels
          *      Maj of the film list
          *      Call GetFilms method for initialize a list
          */
-        private void EditList()
+        private void UpList()
         {
             ListFilmView = Film.GetFilms();
             RaisePropertyChanged("ListFilmView");

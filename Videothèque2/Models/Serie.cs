@@ -139,7 +139,7 @@ namespace Videothèque2.Models
          *      Edit one serie for program or deprogram
          * Return true if update is successful
          */
-        public Boolean UpdateElement()
+        public Boolean UpSerieProgramm()
         {
             Boolean res = false;
             string req = "UPDATE Series SET ToWatch = @ToWatch WHERE id = @Id";

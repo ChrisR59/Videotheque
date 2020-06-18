@@ -134,7 +134,7 @@ namespace Videothèque2.Models
          *      Edit one film for program or deprogram
          * Return true if update is successful
          */
-        public Boolean UpdateElement()
+        public Boolean UpFilmProgramm()
         {
             Boolean res = false;
             string req = "UPDATE Films SET ToWatch = @ToWatch WHERE id = @Id";

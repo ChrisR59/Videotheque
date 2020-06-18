@@ -60,20 +60,20 @@ namespace Videothèque2.ViewModels
             CycleS = new CycleStatus();
             CycleC = new CycleContent();
             Element = new Element();
-            ListCycle = CycleS.GetListCycle();
+            ListCycle = CycleS.GetCycleListNotFinish();
             ListElements = Element.GetProgram();
-            AddCycleCommand = new RelayCommand(AddCycle);
-            AddEltCycleCommand = new RelayCommand(AddElt);
+            AddCycleCommand = new RelayCommand(CreateCycle);
+            AddEltCycleCommand = new RelayCommand(AddEltCycle);
         }
 
         /**
          * Resume : 
          *      Create a new Cycle. "Cycle Status"
          */
-        public void AddCycle()
+        public void CreateCycle()
         {
             CycleS.CheckCycleExist();
-            if (CycleS.AddCycle())
+            if (CycleS.NewCycle())
             {
                 MessageBox.Show("Un nouveau Cycle a été crée.");
             }
@@ -86,13 +86,13 @@ namespace Videothèque2.ViewModels
          *      Edit BDD film or serie and Cycle Content
          *      Remove an elemenet of the listElements
          */
-        public void AddElt()
+        public void AddEltCycle()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment ajouter cet élément ?", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 CycleC.IdCycle = IdCycle;
-                CycleC.GetRank();
+                CycleC.GetRankElt();
                 CycleC.Title = Element.Title;
                 CycleC.Status = "A voir";
                 CycleC.Type = Element.Type;
@@ -105,13 +105,13 @@ namespace Videothèque2.ViewModels
                         {
                             Film f = Element.GetOneFilm();
                             f.ToWatch = false;
-                            Boolean res = f.UpdateElement();
+                            Boolean res = f.UpFilmProgramm();
                         }
                         else if (Element.Type == "Serie")
                         {
                             Serie s = Element.GetOneSerie();
                             s.ToWatch = false;
-                            Boolean res = s.UpdateElement();
+                            Boolean res = s.UpSerieProgramm();
                         }
                     }
                     ListElements.Remove(Element);

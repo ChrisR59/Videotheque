@@ -48,7 +48,7 @@ namespace Videothèque2.ViewModels
             CycleS = new CycleStatus();
             CycleC = new CycleContent();
             CycleS.GetIdCycle();
-            ListCycleContent = CycleC.GetCycleActually(CycleS.Id);
+            ListCycleContent = CycleC.GetCurrentCycle(CycleS.Id);
 
             LFilmCommand = new RelayCommand(() =>
             {
@@ -80,7 +80,7 @@ namespace Videothèque2.ViewModels
                pc.Show();
             });
 
-            ValidateViewCommand = new RelayCommand(EditElt);
+            ValidateViewCommand = new RelayCommand(ValidViewElt);
             UpdateListCommand = new RelayCommand(UpList);
         }
 
@@ -91,7 +91,7 @@ namespace Videothèque2.ViewModels
          *      Check with a foreach if all elemnt of the cycle have been seen. Attribute "ToWatch"
          *      If all element of the cycle have been seen, end the current cycle and get next cycle
          */
-        private void EditElt()
+        private void ValidViewElt()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Vous avez vu ce film/série ?", "Confirmation!", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
@@ -165,7 +165,7 @@ namespace Videothèque2.ViewModels
         private void UpList()
         {
             CycleC = new CycleContent();
-            ListCycleContent = CycleC.GetCycleActually(CycleS.Id);
+            ListCycleContent = CycleC.GetCurrentCycle(CycleS.Id);
             RaisePropertyChanged("ListCycleContent");
         }
     }

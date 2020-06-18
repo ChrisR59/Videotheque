@@ -117,7 +117,7 @@ namespace Videothèque2.ViewModels
             ListSerieView = Serie.GetSerie();
             EditSerieCommand = new RelayCommand(EditSerie, EditCanExecute);
             DeleteSerieCommand = new RelayCommand(DeleteSerie);
-            ProgramEltCommand = new RelayCommand(EditElt);
+            ProgramEltCommand = new RelayCommand(ProgramSerie);
         }
 
         /**
@@ -151,7 +151,7 @@ namespace Videothèque2.ViewModels
                     if (Serie.UpdateSerie())
                     {
                         MessageBox.Show("La serie a bien été modifié.");
-                        EditList();
+                        UpList();
                     }
                 }
             }
@@ -174,7 +174,7 @@ namespace Videothèque2.ViewModels
                     if (Serie.DeleteSerie())
                     {
                         MessageBox.Show("La serie a bien été supprimé.");
-                        EditList();
+                        UpList();
                     }
                 }
             }
@@ -185,7 +185,7 @@ namespace Videothèque2.ViewModels
          *      Maj of the serie list
          *      Call GetSeries method for initialize a list
          */
-        private void EditList()
+        private void UpList()
         {
             ListSerieView = Serie.GetSerie();
             RaisePropertyChanged("ListSerieView");
@@ -198,7 +198,7 @@ namespace Videothèque2.ViewModels
          *      Edit in the Bdd with the UpdateElement method
          *      Call EditList Method for Maj a list of the serie
          */
-        private void EditElt()
+        private void ProgramSerie()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer cette série?", "Confirmation programmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
@@ -206,9 +206,9 @@ namespace Videothèque2.ViewModels
                 if (Serie != null)
                 {
                     Serie.ToWatch = true;
-                    Serie.UpdateElement();
+                    Serie.UpSerieProgramm();
                     MessageBox.Show("La serie a bien été programmé.");
-                    EditList();
+                    UpList();
                 }
             }
         }

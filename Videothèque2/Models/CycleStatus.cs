@@ -26,7 +26,7 @@ namespace Videothèque2.Models
          *      Add one cycle in the bdd
          * Return true if insert is successful
          */
-        public Boolean AddCycle()
+        public Boolean NewCycle()
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("INSERT INTO CycleStatus(Status) OUTPUT INSERTED.ID VALUES(@StatusC)", DataBase.Instance.connection);
@@ -45,7 +45,7 @@ namespace Videothèque2.Models
          *      Get a cycle list
          * Return an ObservableCollection of the CycleStatus type
          */
-        public ObservableCollection<CycleStatus> GetCycles()
+        public ObservableCollection<CycleStatus> GetCycleList()
         {
             ObservableCollection<CycleStatus> l = new ObservableCollection<CycleStatus>();
 
@@ -133,7 +133,7 @@ namespace Videothèque2.Models
          *      Get a cycle list which are not finished
          * Return an ObservableCollection of the CycleStatus type which are not finished
          */
-        public ObservableCollection<int> GetListCycle()
+        public ObservableCollection<int> GetCycleListNotFinish()
         {
             ObservableCollection<int> l = new ObservableCollection<int>();
 

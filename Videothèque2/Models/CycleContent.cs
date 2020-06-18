@@ -77,7 +77,7 @@ namespace Videothèque2.Models
          *      An Integer corresponding to the id of the current cycle
          * Return an ObservableCollection of the CycleContent type
          */
-        public ObservableCollection<CycleContent> GetCycleActually(int idCycleS)
+        public ObservableCollection<CycleContent> GetCurrentCycle(int idCycleS)
         {
             ObservableCollection<CycleContent> listC = new ObservableCollection<CycleContent>();
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Status,Rank,Type,IdElt,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
@@ -173,7 +173,7 @@ namespace Videothèque2.Models
          * Resume : 
          *      get the rank of an element of a cycle
          */
-        public void GetRank()
+        public void GetRankElt()
         {
             DataBase.Instance.command = new SqlCommand("SELECT Rank FROM CycleContent WHERE IdCycle = @idCycle",DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", IdCycle));

@@ -51,7 +51,7 @@ namespace Videothèque2.ViewModels
         public GestionCycleViewModel()
         {
             Cycle = new CycleStatus();
-            ListCycles = Cycle.GetCycles();
+            ListCycles = Cycle.GetCycleList();
             DeleteCycleCommand = new RelayCommand(DeleteCycle);
         }
 
