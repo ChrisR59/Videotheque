@@ -87,60 +87,6 @@ namespace Videothèque2.Models
         }
 
         /*
-         * Methode a Delete ???
-         */
-        public ObservableCollection<Element> GetElements()
-        {
-            ObservableCollection<Element> l = new ObservableCollection<Element>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Films", DataBase.Instance.connection);
-            DataBase.Instance.connection.Open();
-            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
-
-            while (DataBase.Instance.reader.Read())
-            {
-                Element e = new Element();
-                e.Id = DataBase.Instance.reader.GetInt32(0);
-                e.Title = DataBase.Instance.reader.GetString(1);
-                int w = DataBase.Instance.reader.GetInt32(2);
-                e.ToWatchString = "Non programmé";
-                if (w == 1)
-                {
-                    e.ToWatch = true;
-                    e.ToWatchString = "Programmé";
-                }
-                e.Type = "Films";
-                l.Add(e);
-            }
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Series", DataBase.Instance.connection);
-            DataBase.Instance.connection.Open();
-            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
-
-            while (DataBase.Instance.reader.Read())
-            {
-                Element s = new Element();
-                s.Id = DataBase.Instance.reader.GetInt32(0);
-                s.Title = DataBase.Instance.reader.GetString(1);
-                int w = DataBase.Instance.reader.GetInt32(2);
-                s.ToWatchString = "Non programmé";
-                if (w == 1)
-                {
-                    s.ToWatch = true;
-                    s.ToWatchString = "Programmé";
-                }
-                s.Type = "Series";
-                l.Add(s);
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            return l;
-        }
-
-        /*
          * Resume :
          *      Get one film with his Id
          * Return an Film object 
@@ -196,29 +142,6 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
 
             return s;
-        }
-
-        /*
-         * Methode a Delete ???
-         */
-        public Boolean UpdateElement()
-        {
-            Boolean res = false;
-            string req = "UPDATE " + Type + " SET ToWatch = @ToWatch WHERE id = @Id";
-            DataBase.Instance.command = new SqlCommand(req, DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
-            DataBase.Instance.connection.Open();
-
-            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
-                res = true;
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            return res;
         }
 
         private void NotifyPropertyChange(string propertyName)
