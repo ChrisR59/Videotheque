@@ -12,7 +12,7 @@
         <viewModel:ProgrammationWindowViewModel></viewModel:ProgrammationWindowViewModel>
     </Window.DataContext>
     <Window.Resources>
-        <SolidColorBrush x:Key="WindowBrush" Color="#211059"/>
+        <SolidColorBrush x:Key="WindowBrush" Color="#1f1f33"/>
     </Window.Resources>
     <Window.Style>
         <Style TargetType="{x:Type Window}">
@@ -25,9 +25,9 @@
         <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="250,113,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="16" Width="80"/>
         <Button Command="{Binding AddEltCycleCommand}" Content="ADD ELEMENT" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,100,250,0"/>
 
-        <DataGrid ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}"  AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
+        <DataGrid ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}"  AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
                  FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,170,0,0"
-                  BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black">
+                  BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black">
 
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/>

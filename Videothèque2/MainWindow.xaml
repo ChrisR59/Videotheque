@@ -12,7 +12,7 @@
         <viewModel:MainWindowViewModel></viewModel:MainWindowViewModel>
     </Window.DataContext>
     <Window.Resources>
-        <SolidColorBrush x:Key="WindowBrush" Color="#211059"/>
+        <SolidColorBrush x:Key="WindowBrush" Color="#1f1f33"/>
     </Window.Resources>
     <Window.Style>
         <Style TargetType="{x:Type Window}">
@@ -31,9 +31,9 @@
 
         <Button Command="{Binding UpdateListCommand}" Content="ACTUALISER" VerticalAlignment="Top" Margin="322,60,322,0" FontFamily="Verdana" HorizontalAlignment="Center"/>
 
-        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}" AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
+        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
                   FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
-                  BorderBrush="#FF211059" Background="#FF211059" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
+                  BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Titre" Width="350" Binding="{Binding Title,UpdateSourceTrigger=PropertyChanged}">
                     <DataGridTextColumn.ElementStyle>

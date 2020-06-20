@@ -11,7 +11,7 @@
         <viewModel:AddElementWindowViewModel></viewModel:AddElementWindowViewModel>
     </Window.DataContext>
     <Window.Resources>
-        <SolidColorBrush x:Key="WindowBrush" Color="#211059"/>
+        <SolidColorBrush x:Key="WindowBrush" Color="#1f1f33"/>
     </Window.Resources>
     <Window.Style>
         <Style TargetType="{x:Type Window}">

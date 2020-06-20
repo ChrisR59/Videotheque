@@ -13,7 +13,12 @@
         <LinearGradientBrush x:Key="MyGlassBrushResource" StartPoint="0,0" EndPoint="1,1" Opacity="0.75"
                             GradientStops="{StaticResource MyGlassGradientStopsResource}" />
         <Style TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="#56876D"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True"><!-- Survole des boutons -->
+                    <Setter Property="Background" Value="#faa76b"/>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Background" Value="#818198"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">

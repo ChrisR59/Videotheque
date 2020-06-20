@@ -12,7 +12,7 @@
         <viewModel:ListFilmWindowViewModel></viewModel:ListFilmWindowViewModel>
     </Window.DataContext>
     <Window.Resources>
-        <SolidColorBrush x:Key="WindowBrush" Color="#211059"/>
+        <SolidColorBrush x:Key="WindowBrush" Color="#1f1f33"/>
     </Window.Resources>
     <Window.Style>
         <Style TargetType="{x:Type Window}">
@@ -47,8 +47,8 @@
         <Button Command="{Binding EditFilmCommand}" Content="MODIFIER" FontFamily="Verdana" Grid.Column="4" Grid.Row="1"  Height="55" HorizontalAlignment="Center" Background="#FFC2A83E"/>
 
         <DataGrid 
-            ItemsSource="{Binding ListFilmView}" SelectedItem="{Binding Film,Mode=TwoWay}" AlternatingRowBackground="LightBlue" GridLinesVisibility="None"
-            AutoGenerateColumns="False" FontSize="16" HeadersVisibility="Column" FontFamily="Verdana"
+            ItemsSource="{Binding ListFilmView}" SelectedItem="{Binding Film,Mode=TwoWay}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
+            AutoGenerateColumns="False" FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" BorderBrush="#1f1f33" Background="#1f1f33" 
             Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2" Grid.RowSpan="3" Margin="0,50,0,0" CanUserAddRows="False">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/><!-- ligne click -->
