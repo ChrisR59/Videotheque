@@ -19,6 +19,7 @@ namespace Videothèque2.Models
         private string title;
         private string nbSeason;
         private string content;
+        private string poster;
         private DateTime dateAdd;
         private string dateAddFormated;
         private DateTime lastView;
@@ -31,6 +32,7 @@ namespace Videothèque2.Models
         public string Title { get => title; set => title = value; }
         public string NbSeason { get => nbSeason; set => nbSeason = value; }
         public string Content { get => content; set => content = value; }
+        public string Poster { get => poster; set => poster = value; }
         public DateTime DateAdd { get => dateAdd; set => dateAdd = value; }
         public string DateAddFormated { get => dateAddFormated; set => dateAddFormated = value; }
         public DateTime LastView { get => lastView; set => lastView = value; }
@@ -47,10 +49,11 @@ namespace Videothèque2.Models
         public Boolean Add()
         {
             bool res = false;
-            DataBase.Instance.command = new SqlCommand("INSERT INTO Series (Title, NbSeason,Content,DateAdd,NbView,ToWatch) OUTPUT INSERTED.ID VALUES(@title,@nbSeason,@content,@dateAdd,'0','0')", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("INSERT INTO Series (Title, NbSeason,Content,Poster,DateAdd,NbView,ToWatch) OUTPUT INSERTED.ID VALUES(@title,@nbSeason,@content,@poster,@dateAdd,'0','0')", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@title",Title));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@nbSeason", NbSeason));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@content", Content));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@poster", Poster));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@dateAdd", DateAdd));
             DataBase.Instance.connection.Open();
             Id = (int)DataBase.Instance.command.ExecuteScalar();
@@ -72,7 +75,7 @@ namespace Videothèque2.Models
         {
             ObservableCollection<Serie> l = new ObservableCollection<Serie>();
 
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbSeason,Content,DateAdd,LastView,NbView,ToWatch FROM Series ORDER BY Title", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbSeason,Content,Poster,DateAdd,LastView,NbView,ToWatch FROM Series ORDER BY Title", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -83,16 +86,17 @@ namespace Videothèque2.Models
                 s.Title = DataBase.Instance.reader.GetString(1);
                 s.NbSeason = DataBase.Instance.reader.GetString(2);
                 s.Content = DataBase.Instance.reader.GetString(3);
-                s.DateAdd = DataBase.Instance.reader.GetDateTime(4);
+                s.Poster = DataBase.Instance.reader.GetString(4);
+                s.DateAdd = DataBase.Instance.reader.GetDateTime(5);
                 s.DateAddFormated = s.DateAdd.ToString("dd/MM/yyyy");
                 s.LastViewFormated = "Pas visionné";
-                if (!DataBase.Instance.reader.IsDBNull(5))
+                if (!DataBase.Instance.reader.IsDBNull(6))
                 {
-                    s.LastView = DataBase.Instance.reader.GetDateTime(5);
+                    s.LastView = DataBase.Instance.reader.GetDateTime(6);
                     s.LastViewFormated = s.LastView.ToString("dd/MM/yyyy");
                 }
-                s.NbView = DataBase.Instance.reader.GetInt32(6);
-                int w = DataBase.Instance.reader.GetInt32(7);
+                s.NbView = DataBase.Instance.reader.GetInt32(7);
+                int w = DataBase.Instance.reader.GetInt32(8);
                 s.ToWatchString = "Non programmé";
                 if (w == 1)
                 {
