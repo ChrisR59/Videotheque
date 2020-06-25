@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,15 @@ namespace Videothèque2.ViewModels
             set
             {
                 film.Title = value;
+                RaisePropertyChanged();
+            }
+        }
+        public string PosterF
+        {
+            get => film.Poster;
+            set
+            {
+                film.Poster = value;
                 RaisePropertyChanged();
             }
         }
@@ -86,12 +97,13 @@ namespace Videothèque2.ViewModels
         //Command
         public ICommand AFilmCommand { get; set; }
         public ICommand ASerieCommand { get; set; }
+        public ICommand AddPosterCommand { get; set; }
 
         /*
          * Resume : 
          *      Initialize film and serie
          *      Initialize DateAddF and DateAddS on today date
-         *      Initialize AFilmCommand and ASerieCommand with a methode as a parameter
+         *      Initialize AFilmCommand, AddPosterCommand and ASerieCommand with a methode as a parameter
          */
         public AddElementWindowViewModel()
         {
@@ -102,6 +114,7 @@ namespace Videothèque2.ViewModels
 
             AFilmCommand = new RelayCommand(AddFilm);
             ASerieCommand = new RelayCommand(AddSerie);
+            AddPosterCommand = new RelayCommand(AddPoster);
         }
 
         /**
@@ -147,6 +160,34 @@ namespace Videothèque2.ViewModels
             NbSeasonS = null;
             ContentS = null;
             DateAddS = DateTime.Now;
+        }
+
+        /*
+         * Remuse :
+         *      permet de choisir une image.
+         */
+        private void AddPoster()
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            if (open.ShowDialog() == true)
+            {
+                PosterF = MoveImageToImageFolder(open.FileName);
+            }
+        }
+
+        /*
+         * Resume : 
+         *      Copie le fichier dans son nouvelle emplacement
+         */
+        private string MoveImageToImageFolder(string urlToMove)
+        {
+            if (!Directory.Exists("posters"))
+            {
+                Directory.CreateDirectory("posters");
+            }
+            string urlAfterMove = Path.Combine("posters", Path.GetFileName(urlToMove));
+            File.Copy(urlToMove, urlAfterMove);
+            return urlAfterMove;
         }
     }
 }
