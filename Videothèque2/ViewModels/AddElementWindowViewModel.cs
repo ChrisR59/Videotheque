@@ -84,6 +84,15 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged();
             }
         }
+        public string PosterS
+        {
+            get => serie.Poster;
+            set
+            {
+                serie.Poster = value;
+                RaisePropertyChanged();
+            }
+        }
         public DateTime DateAddS
         {
             get => serie.DateAdd;
@@ -97,7 +106,8 @@ namespace Videothèque2.ViewModels
         //Command
         public ICommand AFilmCommand { get; set; }
         public ICommand ASerieCommand { get; set; }
-        public ICommand AddPosterCommand { get; set; }
+        public ICommand AddPosterFCommand { get; set; }
+        public ICommand AddPosterSCommand { get; set; }
 
         /*
          * Resume : 
@@ -114,7 +124,8 @@ namespace Videothèque2.ViewModels
 
             AFilmCommand = new RelayCommand(AddFilm);
             ASerieCommand = new RelayCommand(AddSerie);
-            AddPosterCommand = new RelayCommand(AddPoster);
+            AddPosterFCommand = new RelayCommand(AddPosterF);
+            AddPosterSCommand = new RelayCommand(AddPosterS);
         }
 
         /**
@@ -166,12 +177,25 @@ namespace Videothèque2.ViewModels
          * Remuse :
          *      permet de choisir une image.
          */
-        private void AddPoster()
+        private void AddPosterF()
         {
             OpenFileDialog open = new OpenFileDialog();
             if (open.ShowDialog() == true)
             {
                 PosterF = MoveImageToImageFolder(open.FileName);
+            }
+        }
+
+        /*
+         * Remuse :
+         *      permet de choisir une image.
+         */
+        private void AddPosterS()
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            if (open.ShowDialog() == true)
+            {
+                PosterS = MoveImageToImageFolder(open.FileName);
             }
         }
 
