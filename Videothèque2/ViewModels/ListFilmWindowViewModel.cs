@@ -32,6 +32,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Id");
                 RaisePropertyChanged("Title");
                 RaisePropertyChanged("Content");
+                RaisePropertyChanged("Poster");
                 RaisePropertyChanged("LastView");
                 RaisePropertyChanged("NbView");
             }
@@ -66,6 +67,16 @@ namespace Videothèque2.ViewModels
             {
                 Film.Content = value;
                 RaisePropertyChanged("Content");
+            }
+        }
+
+        public string Poster
+        {
+            get => Film.Poster;
+            set
+            {
+                Film.Poster = value;
+                RaisePropertyChanged("Poster");
             }
         }
 
