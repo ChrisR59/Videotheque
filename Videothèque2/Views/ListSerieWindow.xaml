@@ -49,10 +49,11 @@
         <Label Content="{Binding NbView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Grid.Column="6" Grid.Row="0" HorizontalContentAlignment="Left" Foreground="White" />
         <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Grid.Row="0" Foreground="White"/>
         <TextBox Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Width="500" Height="60"/>
-        <Button Command="{Binding EditSerieCommand}" Content="MODIFIER" FontFamily="Verdana" Grid.Column="5" Grid.Row="1"  Height="55" HorizontalAlignment="Center" Background="#FFC2A83E"/>
+        <Button Style="{StaticResource editButton}" Command="{Binding EditSerieCommand}" Content="MODIFIER" FontFamily="Verdana" Grid.Column="5" Grid.Row="1"  Height="55" 
+                HorizontalAlignment="Center"/>
 
-        <Button Command="{Binding EditPosterCommand}" Width="135" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2">
-            <TextBlock Text="Modifier l'affiche" TextAlignment="Center"></TextBlock>
+        <Button Command="{Binding EditPosterCommand}" Width="140" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2">
+            <TextBlock Text="Modifier l'affiche" FontFamily="Verdana" TextAlignment="Center"></TextBlock>
         </Button>
         
         <DataGrid 
@@ -119,8 +120,8 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate >
-                            <Button Command="{Binding Path=DataContext.DeleteSerieCommand, RelativeSource= {RelativeSource FindAncestor,
-                                        AncestorType={x:Type DataGrid}}}" Content="Supprimer" FontFamily="Verdana" Background="#FFDB7F67"/>
+                            <Button Style="{StaticResource delButton}" Command="{Binding Path=DataContext.DeleteSerieCommand, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}}" Content="Supprimer" FontFamily="Verdana"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
