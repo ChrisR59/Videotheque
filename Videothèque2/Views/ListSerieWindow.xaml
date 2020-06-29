@@ -23,11 +23,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="80"></RowDefinition>
             <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition Width="50"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -36,22 +38,27 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Foreground="White"/>
-        <TextBox TextWrapping="Wrap" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
-        <TextBox TextWrapping="Wrap" Text="{Binding NbSeason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="0"/>
-        <Label Content="Vu le :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="3" Grid.Row="0" Foreground="#FFF7F2F2"/>
-        <DatePicker SelectedDate="{Binding LastView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="0"
+        <Image Source="{Binding Poster}" Width="90" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"></Image>
+        <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Foreground="White"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="0"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding NbSeason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="0"/>
+        <Label Content="Vu le :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="4" Grid.Row="0" Foreground="#FFF7F2F2"/>
+        <DatePicker SelectedDate="{Binding LastView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="5" Grid.Row="0"
                     Height="22" Width="110" Foreground="Blue" Margin="0,29,32,29">
         </DatePicker>
-        <Label Content="{Binding NbView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Grid.Column="5" Grid.Row="0" HorizontalContentAlignment="Left" Foreground="White" />
-        <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="5" Grid.Row="0" Foreground="White"/>
-        <TextBox Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Width="500" Height="60"/>
-        <Button Command="{Binding EditSerieCommand}" Content="MODIFIER" FontFamily="Verdana" Grid.Column="4" Grid.Row="1"  Height="55" HorizontalAlignment="Center" Background="#FFC2A83E"/>
+        <Label Content="{Binding NbView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Grid.Column="6" Grid.Row="0" HorizontalContentAlignment="Left" Foreground="White" />
+        <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6" Grid.Row="0" Foreground="White"/>
+        <TextBox Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Width="500" Height="60"/>
+        <Button Command="{Binding EditSerieCommand}" Content="MODIFIER" FontFamily="Verdana" Grid.Column="5" Grid.Row="1"  Height="55" HorizontalAlignment="Center" Background="#FFC2A83E"/>
 
+        <Button Command="{Binding EditPosterCommand}" Width="135" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2">
+            <TextBlock Text="Modifier l'affiche" TextAlignment="Center"></TextBlock>
+        </Button>
+        
         <DataGrid 
             ItemsSource="{Binding ListSerieView}" SelectedItem="{Binding Serie,Mode=TwoWay}"  AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
             AutoGenerateColumns="False" FontSize="16" HeadersVisibility="Column" FontFamily="Verdana"
-            Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="2" Grid.RowSpan="3" Margin="0,50,0,0"
+            Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="3" Grid.RowSpan="3" 
             BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
 
             <DataGrid.Resources>

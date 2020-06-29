@@ -171,10 +171,11 @@ namespace Videothèque2.Models
         public Boolean UpdateSerie()
         {
             Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE Series SET Title = @Title, NbSeason = @NbSeason, Content = @Content WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("UPDATE Series SET Title = @Title, NbSeason = @NbSeason, Content = @Content, Poster = @Poster WHERE Id = @Id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Title", Title));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@NbSeason", NbSeason));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Content", Content));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Poster", Poster));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
             DataBase.Instance.connection.Open();
 

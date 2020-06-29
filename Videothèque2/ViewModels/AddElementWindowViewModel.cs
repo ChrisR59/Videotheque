@@ -175,7 +175,7 @@ namespace Videothèque2.ViewModels
 
         /*
          * Remuse :
-         *      permet de choisir une image.
+         *      opens a dialog box to choose a file.
          */
         private void AddPosterF()
         {
@@ -188,7 +188,7 @@ namespace Videothèque2.ViewModels
 
         /*
          * Remuse :
-         *      permet de choisir une image.
+         *      opens a dialog box to choose a file.
          */
         private void AddPosterS()
         {
@@ -201,7 +201,7 @@ namespace Videothèque2.ViewModels
 
         /*
          * Resume : 
-         *      Copie le fichier dans son nouvelle emplacement
+         *      Copy the file to its new location
          */
         private string MoveImageToImageFolder(string urlToMove)
         {
@@ -209,7 +209,7 @@ namespace Videothèque2.ViewModels
             {
                 Directory.CreateDirectory("posters");
             }
-            string urlAfterMove = Path.Combine("posters", Path.GetFileName(urlToMove));
+            string urlAfterMove = Path.Combine(Directory.GetCurrentDirectory(), "posters", Path.GetFileName(urlToMove));
             File.Copy(urlToMove, urlAfterMove);
             return urlAfterMove;
         }

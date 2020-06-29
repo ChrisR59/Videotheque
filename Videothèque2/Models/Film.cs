@@ -166,9 +166,10 @@ namespace Videothèque2.Models
         public Boolean UpdateFilm()
         {
             Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE Films SET Title = @Title, Content = @Content WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("UPDATE Films SET Title = @Title, Content = @Content, Poster = @Poster WHERE Id = @Id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Title", Title));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Content", Content));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Poster", Poster));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
             DataBase.Instance.connection.Open();
 

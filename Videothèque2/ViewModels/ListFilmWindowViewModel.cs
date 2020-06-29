@@ -1,8 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -115,6 +117,7 @@ namespace Videothèque2.ViewModels
         public ICommand EditFilmCommand { get; set; }
         public ICommand DeleteFilmCommand { get; set; }
         public ICommand ProgramEltCommand { get; set; }
+        public ICommand EditPosterCommand { get; set; }
 
         /*
          * Resume :
@@ -130,6 +133,20 @@ namespace Videothèque2.ViewModels
             EditFilmCommand = new RelayCommand(EditFilm, EditCanExecute);
             DeleteFilmCommand = new RelayCommand(DeleteFilm);
             ProgramEltCommand = new RelayCommand(ProgramFilm);
+            EditPosterCommand = new RelayCommand(EditPoster);
+        }
+
+        /*
+         * Remuse :
+         *      opens a dialog box to choose a file.
+         */
+        private void EditPoster()
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            if (open.ShowDialog() == true)
+            {
+                Poster = MoveImageToImageFolder(open.FileName);
+            }
         }
 
         /**
@@ -222,6 +239,21 @@ namespace Videothèque2.ViewModels
         {
             ListFilmView = Film.GetFilms();
             RaisePropertyChanged("ListFilmView");
+        }
+
+        /*
+         * Resume : 
+         *      Copy the file to its new location
+         */
+        private string MoveImageToImageFolder(string urlToMove)
+        {
+            if (!Directory.Exists("posters"))
+            {
+                Directory.CreateDirectory("posters");
+            }
+            string urlAfterMove = Path.Combine(Directory.GetCurrentDirectory(), "posters", Path.GetFileName(urlToMove));
+            File.Copy(urlToMove, urlAfterMove);
+            return urlAfterMove;
         }
     }
 }
