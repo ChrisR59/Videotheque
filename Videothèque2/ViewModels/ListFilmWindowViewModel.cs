@@ -33,10 +33,15 @@ namespace Videothèque2.ViewModels
                     film = new Film();
                 RaisePropertyChanged("Id");
                 RaisePropertyChanged("Title");
+                RaisePropertyChanged("Genre");
                 RaisePropertyChanged("Content");
+                RaisePropertyChanged("Director");
+                RaisePropertyChanged("Stars");
                 RaisePropertyChanged("Poster");
                 RaisePropertyChanged("LastView");
                 RaisePropertyChanged("NbView");
+                RaisePropertyChanged("Comment");
+                RaisePropertyChanged("Rating");
             }
         }
         
@@ -51,7 +56,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Id");
             }
         }
-
         public string Title
         {
             get => Film.Title;
@@ -61,7 +65,14 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Title");
             }
         }
-        
+        public string Genre
+        {
+            get => Film.Genre;
+            set {
+                Film.Genre = value;
+                RaisePropertyChanged("Genre");
+            }
+        }        
         public string Content
         {
             get => Film.Content;
@@ -71,7 +82,24 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Content");
             }
         }
-
+        public string Director
+        {
+            get => Film.Director;
+            set
+            {
+                Film.Director = value;
+                RaisePropertyChanged("Director");
+            }
+        }
+        public string Stars
+        {
+            get => Film.Stars;
+            set
+            {
+                Film.Stars = value;
+                RaisePropertyChanged("Stars");
+            }
+        }
         public string Poster
         {
             get => Film.Poster;
@@ -81,7 +109,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Poster");
             }
         }
-
         public DateTime LastView
         {
             get => Film.LastView;
@@ -91,7 +118,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("LastView");
             }
         }
-
         public int NbView
         {
             get => Film.NbView;
@@ -101,7 +127,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("NbView");
             }
         }
-
         public string ToWatchString
         {
             get => Film.ToWatchString;
@@ -111,6 +136,25 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("ToWatchString");
             }
         }
+        public string Comment
+        {
+            get => Film.Comment;
+            set
+            {
+                Film.Comment = value;
+                RaisePropertyChanged("Comment");
+            }
+        }
+        public int Rating
+        {
+            get => Film.Rating;
+            set
+            {
+                Film.Rating = value;
+                RaisePropertyChanged("Rating");
+            }
+        }
+
 
 
         //Command

@@ -28,12 +28,12 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public string PosterF
+        public string GenreF
         {
-            get => film.Poster;
+            get => film.Genre;
             set
             {
-                film.Poster = value;
+                film.Genre = value;
                 RaisePropertyChanged();
             }
         }
@@ -43,6 +43,33 @@ namespace Videothèque2.ViewModels
             set
             {
                 film.Content = value;
+                RaisePropertyChanged();
+            }
+        }
+        public string DirectorF
+        {
+            get => film.Director;
+            set
+            {
+                film.Director = value;
+                RaisePropertyChanged();
+            }
+        }
+        public string StarsF
+        {
+            get => film.Stars;
+            set
+            {
+                film.Stars = value;
+                RaisePropertyChanged();
+            }
+        }
+        public string PosterF
+        {
+            get => film.Poster;
+            set
+            {
+                film.Poster = value;
                 RaisePropertyChanged();
             }
         }
@@ -146,7 +173,10 @@ namespace Videothèque2.ViewModels
                 
             film = new Film();
             TitleF = null;
+            GenreF = null;
             ContentF = null;
+            DirectorF = null;
+            StarsF = null;
             DateAddF = DateTime.Now;
         }
 

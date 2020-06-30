@@ -17,7 +17,10 @@ namespace Videothèque2.Models
     {
         private int id;
         private string title;
+        private string genre;
         private string content;
+        private string director;
+        private string stars;
         private string poster;
         private DateTime dateAdd;
         private string dateAddFormated;
@@ -26,10 +29,15 @@ namespace Videothèque2.Models
         private int nbView;
         private Boolean toWatch;
         private string toWatchString;
+        private string comment;
+        private int rating;
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
+        public string Genre { get => genre; set => genre = value; }
         public string Content { get => content; set => content = value; }
+        public string Director { get => director; set => director = value; }
+        public string Stars { get => stars; set => stars = value; }
         public string Poster { get => poster; set => poster = value; }
         public DateTime DateAdd { get => dateAdd; set => dateAdd = value; }
         public string DateAddFormated { get => dateAddFormated; set => dateAddFormated = value; }
@@ -38,6 +46,8 @@ namespace Videothèque2.Models
         public int NbView { get => nbView; set => nbView = value; }
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
+        public string Comment { get => comment; set => comment = value; }
+        public int Rating { get => rating; set => rating = value; }
 
         /*
          * Resume :
@@ -47,9 +57,13 @@ namespace Videothèque2.Models
         public Boolean Add()
         {
             bool res = false;
-            DataBase.Instance.command = new SqlCommand("INSERT INTO Films(Title,Content,Poster,DateAdd,NbView,ToWatch) OUTPUT INSERTED.ID VALUES(@title,@content,@poster,@dateAdd,'0','0')",DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("INSERT INTO Films(Title,Genre,Content,Director,Stars,Poster,DateAdd,NbView,ToWatch)" +
+                " OUTPUT INSERTED.ID VALUES(@title,@genre,@content,@director,@stars,@poster,@dateAdd,'0','0')",DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("title",Title));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("genre", Genre));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("content",Content));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("director", Director));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("stars", Stars));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("poster",Poster));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("dateAdd",DateAdd));
             DataBase.Instance.connection.Open();
