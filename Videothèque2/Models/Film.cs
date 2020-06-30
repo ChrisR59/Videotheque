@@ -115,8 +115,10 @@ namespace Videothèque2.Models
                     f.ToWatch = true;
                     f.ToWatchString = "Programmé";
                 }
-                f.Comment = DataBase.Instance.reader.GetString(11);
-                f.Rating = DataBase.Instance.reader.GetInt32(12);
+                if (!DataBase.Instance.reader.IsDBNull(11))
+                    f.Comment = DataBase.Instance.reader.GetString(11);
+                if (!DataBase.Instance.reader.IsDBNull(12))
+                    f.Rating = DataBase.Instance.reader.GetInt32(12);
 
                 l.Add(f);
             }

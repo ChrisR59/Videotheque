@@ -89,7 +89,7 @@ namespace Videothèque2.Models
         {
             ObservableCollection<Serie> l = new ObservableCollection<Serie>();
 
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,NbSeason,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Coment,Rating FROM Series ORDER BY Title", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,NbSeason,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Comment,Rating FROM Series ORDER BY Title", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -120,8 +120,10 @@ namespace Videothèque2.Models
                     s.ToWatch = true;
                     s.ToWatchString = "Programmé";
                 }
-                s.Comment = DataBase.Instance.reader.GetString(12);
-                s.Rating = DataBase.Instance.reader.GetInt32(13);
+                if (!DataBase.Instance.reader.IsDBNull(12))
+                    s.Comment = DataBase.Instance.reader.GetString(12);
+                if (!DataBase.Instance.reader.IsDBNull(13))
+                    s.Rating = DataBase.Instance.reader.GetInt32(13);
                 
                 l.Add(s);
             }
