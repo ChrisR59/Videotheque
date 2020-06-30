@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,11 +31,16 @@ namespace Videothèque2.ViewModels
                     serie = new Serie();
                 RaisePropertyChanged("Id");
                 RaisePropertyChanged("Title");
+                RaisePropertyChanged("Genre");
                 RaisePropertyChanged("NbSeason");
                 RaisePropertyChanged("Content");
+                RaisePropertyChanged("Director");
+                RaisePropertyChanged("Stars");
                 RaisePropertyChanged("Poster");
                 RaisePropertyChanged("LastView");
                 RaisePropertyChanged("NbView");
+                RaisePropertyChanged("Comment");
+                RaisePropertyChanged("Rating");
             }
         }
 
@@ -57,6 +63,15 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Title");
             }
         }
+        public string Genre
+        {
+            get => Serie.Genre;
+            set
+            {
+                Serie.Genre = value;
+                RaisePropertyChanged("Genre");
+            }
+        }
         public string NbSeason
         {
             get => Serie.NbSeason;
@@ -73,6 +88,24 @@ namespace Videothèque2.ViewModels
             {
                 Serie.Content = value;
                 RaisePropertyChanged("Content");
+            }
+        }
+        public string Director
+        {
+            get => Serie.Director;
+            set
+            {
+                Serie.Director = value;
+                RaisePropertyChanged("Director");
+            }
+        }
+        public string Stars
+        {
+            get => Serie.Stars;
+            set
+            {
+                Serie.Stars = value;
+                RaisePropertyChanged("Stars");
             }
         }
         public string Poster
@@ -109,6 +142,24 @@ namespace Videothèque2.ViewModels
             {
                 Serie.ToWatchString = value;
                 RaisePropertyChanged("ToWatchString");
+            }
+        }
+        public string Comment
+        {
+            get => Serie.Comment;
+            set
+            {
+                Serie.Comment = value;
+                RaisePropertyChanged("Comment");
+            }
+        }
+        public int Rating
+        {
+            get => Serie.Rating;
+            set
+            {
+                Serie.Rating = value;
+                RaisePropertyChanged("Rating");
             }
         }
 

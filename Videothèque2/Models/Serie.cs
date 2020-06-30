@@ -17,8 +17,11 @@ namespace Videothèque2.Models
     {
         private int id;
         private string title;
+        private string genre;
         private string nbSeason;
         private string content;
+        private string director;
+        private string stars;
         private string poster;
         private DateTime dateAdd;
         private string dateAddFormated;
@@ -27,11 +30,16 @@ namespace Videothèque2.Models
         private int nbView;
         private Boolean toWatch;
         private string toWatchString;
+        private string comment;
+        private int rating;
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
+        public string Genre { get => genre; set => genre = value; }
         public string NbSeason { get => nbSeason; set => nbSeason = value; }
         public string Content { get => content; set => content = value; }
+        public string Director { get => director; set => director = value; }
+        public string Stars { get => stars; set => stars = value; }
         public string Poster { get => poster; set => poster = value; }
         public DateTime DateAdd { get => dateAdd; set => dateAdd = value; }
         public string DateAddFormated { get => dateAddFormated; set => dateAddFormated = value; }
@@ -40,6 +48,8 @@ namespace Videothèque2.Models
         public int NbView { get => nbView; set => nbView = value; }
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
+        public string Comment { get => comment; set => comment = value; }
+        public int Rating { get => rating; set => rating = value; }
 
         /*
          * Resume :
@@ -49,10 +59,14 @@ namespace Videothèque2.Models
         public Boolean Add()
         {
             bool res = false;
-            DataBase.Instance.command = new SqlCommand("INSERT INTO Series (Title, NbSeason,Content,Poster,DateAdd,NbView,ToWatch) OUTPUT INSERTED.ID VALUES(@title,@nbSeason,@content,@poster,@dateAdd,'0','0')", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("INSERT INTO Series (Title,Genre,NbSeason,Content,Director,Stars,Poster,DateAdd,NbView,ToWatch)" +
+                " OUTPUT INSERTED.ID VALUES(@title,@genre,@nbSeason,@content,@director,@stars,@poster,@dateAdd,'0','0')", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@title",Title));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@genre",Genre));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@nbSeason", NbSeason));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@content", Content));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@director", Director));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@stars", Stars));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@poster", Poster));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@dateAdd", DateAdd));
             DataBase.Instance.connection.Open();
@@ -75,7 +89,7 @@ namespace Videothèque2.Models
         {
             ObservableCollection<Serie> l = new ObservableCollection<Serie>();
 
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbSeason,Content,Poster,DateAdd,LastView,NbView,ToWatch FROM Series ORDER BY Title", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,NbSeason,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Coment,Rating FROM Series ORDER BY Title", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -84,26 +98,32 @@ namespace Videothèque2.Models
                 Serie s = new Serie();
                 s.Id = DataBase.Instance.reader.GetInt32(0);
                 s.Title = DataBase.Instance.reader.GetString(1);
-                s.NbSeason = DataBase.Instance.reader.GetString(2);
-                s.Content = DataBase.Instance.reader.GetString(3);
-                s.Poster = DataBase.Instance.reader.GetString(4);
-                s.DateAdd = DataBase.Instance.reader.GetDateTime(5);
+                s.Genre = DataBase.Instance.reader.GetString(2);
+                s.NbSeason = DataBase.Instance.reader.GetString(3);
+                s.Content = DataBase.Instance.reader.GetString(4);
+                s.Director = DataBase.Instance.reader.GetString(5);
+                s.Stars = DataBase.Instance.reader.GetString(6);
+                s.Poster = DataBase.Instance.reader.GetString(7);
+                s.DateAdd = DataBase.Instance.reader.GetDateTime(8);
                 s.DateAddFormated = s.DateAdd.ToString("dd/MM/yyyy");
                 s.LastViewFormated = "Pas visionné";
-                if (!DataBase.Instance.reader.IsDBNull(6))
+                if (!DataBase.Instance.reader.IsDBNull(9))
                 {
-                    s.LastView = DataBase.Instance.reader.GetDateTime(6);
+                    s.LastView = DataBase.Instance.reader.GetDateTime(9);
                     s.LastViewFormated = s.LastView.ToString("dd/MM/yyyy");
                 }
-                s.NbView = DataBase.Instance.reader.GetInt32(7);
-                int w = DataBase.Instance.reader.GetInt32(8);
+                s.NbView = DataBase.Instance.reader.GetInt32(10);
+                int w = DataBase.Instance.reader.GetInt32(11);
                 s.ToWatchString = "Non programmé";
                 if (w == 1)
                 {
                     s.ToWatch = true;
                     s.ToWatchString = "Programmé";
                 }
-                    l.Add(s);
+                s.Comment = DataBase.Instance.reader.GetString(12);
+                s.Rating = DataBase.Instance.reader.GetInt32(13);
+                
+                l.Add(s);
             }
 
             DataBase.Instance.command.Dispose();

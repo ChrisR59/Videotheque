@@ -93,6 +93,14 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged();
             }
         }
+        public string GenreS
+        {
+            get => serie.Genre;
+            set {
+                serie.Genre = value;
+                RaisePropertyChanged();
+            }
+        }
         public string NbSeasonS
         {
             get => serie.NbSeason;
@@ -108,6 +116,24 @@ namespace Videothèque2.ViewModels
             set
             {
                 serie.Content = value;
+                RaisePropertyChanged();
+            }
+        }
+        public string DirectorS
+        {
+            get => serie.Director;
+            set
+            {
+                serie.Director = value;
+                RaisePropertyChanged();
+            }
+        }
+        public string StarsS
+        {
+            get => serie.Stars;
+            set
+            {
+                serie.Stars = value;
                 RaisePropertyChanged();
             }
         }
@@ -198,8 +224,11 @@ namespace Videothèque2.ViewModels
 
             serie = new Serie();
             TitleS = null;
+            GenreS = null;
             NbSeasonS = null;
             ContentS = null;
+            DirectorS = null;
+            StarsS = null;
             DateAddS = DateTime.Now;
         }
 

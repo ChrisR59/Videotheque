@@ -85,7 +85,7 @@ namespace Videothèque2.Models
         public ObservableCollection<Film> GetFilms()
         {
             ObservableCollection<Film> l = new ObservableCollection<Film>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Content,Poster,DateAdd,LastView,NbView,ToWatch FROM Films ORDER BY Title",DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Comment,Rating FROM Films ORDER BY Title",DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -94,24 +94,29 @@ namespace Videothèque2.Models
                 Film f = new Film();
                 f.Id = DataBase.Instance.reader.GetInt32(0);
                 f.Title = DataBase.Instance.reader.GetString(1);
-                f.Content = DataBase.Instance.reader.GetString(2);
-                f.Poster = DataBase.Instance.reader.GetString(3);
-                f.DateAdd = DataBase.Instance.reader.GetDateTime(4);
+                f.Genre = DataBase.Instance.reader.GetString(2);
+                f.Content = DataBase.Instance.reader.GetString(3);
+                f.Director = DataBase.Instance.reader.GetString(4);
+                f.Stars = DataBase.Instance.reader.GetString(5);
+                f.Poster = DataBase.Instance.reader.GetString(6);
+                f.DateAdd = DataBase.Instance.reader.GetDateTime(7);
                 f.DateAddFormated = f.DateAdd.ToString("dd/MM/yyyy");
                 f.LastViewFormated = "Pas visionné";
-                if (!DataBase.Instance.reader.IsDBNull(5))
+                if (!DataBase.Instance.reader.IsDBNull(8))
                 {
-                    f.LastView = DataBase.Instance.reader.GetDateTime(5);
+                    f.LastView = DataBase.Instance.reader.GetDateTime(8);
                     f.LastViewFormated = f.LastView.ToString("dd/MM/yyyy");
                 }
-                f.NbView = DataBase.Instance.reader.GetInt32(6);
-                int w = DataBase.Instance.reader.GetInt32(7);
+                f.NbView = DataBase.Instance.reader.GetInt32(9);
+                int w = DataBase.Instance.reader.GetInt32(10);
                 f.ToWatchString = "Non programmé";
                 if (w == 1)
                 {
                     f.ToWatch = true;
                     f.ToWatchString = "Programmé";
                 }
+                f.Comment = DataBase.Instance.reader.GetString(11);
+                f.Rating = DataBase.Instance.reader.GetInt32(12);
 
                 l.Add(f);
             }
