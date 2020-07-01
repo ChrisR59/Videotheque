@@ -21,12 +21,12 @@
     </Window.Style>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="80"></RowDefinition>
-            <RowDefinition Height="80"></RowDefinition>
-            <RowDefinition Height="80"></RowDefinition>
-            <RowDefinition Height="80"></RowDefinition>
-            <RowDefinition Height="80"></RowDefinition>
-            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -43,26 +43,30 @@
             <TextBlock Text="Modifier l'affiche" TextAlignment="Center"></TextBlock>
         </Button>
 
-        <Label Content="Titre" Grid.Row="0" Grid.Column="1" Foreground="White" Margin="27.5,0,0,0"></Label>
-        <TextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
-        <Label Content="Genre" Grid.Row="2" Grid.Column="1" Foreground="White" Margin="27.5,0,0,0"></Label>
-        <TextBox Text="{Binding Genre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2"/>
-        <Label Content="Synopsis" Grid.Row="1" Grid.Column="1" Foreground="White" Margin="27.5,0,0,0"></Label>
-        <TextBox Text="{Binding Content,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Width="500" Height="50" VerticalAlignment="Bottom"/>
-        <Label Content="Réalisateur" Grid.Row="3" Grid.Column="1" Foreground="White" Margin="27.5,0,0,0"></Label>
-        <TextBox Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3"/>
-        <Label Content="Acteur / Actrice" Grid.Row="4" Grid.Column="1" Foreground="White" Margin="27.5,0,0,0"></Label>
-        <TextBox Text="{Binding Stars, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="4"/>
+        <Label Content="Titre" Grid.Row="0" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
+        <TextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+        <Label Content="Genre" Grid.Row="2" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
+        <TextBox Text="{Binding Genre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+        <Label Content="Synopsis" Grid.Row="1" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
+        <TextBox Text="{Binding Content,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Width="300" VerticalAlignment="Bottom" Height="50" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+        <Label Content="Réalisateur" Grid.Row="3" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
+        <TextBox Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+        <Label Content="Acteur / Actrice" Grid.Row="4" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
+        <TextBox Text="{Binding Stars, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="4" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
         
-        <Label Content="Vu le :" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" Foreground="White" Margin="0,27,253,27"/>
-        <DatePicker SelectedDate="{Binding LastView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="0"
-                    Height="22" Width="110" Margin="138,29,57,29" Background="#FF211059"/>
-        <Label Content="{Binding NbView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Height="25" Grid.Column="2" Grid.Row="1" HorizontalContentAlignment="Left" Foreground="White"/>
-        <Label Content="fois" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Foreground="White"/>
-        <Label Content="Commentaire" Grid.Row="2" Grid.Column="2" Foreground="White" Margin="27.5,0,0,0"></Label>
-        <TextBox Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2"/>
-        <Label Content="Note" Grid.Row="3" Grid.Column="2" Foreground="White" Margin="27.5,0,0,0"></Label>
-        <Button Command="{Binding EditFilmCommand}" Content="MODIFIER" FontFamily="Verdana" Grid.Column="2" Grid.Row="5"  Height="55" HorizontalAlignment="Center" Background="#FFC2A83E"/>
+        <Label Content="Vu le :" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" Foreground="White" Margin="50,0,0,0"/>
+        <DatePicker SelectedDate="{Binding LastView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Height="22" Width="110" Margin="100,0,0,0" Background="#FF211059"/>
+        <Label Content="{Binding NbView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Height="25" Grid.Column="2" Grid.Row="1" Foreground="White" Margin="50,0,0,0"/>
+        <Label Content="fois" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Foreground="White" Margin="100,0,0,0"/>
+        <Label Content="Commentaire" Grid.Row="2" Grid.Column="2" Foreground="White" Margin="50,0,0,0"></Label>
+        <TextBox Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="2" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+        <Label Content="Note" Grid.Row="3" Grid.Column="2" Foreground="White" Margin="50,0,0,0"></Label>
+        <TextBox Text="{Binding Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+
+        <Button Command="{Binding EditFilmCommand}" Grid.Column="2" Grid.Row="5" Width="150" Height="55" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#FFC2A83E">
+            <TextBlock Text="MODIFIER" FontFamily="Verdana" TextAlignment="Center"></TextBlock>
+        </Button>
 
         <DataGrid 
             ItemsSource="{Binding ListFilmView}" SelectedItem="{Binding Film,Mode=TwoWay}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
