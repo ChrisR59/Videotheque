@@ -153,7 +153,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Comment");
             }
         }
-        public int Rating
+        public string Rating
         {
             get => Serie.Rating;
             set

@@ -30,7 +30,7 @@ namespace Videothèque2.Models
         private Boolean toWatch;
         private string toWatchString;
         private string comment;
-        private int rating;
+        private string rating;
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
@@ -47,7 +47,7 @@ namespace Videothèque2.Models
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
         public string Comment { get => comment; set => comment = value; }
-        public int Rating { get => rating; set => rating = value; }
+        public string Rating { get => rating; set => rating = value; }
 
         /*
          * Resume :
@@ -118,7 +118,7 @@ namespace Videothèque2.Models
                 if (!DataBase.Instance.reader.IsDBNull(11))
                     f.Comment = DataBase.Instance.reader.GetString(11);
                 if (!DataBase.Instance.reader.IsDBNull(12))
-                    f.Rating = DataBase.Instance.reader.GetInt32(12);
+                    f.Rating = DataBase.Instance.reader.GetString(12);
 
                 l.Add(f);
             }
