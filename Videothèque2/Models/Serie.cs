@@ -194,7 +194,7 @@ namespace Videothèque2.Models
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE Series SET Title = @Title, Genre = @Genre, NbSeason = @NbSeason, Content = @Content, Director = @Director," +
-                "Stars = @Stars Poster = @Poster, Comment = @Comment, Rating WHERE Id = @Id", DataBase.Instance.connection);
+                "Stars = @Stars, Poster = @Poster WHERE Id = @Id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Title", Title));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Genre", Genre));
@@ -203,8 +203,6 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Director", Director));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Stars", Stars));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Poster", Poster));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Comment", Comment));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Rating", Rating));
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
