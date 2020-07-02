@@ -187,11 +187,17 @@ namespace Videothèque2.Models
         public Boolean UpdateFilm()
         {
             Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE Films SET Title = @Title, Content = @Content, Poster = @Poster WHERE Id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Title", Title));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Content", Content));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Poster", Poster));
+            DataBase.Instance.command = new SqlCommand("UPDATE Films SET Title = @Title, Genre = @Genre, Content = @Content, Director = @Director," +
+                "Stars = @Stars Poster = @Poster, Comment = @Comment, Rating = @Rating WHERE Id = @Id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Title", Title));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Genre", Genre));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Content", Content));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Director", Director));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Stars", Stars));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Poster", Poster));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Comment", Comment));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Rating", Rating));
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
