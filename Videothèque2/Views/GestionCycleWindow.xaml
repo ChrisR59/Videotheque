@@ -64,8 +64,8 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Command="{Binding Path=DataContext.DeleteCycleCommand, RelativeSource= {RelativeSource FindAncestor,
-                                        AncestorType={x:Type DataGrid}}}" Content="Supprimé" Background="#FFDB7F67" FontFamily="Verdana" Width="118"/>
+                            <Button Style="{StaticResource delButton}" Command="{Binding Path=DataContext.DeleteCycleCommand, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}}" Content="Supprimé" FontFamily="Verdana"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
