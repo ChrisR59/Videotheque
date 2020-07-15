@@ -16,9 +16,11 @@ namespace Videothèque2.Models
     public class CycleStatus
     {
         private int id;
+        private int number;
         private Status statusC;
 
         public int Id { get => id; set => id = value; }
+        public int Number { get => number; set => number = value; }
         public Status StatusC { get => statusC; set => statusC = value; }
 
         /*
@@ -29,7 +31,8 @@ namespace Videothèque2.Models
         public Boolean NewCycle()
         {
             Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("INSERT INTO CycleStatus(Status) OUTPUT INSERTED.ID VALUES(@StatusC)", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("INSERT INTO CycleStatus(Number, Status) OUTPUT INSERTED.ID VALUES(@Number, @StatusC)", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Number", Number));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@StatusC", StatusC));
             DataBase.Instance.connection.Open();
             if ((int)DataBase.Instance.command.ExecuteScalar() > 0)
@@ -49,7 +52,7 @@ namespace Videothèque2.Models
         {
             ObservableCollection<CycleStatus> l = new ObservableCollection<CycleStatus>();
 
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Status FROM CycleStatus", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Number,Status FROM CycleStatus", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -57,7 +60,8 @@ namespace Videothèque2.Models
             {
                 CycleStatus c = new CycleStatus();
                 c.Id = DataBase.Instance.reader.GetInt32(0);
-                c.StatusC = (Status)DataBase.Instance.reader.GetInt32(1);
+                c.Number = DataBase.Instance.reader.GetInt32(1);
+                c.StatusC = (Status)DataBase.Instance.reader.GetInt32(2);
                 l.Add(c);
             }
 
@@ -71,7 +75,7 @@ namespace Videothèque2.Models
          * Resume :
          *      Get a Id of a Cycle
          */
-        public void GetIdCycle()
+        public int GetIdCycle()
         {
             DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '0'", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
@@ -83,6 +87,8 @@ namespace Videothèque2.Models
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
+
+            return Id;
         }
 
         /*
@@ -128,6 +134,18 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
         }
 
+        public void GetNumberCycle()
+        {
+            DataBase.Instance.command = new SqlCommand("SELECT Number FROM CycleStatus ORDER BY Number DESC",DataBase.Instance.connection);
+            DataBase.Instance.connection.Open();
+
+            Number = (int) DataBase.Instance.command.ExecuteScalar();
+            Number++;
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+        }
+
         /*
          * Resume :
          *      Get a cycle list which are not finished
@@ -142,6 +160,28 @@ namespace Videothèque2.Models
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
             while(DataBase.Instance.reader.Read())
+                l.Add(DataBase.Instance.reader.GetInt32(0));
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return l;
+        }
+
+        /*
+         * Resume :
+         *      Get all cycle list 
+         * Return an ObservableCollection of the CycleStatus type which are not finished
+         */
+        public ObservableCollection<int> GetAllCycle()
+        {
+            ObservableCollection<int> l = new ObservableCollection<int>();
+
+            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus", DataBase.Instance.connection);
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while (DataBase.Instance.reader.Read())
                 l.Add(DataBase.Instance.reader.GetInt32(0));
 
             DataBase.Instance.command.Dispose();

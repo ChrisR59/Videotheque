@@ -108,6 +108,7 @@
     <Compile Include="Models\CycleContent.cs" />
     <Compile Include="Models\CycleStatus.cs" />
     <Compile Include="Models\Element.cs" />
+    <Compile Include="Tools\Rating.cs" />
     <Compile Include="ViewModels\GestionCycleViewModel.cs" />
     <Compile Include="ViewModels\ProgrammationWindowViewModel.cs" />
     <Compile Include="Views\GestionCycleWindow.xaml.cs">

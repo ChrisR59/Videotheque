@@ -9,22 +9,29 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Videothèque2.Models;
+using Videothèque2.Tools;
 using Videothèque2.Views;
 
 namespace Videothèque2.ViewModels
 {
     public class MainWindowViewModel: ViewModelBase
     {
+        private ObservableCollection<int> listCycle;
         private ObservableCollection<CycleContent> listCycleContent;
-        public ObservableCollection<CycleContent> ListCycleContent { get => listCycleContent; set => listCycleContent = value; }
-
-        //Cycle Content
         private CycleContent cycleC;
-        public CycleContent CycleC { get => cycleC; set => cycleC = value; }
-
-        //Cycle Status
         private CycleStatus cycleS;
+        private int idCycle;
+        private List<Rating> listRating;
+        private ObservableCollection<Rating> listRatingObs;
+        private Rating rate;
+        public ObservableCollection<int> ListCycle { get => listCycle; set => listCycle = value; }
+        public ObservableCollection<CycleContent> ListCycleContent { get => listCycleContent; set => listCycleContent = value; }
+        public CycleContent CycleC { get => cycleC; set => cycleC = value; }
         public CycleStatus CycleS { get => cycleS; set => cycleS = value; }
+        public int IdCycle { get => idCycle; set => idCycle = value; }
+        public List<Rating> ListRating { get => listRating; set => listRating = value; }
+        public ObservableCollection<Rating> ListRatingObs { get => listRatingObs; set => listRatingObs = value; }
+        public Rating Rate { get => rate; set => rate = value; }
 
         //Commands button
         public ICommand ValidateViewCommand { get; set; }
@@ -47,8 +54,15 @@ namespace Videothèque2.ViewModels
         {
             CycleS = new CycleStatus();
             CycleC = new CycleContent();
-            CycleS.GetIdCycle();
+            ListCycle = CycleS.GetAllCycle();
+            IdCycle = CycleS.GetIdCycle();
             ListCycleContent = CycleC.GetCurrentCycle(CycleS.Id);
+            ListRating = Enum.GetValues(typeof(Rating)).Cast<Rating>().ToList();
+            ListRatingObs = new ObservableCollection<Rating>();
+            foreach (Rating r in ListRating)
+            {
+                ListRatingObs.Add(r);
+            }
 
             LFilmCommand = new RelayCommand(() =>
             {
@@ -105,6 +119,7 @@ namespace Videothèque2.ViewModels
                     {
                         Film f = CycleC.GetOneFilm();
                         f.LastView = DateTime.Now;
+                        //f.Rating = Rate;
                         f.NbView++;
                         f.ToWatch = false;
                         Boolean resFilm = f.UpdateLastView();
@@ -117,6 +132,7 @@ namespace Videothèque2.ViewModels
                     {
                         Serie s = CycleC.GetOneSerie();
                         s.LastView = DateTime.Now;
+                        //s.Rating = Rate;
                         s.NbView++;
                         s.ToWatch = false;
                         Boolean resSerie = s.UpdateLastView();
@@ -165,7 +181,7 @@ namespace Videothèque2.ViewModels
         private void UpList()
         {
             CycleC = new CycleContent();
-            ListCycleContent = CycleC.GetCurrentCycle(CycleS.Id);
+            ListCycleContent = CycleC.GetCurrentCycle(IdCycle);
             RaisePropertyChanged("ListCycleContent");
         }
     }

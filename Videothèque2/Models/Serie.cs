@@ -31,7 +31,7 @@ namespace Videothèque2.Models
         private Boolean toWatch;
         private string toWatchString;
         private string comment;
-        private string rating;
+        private Rating rating;
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
@@ -49,7 +49,7 @@ namespace Videothèque2.Models
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
         public string Comment { get => comment; set => comment = value; }
-        public string Rating { get => rating; set => rating = value; }
+        public Rating Rating { get => rating; set => rating = value; }
 
         /*
          * Resume :
@@ -123,7 +123,7 @@ namespace Videothèque2.Models
                 if (!DataBase.Instance.reader.IsDBNull(12))
                     s.Comment = DataBase.Instance.reader.GetString(12);
                 if (!DataBase.Instance.reader.IsDBNull(13))
-                    s.Rating = DataBase.Instance.reader.GetString(13);
+                    s.Rating = (Rating) DataBase.Instance.reader.GetInt32(13);
                 
                 l.Add(s);
             }
@@ -147,6 +147,7 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@NbView", NbView));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            //DataBase.Instance.command.Parameters.Add(new SqlParameter("@Rating", Rating));
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)

@@ -73,6 +73,8 @@ namespace Videothèque2.ViewModels
         public void CreateCycle()
         {
             CycleS.CheckCycleExist();
+            CycleS.GetNumberCycle();
+
             if (CycleS.NewCycle())
             {
                 MessageBox.Show("Un nouveau Cycle a été crée.");

@@ -29,7 +29,8 @@
             <MenuItem Header="Cycles" Command="{Binding CyclesCommand}"/>
         </Menu>
 
-        <Button Command="{Binding UpdateListCommand}" Content="ACTUALISER" VerticalAlignment="Top" Margin="322,60,322,0" FontFamily="Verdana" HorizontalAlignment="Center"/>
+        <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="255,74,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="16" Width="80"/>
+        <Button Command="{Binding UpdateListCommand}" Content="ACTUALISER" VerticalAlignment="Top" Margin="371,60,273,0" FontFamily="Verdana" HorizontalAlignment="Center"/>
 
         <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
                   FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
@@ -64,6 +65,14 @@
                         <DataTemplate>
                             <Button Command="{Binding Path=DataContext.ValidateViewCommand, RelativeSource= {RelativeSource FindAncestor,
                                         AncestorType={x:Type DataGrid}}}" Content="Vu" FontFamily="Verdana" Width="60"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding Path=DataContext.ListRatingObs,RelativeSource={RelativeSource AncestorType=local:MainWindow}}" 
+                                      SelectedItem="{Binding Rate}" Height="30" Width="150" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

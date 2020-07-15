@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Videothèque2.Models;
+using Videothèque2.Tools;
 
 namespace Videothèque2.ViewModels
 {
@@ -153,7 +154,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Comment");
             }
         }
-        public string Rating
+        public Rating Rating
         {
             get => Serie.Rating;
             set
