@@ -8,7 +8,8 @@ namespace Videothèque2.Tools
 {
     public enum Rating
     {
-        Nul,
+        Aucune,
+        Mauvaise,
         Moyen,
         Bien,
         Excelent

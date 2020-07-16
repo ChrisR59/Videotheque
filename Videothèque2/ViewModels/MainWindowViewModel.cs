@@ -21,17 +21,11 @@ namespace Videothèque2.ViewModels
         private CycleContent cycleC;
         private CycleStatus cycleS;
         private int idCycle;
-        private List<Rating> listRating;
-        private ObservableCollection<Rating> listRatingObs;
-        private Rating rate;
         public ObservableCollection<int> ListCycle { get => listCycle; set => listCycle = value; }
         public ObservableCollection<CycleContent> ListCycleContent { get => listCycleContent; set => listCycleContent = value; }
         public CycleContent CycleC { get => cycleC; set => cycleC = value; }
         public CycleStatus CycleS { get => cycleS; set => cycleS = value; }
         public int IdCycle { get => idCycle; set => idCycle = value; }
-        public List<Rating> ListRating { get => listRating; set => listRating = value; }
-        public ObservableCollection<Rating> ListRatingObs { get => listRatingObs; set => listRatingObs = value; }
-        public Rating Rate { get => rate; set => rate = value; }
 
         //Commands button
         public ICommand ValidateViewCommand { get; set; }
@@ -57,13 +51,6 @@ namespace Videothèque2.ViewModels
             ListCycle = CycleS.GetAllCycle();
             IdCycle = CycleS.GetIdCycle();
             ListCycleContent = CycleC.GetCurrentCycle(CycleS.Id);
-            ListRating = Enum.GetValues(typeof(Rating)).Cast<Rating>().ToList();
-            ListRatingObs = new ObservableCollection<Rating>();
-            foreach (Rating r in ListRating)
-            {
-                ListRatingObs.Add(r);
-            }
-
             LFilmCommand = new RelayCommand(() =>
             {
                 ListFilmWindow lFw = new ListFilmWindow();
@@ -119,7 +106,6 @@ namespace Videothèque2.ViewModels
                     {
                         Film f = CycleC.GetOneFilm();
                         f.LastView = DateTime.Now;
-                        //f.Rating = Rate;
                         f.NbView++;
                         f.ToWatch = false;
                         Boolean resFilm = f.UpdateLastView();
@@ -132,7 +118,6 @@ namespace Videothèque2.ViewModels
                     {
                         Serie s = CycleC.GetOneSerie();
                         s.LastView = DateTime.Now;
-                        //s.Rating = Rate;
                         s.NbView++;
                         s.ToWatch = false;
                         Boolean resSerie = s.UpdateLastView();

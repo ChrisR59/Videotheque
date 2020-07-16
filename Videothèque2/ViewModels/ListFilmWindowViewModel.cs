@@ -21,7 +21,9 @@ namespace Videothèque2.ViewModels
     public class ListFilmWindowViewModel:ViewModelBase
     {
         private ObservableCollection<Film> listFilmView;
+        private List<Rating> listRating;
         public ObservableCollection<Film> ListFilmView { get => listFilmView; set => listFilmView = value; }
+        public List<Rating> ListRating { get => listRating; set => listRating = value; }
 
         private Film film;
         public Film Film
@@ -175,6 +177,7 @@ namespace Videothèque2.ViewModels
         {
             Film = new Film();
             ListFilmView = Film.GetFilms();
+            ListRating = Enum.GetValues(typeof(Rating)).Cast<Rating>().ToList();
             EditFilmCommand = new RelayCommand(EditFilm, EditCanExecute);
             DeleteFilmCommand = new RelayCommand(DeleteFilm);
             ProgramEltCommand = new RelayCommand(ProgramFilm);

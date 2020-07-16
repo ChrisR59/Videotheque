@@ -20,7 +20,10 @@ namespace Videothèque2.ViewModels
     {
 
         private ObservableCollection<Serie> listSerieView;
+        private List<Rating> listRating;
         public ObservableCollection<Serie> ListSerieView { get => listSerieView; set => listSerieView = value; }
+        public List<Rating> ListRating { get => listRating; set => listRating = value; }
+
         private Serie serie;
         public Serie Serie
         {
@@ -180,6 +183,7 @@ namespace Videothèque2.ViewModels
         {
             Serie = new Serie();
             ListSerieView = Serie.GetSerie();
+            ListRating = Enum.GetValues(typeof(Rating)).Cast<Rating>().ToList();
             EditSerieCommand = new RelayCommand(EditSerie, EditCanExecute);
             DeleteSerieCommand = new RelayCommand(DeleteSerie);
             ProgramEltCommand = new RelayCommand(ProgramSerie);
