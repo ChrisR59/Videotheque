@@ -134,6 +134,10 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
         }
 
+        /*
+         * Resume :
+         *      Get total number of cycles
+         */
         public void GetNumberCycle()
         {
             DataBase.Instance.command = new SqlCommand("SELECT Number FROM CycleStatus ORDER BY Number DESC",DataBase.Instance.connection);
