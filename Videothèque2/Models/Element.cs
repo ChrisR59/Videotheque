@@ -87,6 +87,43 @@ namespace Videothèque2.Models
         }
 
         /*
+         * Resume 
+         *      Get an items list form the cycle
+         * Parameter
+         *      An Integer corresponding to the id of the current cycle
+         * Return an ObservableCollection of the CycleContent type
+         */
+        public ObservableCollection<Element> GetCycle(int idCycleS)
+        {
+            ObservableCollection<Element> listC = new ObservableCollection<Element>();
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Type,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", idCycleS));
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while (DataBase.Instance.reader.Read())
+            {
+                Element c = new Element()
+                {
+                    Id = DataBase.Instance.reader.GetInt32(0),
+                    Title = DataBase.Instance.reader.GetString(1),
+                    Type = DataBase.Instance.reader.GetString(2)
+                };
+
+                int w = DataBase.Instance.reader.GetInt32(3);
+                c.ToWatch = false;
+                if (w == 1)
+                {
+                    c.ToWatch = true;
+                }
+                listC.Add(c);
+            }
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return listC;
+        }
+        /*
          * Resume :
          *      Get one film with his Id
          * Return an Film object 

@@ -14,11 +14,40 @@ namespace Videothèque2.ViewModels
 {
     class ProgrammationWindowViewModel:ViewModelBase
     {
+        private bool elementsAvailable;
+        private bool elementsCycle;
         private ObservableCollection<int> listCycle;
+        private ObservableCollection<Element> listView;
+        public bool ElementsAvailable
+        {
+            get => elementsAvailable;
+            set
+            {
+                elementsAvailable = value;
+                if (value)
+                {
+                    ListView = Element.GetProgram();
+                    RaisePropertyChanged("ListView");
+                }
+                RaisePropertyChanged();
+            }
+        }
+        public bool ElementsCycle
+        {
+            get => elementsCycle;
+            set 
+            { 
+                elementsCycle = value;
+                if (value)
+                {
+                    ListView = Element.GetCycle(IdCycle);//list de cycleContent
+                    RaisePropertyChanged("ListView");
+                }
+                RaisePropertyChanged();
+            }
+        }
         public ObservableCollection<int> ListCycle { get => listCycle; set => listCycle = value; }
-
-        private ObservableCollection<Element> listElements;
-        public ObservableCollection<Element> ListElements { get => listElements; set => listElements = value; }
+        public ObservableCollection<Element> ListView { get => listView; set => listView = value; }
 
         //Cycle Status
         private CycleStatus cycleS;
@@ -61,7 +90,8 @@ namespace Videothèque2.ViewModels
             CycleC = new CycleContent();
             Element = new Element();
             ListCycle = CycleS.GetCycleListNotFinish();
-            ListElements = Element.GetProgram();
+            ElementsAvailable = true;
+            ListView = Element.GetProgram();
             AddCycleCommand = new RelayCommand(CreateCycle);
             AddEltCycleCommand = new RelayCommand(AddEltCycle);
         }
@@ -116,7 +146,7 @@ namespace Videothèque2.ViewModels
                             Boolean res = s.UpSerieProgramm();
                         }
                     }
-                    ListElements.Remove(Element);
+                    ListView.Remove(Element);
                     RaisePropertyChanged("ListElements");
                     MessageBox.Show("Element bien ajouté au cycle.");
                     CycleC.Rank = 0;

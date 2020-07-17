@@ -20,13 +20,16 @@
         </Style>
     </Window.Style>
     <Grid>
-        <Button Command="{Binding AddCycleCommand}" Content="NEW CYCLE" FontFamily="Verdana" VerticalAlignment="Top" Margin="35" HorizontalAlignment="Center"/>
+        <RadioButton IsChecked="{Binding ElementsAvailable}" Content="Ajout d'éléments" HorizontalAlignment="Left" Margin="187,32,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <RadioButton IsChecked="{Binding ElementsCycle}" Content="modification dans un cycle" HorizontalAlignment="Left" Margin="469,32,0,0" VerticalAlignment="Top" Foreground="White"/>
 
-        <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="250,113,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="16" Width="80"/>
-        <Button Command="{Binding AddEltCycleCommand}" Content="ADD ELEMENT" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,100,250,0"/>
+        <Button Command="{Binding AddCycleCommand}" Content="NEW CYCLE" FontFamily="Verdana" VerticalAlignment="Top" Margin="135" HorizontalAlignment="Center"/>
+        
+        <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="250,213,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="16" Width="80"/>
+        <Button Command="{Binding AddEltCycleCommand}" Content="ADD ELEMENT" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,200,250,0"/>
 
-        <DataGrid ItemsSource="{Binding ListElements}" SelectedItem="{Binding Element}"  AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
-                 FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,170,0,0"
+        <DataGrid ItemsSource="{Binding ListView}" SelectedItem="{Binding Element}"  AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
+                 FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,270,0,0"
                   BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black">
 
             <DataGrid.Resources>
