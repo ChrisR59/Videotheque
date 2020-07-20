@@ -39,10 +39,6 @@
 
         <Label Content="Acteur/Actrice" HorizontalAlignment="Left" Margin="17,210,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="0"/>
         <TextBox HorizontalAlignment="Left" Margin="120,210,0,0" TextWrapping="Wrap" Text="{Binding StarsF}" VerticalAlignment="Top" Width="250" Grid.Column="0"/>
-
-        <Button Command="{Binding AddPosterFCommand}" Width="225" Margin="0,250,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="0">
-            <TextBlock Text="Ajouter une affiche" TextAlignment="Center"></TextBlock>
-        </Button>
         <Button Command="{Binding AFilmCommand}" Margin="0,325,0,0" Width="150" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="0">
             <TextBlock Text="VALIDER" TextAlignment="Center" FontFamily="Verdana"></TextBlock>
         </Button>
@@ -68,11 +64,14 @@
         <Label Content="Acteur/Actrice" HorizontalAlignment="Left" Margin="17,245,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="1"/>
         <TextBox HorizontalAlignment="Left" Margin="120,245,0,0" TextWrapping="Wrap" Text="{Binding StarsS}" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
         
-        <Button Command="{Binding AddPosterSCommand}" Width="225" Margin="0,300,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Column="1">
-            <TextBlock Text="Ajouter une affiche" TextAlignment="Center"></TextBlock>
-        </Button>
-        <Button Command="{Binding ASerieCommand}" Margin="0,375,0,0" Width="150" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1">
+        <Button Command="{Binding ASerieCommand}" Margin="173,325,173,0" Width="150" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1">
             <TextBlock Text="VALIDER" TextAlignment="Center" FontFamily="Verdana"></TextBlock>
+        </Button>
+
+
+
+        <Button Command="{Binding AddPosterCommand}" Width="225" Margin="0,0,0,50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Text="Ajouter une affiche" TextAlignment="Center"></TextBlock>
         </Button>
     </Grid>
 </Window>
