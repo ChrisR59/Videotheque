@@ -239,7 +239,7 @@ namespace Videothèque2.ViewModels
             OpenFileDialog open = new OpenFileDialog();
             if (open.ShowDialog() == true)
             {
-                PosterF = MoveImageToImageFolder(open.FileName);
+                PosterS = PosterF = MoveImageToImageFolder(open.FileName);
             }
         }
 
