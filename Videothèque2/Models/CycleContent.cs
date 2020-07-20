@@ -14,7 +14,7 @@ namespace Videothèque2.Models
      * Resume :
      *      Content of the cycle
      */
-    public class CycleContent:INotifyPropertyChanged
+    public class CycleContent : INotifyPropertyChanged
     {
         private int id;
         private string title;
@@ -54,7 +54,7 @@ namespace Videothèque2.Models
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("INSERT INTO CycleContent(Title,Status,Rank,Type,IdElt,IdCycle,ToWatch) OUTPUT INSERTED.ID VALUES(@title,@status,@rank,@type,@idElt,@idCycle,'0')", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@title",Title));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@title", Title));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@status", Status));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@rank", Rank));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@type", Type));
@@ -85,7 +85,7 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
-            while(DataBase.Instance.reader.Read())
+            while (DataBase.Instance.reader.Read())
             {
                 CycleContent c = new CycleContent()
                 {
@@ -175,12 +175,13 @@ namespace Videothèque2.Models
          */
         public void GetRankElt()
         {
-            DataBase.Instance.command = new SqlCommand("SELECT Rank FROM CycleContent WHERE IdCycle = @idCycle",DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Rank FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", IdCycle));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
-            while(DataBase.Instance.reader.Read()){
+            while (DataBase.Instance.reader.Read())
+            {
                 if (DataBase.Instance.reader.GetInt32(0) > Rank)
                     Rank = DataBase.Instance.reader.GetInt32(0);
             }
@@ -200,6 +201,27 @@ namespace Videothèque2.Models
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE CycleContent SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
+
+        /*
+         * 
+         */
+        public Boolean DelElement()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("DELETE FROM CycleContent WHERE Id = @Id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
             DataBase.Instance.connection.Open();
 

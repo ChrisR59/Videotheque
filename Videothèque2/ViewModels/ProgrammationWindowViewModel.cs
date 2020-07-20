@@ -12,7 +12,7 @@ using Videothèque2.Models;
 
 namespace Videothèque2.ViewModels
 {
-    class ProgrammationWindowViewModel:ViewModelBase
+    class ProgrammationWindowViewModel : ViewModelBase
     {
         private bool elementsAvailable;
         private bool elementsCycle;
@@ -35,8 +35,8 @@ namespace Videothèque2.ViewModels
         public bool ElementsCycle
         {
             get => elementsCycle;
-            set 
-            { 
+            set
+            {
                 elementsCycle = value;
                 if (value)
                 {
@@ -77,6 +77,7 @@ namespace Videothèque2.ViewModels
         //Command
         public ICommand AddCycleCommand { get; set; }
         public ICommand AddEltCycleCommand { get; set; }
+        public ICommand DelEltCycleCommand { get; set; }
 
         /*
          * Resume : 
@@ -94,6 +95,7 @@ namespace Videothèque2.ViewModels
             ListView = Element.GetProgram();
             AddCycleCommand = new RelayCommand(CreateCycle);
             AddEltCycleCommand = new RelayCommand(AddEltCycle);
+            DelEltCycleCommand = new RelayCommand(DelEltCycle);
         }
 
         /**
@@ -147,11 +149,55 @@ namespace Videothèque2.ViewModels
                         }
                     }
                     ListView.Remove(Element);
-                    RaisePropertyChanged("ListElements");
+                    RaisePropertyChanged("ListView");
                     MessageBox.Show("Element bien ajouté au cycle.");
                     CycleC.Rank = 0;
                 }
             }
+        }
+
+        /*
+         * 
+         */
+        public void DelEltCycle()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer cet élément ?", "Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                bool del = false;
+                //Supprimer dans CycleContent
+                CycleC.IdCycle = Element.Id;
+                CycleC.Type = Element.Type;
+                CycleC.Id = Element.IdCycle;
+                if (CycleC.DelElement())
+                {
+                    if(CycleC.Type == "Film")
+                    {
+                        if (Element.UnWatchFilm())
+                        {
+                            Element.ToWatch = false;
+                            del = true;
+                        }
+                    } else if(CycleC.Type == "Serie")
+                    {
+                        if(Element.UnWatchSerie())
+                        {
+                            Element.ToWatch = false;
+                            del = true;
+                        }
+                    }
+                }
+
+                if (del)
+                {
+                    ListView.Remove(Element);
+                    RaisePropertyChanged("ListView");
+                    MessageBox.Show("Element bien supprimé au cycle.");
+                    CycleC = new CycleContent();
+                }
+                //Deprogrammer dans Film ou Serie
+            }
+
         }
     }
 }

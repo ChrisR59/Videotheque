@@ -22,11 +22,14 @@ namespace Videothèque2.Models
         private Boolean toWatch;
         private string toWatchString;
         private string type;
+        private int idCycle;
 
         public int Id { get => id; set => id = value; }
-        public string Title { 
-            get => title; 
-            set  { 
+        public string Title
+        {
+            get => title;
+            set
+            {
                 title = value;
                 NotifyPropertyChange("Title");
             }
@@ -35,6 +38,7 @@ namespace Videothèque2.Models
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
         public string Type { get => type; set => type = value; }
+        public int IdCycle { get => idCycle; set => idCycle = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -96,7 +100,7 @@ namespace Videothèque2.Models
         public ObservableCollection<Element> GetCycle(int idCycleS)
         {
             ObservableCollection<Element> listC = new ObservableCollection<Element>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Type,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Type,IdElt,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", idCycleS));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -105,12 +109,13 @@ namespace Videothèque2.Models
             {
                 Element c = new Element()
                 {
-                    Id = DataBase.Instance.reader.GetInt32(0),
+                    Id = DataBase.Instance.reader.GetInt32(3),
                     Title = DataBase.Instance.reader.GetString(1),
-                    Type = DataBase.Instance.reader.GetString(2)
+                    Type = DataBase.Instance.reader.GetString(2),
+                    IdCycle = DataBase.Instance.reader.GetInt32(0)
                 };
 
-                int w = DataBase.Instance.reader.GetInt32(3);
+                int w = DataBase.Instance.reader.GetInt32(4);
                 c.ToWatch = false;
                 if (w == 1)
                 {
@@ -140,7 +145,7 @@ namespace Videothèque2.Models
             {
                 f.Id = DataBase.Instance.reader.GetInt32(0);
                 f.Title = DataBase.Instance.reader.GetString(1);
-                if(!DataBase.Instance.reader.IsDBNull(2))
+                if (!DataBase.Instance.reader.IsDBNull(2))
                     f.LastView = DataBase.Instance.reader.GetDateTime(2);
                 int w = DataBase.Instance.reader.GetInt32(3);
                 if (w == 1)
@@ -169,7 +174,7 @@ namespace Videothèque2.Models
             {
                 s.Id = DataBase.Instance.reader.GetInt32(0);
                 s.Title = DataBase.Instance.reader.GetString(1);
-                if(!DataBase.Instance.reader.IsDBNull(2))
+                if (!DataBase.Instance.reader.IsDBNull(2))
                     s.LastView = DataBase.Instance.reader.GetDateTime(2);
                 int w = DataBase.Instance.reader.GetInt32(3);
                 if (w == 1)
@@ -181,10 +186,53 @@ namespace Videothèque2.Models
             return s;
         }
 
+        /*
+         * 
+         */
+        public Boolean UnWatchFilm()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE Films SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
+
+        /*
+         * 
+         */
+        public Boolean UnWatchSerie()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE Series SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+            return res;
+        }
+
         private void NotifyPropertyChange(string propertyName)
         {
             if (PropertyChanged != null)
-                PropertyChanged(this,new PropertyChangedEventArgs(propertyName));
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
