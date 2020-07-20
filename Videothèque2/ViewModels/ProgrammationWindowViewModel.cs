@@ -62,7 +62,18 @@ namespace Videothèque2.ViewModels
 
         //Cycle Statu item
         private int idCycle;
-        public int IdCycle { get => idCycle; set => idCycle = value; }
+        public int IdCycle { 
+            get => idCycle;
+            set
+            {
+                idCycle = value;
+                if (ElementsCycle)
+                {
+                    ListView = Element.GetCycle(IdCycle);//list de cycleContent
+                    RaisePropertyChanged("ListView");
+                }
+            }
+        }
         public Status Status
         {
             get => CycleS.StatusC;
@@ -152,6 +163,7 @@ namespace Videothèque2.ViewModels
                     RaisePropertyChanged("ListView");
                     MessageBox.Show("Element bien ajouté au cycle.");
                     CycleC.Rank = 0;
+                    Element = new Element();
                 }
             }
         }
@@ -194,6 +206,7 @@ namespace Videothèque2.ViewModels
                     RaisePropertyChanged("ListView");
                     MessageBox.Show("Element bien supprimé au cycle.");
                     CycleC = new CycleContent();
+                    Element = new Element();
                 }
                 //Deprogrammer dans Film ou Serie
             }
