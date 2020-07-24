@@ -205,7 +205,7 @@ namespace Videothèque2.ViewModels
         {
             Boolean res = true;
 
-            if(Title == null && Content == null)
+            if(Id == 0)
                 res = false;
 
             return res;
@@ -223,7 +223,7 @@ namespace Videothèque2.ViewModels
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier ce film?", "Confirmation modification", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if (Film.Title != null && Film.Content != null)
+                if (Title != null && Genre != null && Content != null && Director != null && Stars != null && Poster != null)
                 {
                     if (Film.UpdateFilm())
                     {
@@ -300,7 +300,7 @@ namespace Videothèque2.ViewModels
                 Directory.CreateDirectory("posters");
             }
             string urlAfterMove = Path.Combine(Directory.GetCurrentDirectory(), "posters", Path.GetFileName(urlToMove));
-            File.Copy(urlToMove, urlAfterMove);
+            File.Copy(urlToMove, urlAfterMove, true);
             return urlAfterMove;
         }
     }

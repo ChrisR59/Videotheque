@@ -185,23 +185,26 @@ namespace Videothèque2.ViewModels
          */
         private void AddFilm()
         {
-            if(TitleF != null && ContentF != null)
+            if (TitleF != null && ContentF != null && DirectorF != null && GenreF != null && StarsF != null && PosterF != null)
             {
                 if (film.Add())
                 {
                     MessageBox.Show("Le Film '" + film.Title + "' a bien été ajouté");
+
+                    film = new Film();
+                    TitleF = null;
+                    GenreF = null;
+                    ContentF = null;
+                    DirectorF = null;
+                    StarsF = null;
+                    PosterF = null;
+                    DateAddF = DateTime.Now;
                 }
                 else
                     MessageBox.Show("Error Insertion");
             }
-                
-            film = new Film();
-            TitleF = null;
-            GenreF = null;
-            ContentF = null;
-            DirectorF = null;
-            StarsF = null;
-            DateAddF = DateTime.Now;
+            else
+                MessageBox.Show("L'un des champs est vide.");                
         }
 
         /**
@@ -210,24 +213,26 @@ namespace Videothèque2.ViewModels
          */
         private void AddSerie()
         {
-            if(serie.Title != null || serie.NbSeason != null || serie.Content != null)
+            if(TitleS != null && NbSeasonS != null && ContentS != null && GenreS != null && DirectorS != null && StarsS != null && PosterS != null)
             {
                 if (serie.Add())
                 {
-                    MessageBox.Show("La série '" + serie.Title + "' a bien été ajouté");
+                    MessageBox.Show("La série '" + TitleS + "' a bien été ajouté");
+                    serie = new Serie();
+                    TitleS = null;
+                    GenreS = null;
+                    NbSeasonS = null;
+                    ContentS = null;
+                    DirectorS = null;
+                    StarsS = null;
+                    PosterS = null;
+                    DateAddS = DateTime.Now;
                 }
                 else
                     MessageBox.Show("Error insertion");
             }
-
-            serie = new Serie();
-            TitleS = null;
-            GenreS = null;
-            NbSeasonS = null;
-            ContentS = null;
-            DirectorS = null;
-            StarsS = null;
-            DateAddS = DateTime.Now;
+            else
+                MessageBox.Show("L'un des champs est vide.");
         }
 
         /*

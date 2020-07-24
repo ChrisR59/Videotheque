@@ -211,7 +211,7 @@ namespace Videothèque2.ViewModels
         {
             Boolean res = true;
 
-            if (Title == null && Content == null)
+            if (Id == 0)
                 res = false;
 
             return res;
@@ -229,7 +229,7 @@ namespace Videothèque2.ViewModels
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier cette série?", "Confirmation modification", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if (Serie.Title != null && Serie.Content != null)
+                if (Title != null && Genre != null && Content != null && Director != null && Stars != null && Poster != null && NbSeason != null)
                 {
                     if (Serie.UpdateSerie())
                     {
