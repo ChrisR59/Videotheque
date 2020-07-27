@@ -36,6 +36,7 @@
             <ColumnDefinition Width="300"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
          
         <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Foreground="White"/>
@@ -51,19 +52,19 @@
         <Label Content="Synopsis" Grid.Row="1" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
         <TextBox Text="{Binding Content,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" Width="600" AcceptsReturn="True" VerticalAlignment="Bottom" Height="100" HorizontalAlignment="Left" Margin="50,0,0,7"/>
         <Label Content="Réalisateur" Grid.Row="3" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
-        <TextBox Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+        <TextBox Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Width="500" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
         <Label Content="Acteur / Actrice" Grid.Row="4" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
-        <TextBox Text="{Binding Stars, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+        <TextBox Text="{Binding Stars, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Grid.RowSpan="2" Width="500" Height="70" AcceptsReturn="True" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,25,0,7"/>
         
-        <Label Content="Vu le :" VerticalAlignment="Center" Grid.Column="3" Grid.Row="0" Foreground="White" Margin="50,0,0,0"/>
-        <DatePicker SelectedDate="{Binding LastView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left"
+        <Label Content="Vu le :" VerticalAlignment="Center" Grid.Column="4" Grid.Row="0" Foreground="White" Margin="50,0,0,0"/>
+        <DatePicker SelectedDate="{Binding LastView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left"
                     Height="22" Width="110" Margin="100,0,0,0" Background="#FF211059"/>
-        <Label Content="{Binding NbView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Height="25" Grid.Column="3" Grid.Row="1" Foreground="White" Margin="50,0,0,0"/>
-        <Label Content="fois" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" Foreground="White" Margin="100,0,0,0"/>
-        <Label Content="Commentaire" Grid.Row="2" Grid.Column="3" Foreground="White" Margin="50,0,0,0"></Label>
-        <TextBox Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="2" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
-        <Label Content="Note" Grid.Row="3" Grid.Column="3" Foreground="White" Margin="50,0,0,0"></Label>
-        <ComboBox ItemsSource="{Binding ListRating}" SelectedItem="{Binding Rating}" SelectedIndex="0" Grid.Column="3" Grid.Row="3" Height="30" Width="150" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7" />
+        <Label Content="{Binding NbView,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Height="25" Grid.Column="4" Grid.Row="1" Foreground="White" Margin="50,0,0,0"/>
+        <Label Content="fois" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1" Foreground="White" Margin="100,0,0,0"/>
+        <Label Content="Commentaire" Grid.Row="2" Grid.Column="4" Foreground="White" Margin="50,0,0,0"></Label>
+        <TextBox Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="2" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+        <Label Content="Note" Grid.Row="3" Grid.Column="4" Foreground="White" Margin="50,0,0,0"></Label>
+        <ComboBox ItemsSource="{Binding ListRating}" SelectedItem="{Binding Rating}" SelectedIndex="0" Grid.Column="4" Grid.Row="3" Height="30" Width="150" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7" />
         
         <Button Style="{StaticResource editButton}" Command="{Binding EditFilmCommand}" Grid.Column="3" Grid.Row="5" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="MODIFIER" FontFamily="Verdana" TextAlignment="Center"></TextBlock>

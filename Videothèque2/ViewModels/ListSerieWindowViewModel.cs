@@ -307,7 +307,7 @@ namespace Videothèque2.ViewModels
                 Directory.CreateDirectory("posters");
             }
             string urlAfterMove = Path.Combine(Directory.GetCurrentDirectory(), "posters", Path.GetFileName(urlToMove));
-            File.Copy(urlToMove, urlAfterMove);
+            File.Copy(urlToMove, urlAfterMove, true);
             return urlAfterMove;
         }
     }
