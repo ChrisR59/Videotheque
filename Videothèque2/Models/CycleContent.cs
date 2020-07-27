@@ -216,7 +216,9 @@ namespace Videothèque2.Models
         }
 
         /*
-         * 
+         * Resume : 
+         *      Remove a Cycle 
+         *  Return True is successful
          */
         public Boolean DelElement()
         {

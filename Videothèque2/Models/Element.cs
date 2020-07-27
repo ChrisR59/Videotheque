@@ -187,7 +187,9 @@ namespace Videothèque2.Models
         }
 
         /*
-         * 
+         * Resume :
+         *      Removes an element FILM from a cycle
+         * Return True is successfull
          */
         public Boolean UnWatchFilm()
         {
@@ -209,7 +211,9 @@ namespace Videothèque2.Models
         }
 
         /*
-         * 
+         * Resume :
+         *      Removes an element SERIE from a cycle
+         * Return True is successfull
          */
         public Boolean UnWatchSerie()
         {

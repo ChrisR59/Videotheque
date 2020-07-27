@@ -169,7 +169,8 @@ namespace Videothèque2.ViewModels
         }
 
         /*
-         * 
+         * Resume :
+         *      Remove a cycle
          */
         public void DelEltCycle()
         {
