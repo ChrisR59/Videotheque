@@ -13,7 +13,7 @@ using Videothèque2.Models;
 
 namespace Videothèque2.ViewModels
 {
-    public class AddElementWindowViewModel:ViewModelBase
+    public class AddElementWindowViewModel : ViewModelBase
     {
         private Film film;
         private Serie serie;
@@ -96,17 +96,9 @@ namespace Videothèque2.ViewModels
         public string GenreS
         {
             get => serie.Genre;
-            set {
-                serie.Genre = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string NbSeasonS
-        {
-            get => serie.NbSeason;
             set
             {
-                serie.NbSeason = value;
+                serie.Genre = value;
                 RaisePropertyChanged();
             }
         }
@@ -204,7 +196,7 @@ namespace Videothèque2.ViewModels
                     MessageBox.Show("Error Insertion");
             }
             else
-                MessageBox.Show("L'un des champs est vide.");                
+                MessageBox.Show("L'un des champs est vide.");
         }
 
         /**
@@ -213,7 +205,7 @@ namespace Videothèque2.ViewModels
          */
         private void AddSerie()
         {
-            if(TitleS != null && NbSeasonS != null && ContentS != null && GenreS != null && DirectorS != null && StarsS != null && PosterS != null)
+            if (TitleS != null && ContentS != null && GenreS != null && DirectorS != null && StarsS != null && PosterS != null)
             {
                 if (serie.Add())
                 {
@@ -221,7 +213,6 @@ namespace Videothèque2.ViewModels
                     serie = new Serie();
                     TitleS = null;
                     GenreS = null;
-                    NbSeasonS = null;
                     ContentS = null;
                     DirectorS = null;
                     StarsS = null;
@@ -260,7 +251,7 @@ namespace Videothèque2.ViewModels
             }
 
             string urlAfterMove = Path.Combine(Directory.GetCurrentDirectory(), "posters", Path.GetFileName(urlToMove));
-            File.Copy(urlToMove, urlAfterMove,true);
+            File.Copy(urlToMove, urlAfterMove, true);
             return urlAfterMove;
         }
     }

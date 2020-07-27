@@ -30,7 +30,7 @@
 
         <Label Content="Genre" HorizontalAlignment="Left" Margin="61,105,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="0"/>
         <TextBox HorizontalAlignment="Left" Margin="120,105,0,0" TextWrapping="Wrap" Text="{Binding GenreF}" VerticalAlignment="Top" Width="250" Grid.Column="0"/>
-
+       
         <Label Content="Synopsis" HorizontalAlignment="Left" Margin="45,140,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="0"/>
         <TextBox HorizontalAlignment="Left" Margin="120,140,0,0" TextWrapping="Wrap" Text="{Binding ContentF}" VerticalAlignment="Top" Width="250" Grid.Column="0"/>
 
@@ -39,6 +39,7 @@
 
         <Label Content="Acteur/Actrice" HorizontalAlignment="Left" Margin="17,210,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="0"/>
         <TextBox HorizontalAlignment="Left" Margin="120,210,0,0" TextWrapping="Wrap" Text="{Binding StarsF}" VerticalAlignment="Top" Width="250" Grid.Column="0"/>
+        
         <Button Command="{Binding AFilmCommand}" Margin="0,325,0,0" Width="150" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="0">
             <TextBlock Text="VALIDER" TextAlignment="Center" FontFamily="Verdana"></TextBlock>
         </Button>
@@ -52,19 +53,16 @@
         <Label Content="Genre" HorizontalAlignment="Left" Margin="61,105,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="1"/>
         <TextBox HorizontalAlignment="Left" Margin="120,105,0,0" TextWrapping="Wrap" Text="{Binding GenreS}" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
         
-        <Label Content="Nb Saison" HorizontalAlignment="Left" Margin="39,140,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Left" Margin="120,140,0,0" TextWrapping="Wrap" Text="{Binding NbSeasonS}" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
-        
-        <Label Content="Synopsis" HorizontalAlignment="Left" Margin="48,175,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Left" Margin="120,175,0,0" TextWrapping="Wrap" Text="{Binding ContentS}" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+        <Label Content="Synopsis" HorizontalAlignment="Left" Margin="48,140,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="120,140,0,0" TextWrapping="Wrap" Text="{Binding ContentS}" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
 
-        <Label Content="Réalisateur" HorizontalAlignment="Left" Margin="35,210,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Left" Margin="120,210,0,0" TextWrapping="Wrap" Text="{Binding DirectorS}" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+        <Label Content="Réalisateur" HorizontalAlignment="Left" Margin="35,175,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="120,175,0,0" TextWrapping="Wrap" Text="{Binding DirectorS}" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
 
-        <Label Content="Acteur/Actrice" HorizontalAlignment="Left" Margin="17,245,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Left" Margin="120,245,0,0" TextWrapping="Wrap" Text="{Binding StarsS}" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
+        <Label Content="Acteur/Actrice" HorizontalAlignment="Left" Margin="17,210,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Margin="120,210,0,0" TextWrapping="Wrap" Text="{Binding StarsS}" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
         
-        <Button Command="{Binding ASerieCommand}" Margin="173,325,173,0" Width="150" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1">
+        <Button Command="{Binding ASerieCommand}" Margin="0,325,0,0" Width="150" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1">
             <TextBlock Text="VALIDER" TextAlignment="Center" FontFamily="Verdana"></TextBlock>
         </Button>
 

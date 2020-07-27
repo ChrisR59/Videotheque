@@ -34,9 +34,13 @@ namespace Videothèque2.ViewModels
                 film = value;
                 if (film == null)
                     film = new Film();
+
                 RaisePropertyChanged("Id");
                 RaisePropertyChanged("Title");
                 RaisePropertyChanged("Genre");
+                RaisePropertyChanged("RunningTime");
+                RaisePropertyChanged("ReleaseDate");
+                RaisePropertyChanged("NbFilm");
                 RaisePropertyChanged("Content");
                 RaisePropertyChanged("Director");
                 RaisePropertyChanged("Stars");
@@ -75,7 +79,34 @@ namespace Videothèque2.ViewModels
                 Film.Genre = value;
                 RaisePropertyChanged("Genre");
             }
-        }        
+        }
+        public string RunningTime
+        {
+            get => Film.RunningTime;
+            set
+            {
+                Film.RunningTime = value;
+                RaisePropertyChanged("RunningTime");
+            }
+        }
+        public string ReleaseDate
+        {
+            get => Film.ReleaseDate;
+            set
+            {
+                Film.ReleaseDate = value;
+                RaisePropertyChanged("ReleaseDate");
+            }
+        }
+        public int NbFilm
+        {
+            get => Film.NbFilm;
+            set
+            {
+                Film.NbFilm = value;
+                RaisePropertyChanged("NbSeason");
+            }
+        }
         public string Content
         {
             get => Film.Content;

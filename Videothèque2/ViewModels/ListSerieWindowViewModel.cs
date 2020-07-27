@@ -36,6 +36,8 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Id");
                 RaisePropertyChanged("Title");
                 RaisePropertyChanged("Genre");
+                RaisePropertyChanged("RunningTime");
+                RaisePropertyChanged("ReleaseDate");
                 RaisePropertyChanged("NbSeason");
                 RaisePropertyChanged("Content");
                 RaisePropertyChanged("Director");
@@ -74,6 +76,24 @@ namespace Videothèque2.ViewModels
             {
                 Serie.Genre = value;
                 RaisePropertyChanged("Genre");
+            }
+        }
+        public string RunningTime
+        {
+            get => Serie.RunningTime;
+            set
+            {
+                Serie.RunningTime = value;
+                RaisePropertyChanged("RunningTime");
+            }
+        }
+        public string ReleaseDate
+        {
+            get => Serie.ReleaseDate;
+            set
+            {
+                Serie.ReleaseDate = value;
+                RaisePropertyChanged("ReleaseDate");
             }
         }
         public string NbSeason
@@ -229,7 +249,7 @@ namespace Videothèque2.ViewModels
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier cette série?", "Confirmation modification", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if (Title != null && Genre != null && Content != null && Director != null && Stars != null && Poster != null && NbSeason != null)
+                if (Title != null && Genre != null && Content != null && Director != null && Stars != null && Poster != null)
                 {
                     if (Serie.UpdateSerie())
                     {
