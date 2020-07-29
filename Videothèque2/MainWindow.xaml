@@ -23,6 +23,7 @@
         <Menu VerticalAlignment="Top" Height="25" DockPanel.Dock="Top">
             <MenuItem Header="Films" Command="{Binding LFilmCommand}"/>
             <MenuItem Header="Séries" Command="{Binding LSerieCommand}"/>
+            <MenuItem Header="Découvertes" Command="{Binding DiscoverCommand}"/>
             <MenuItem Header="Ajout éléments" Command="{Binding AEltCommand}"/>
             <MenuItem Header="Programmation" Command="{Binding ProgrammationCommand}" Height="25"/>
             <!-- programmation -->

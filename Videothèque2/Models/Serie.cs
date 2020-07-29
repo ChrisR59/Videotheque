@@ -244,9 +244,7 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
                 res = true;
-            }
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();

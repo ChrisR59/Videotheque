@@ -36,6 +36,7 @@ namespace Videothèque2.ViewModels
         public ICommand AEltCommand { get; set; }
         public ICommand CyclesCommand { get; set; }
         public ICommand ProgrammationCommand { get; set; }
+        public ICommand DiscoverCommand { get; set; }
 
         /*
          * Resume :
@@ -61,6 +62,12 @@ namespace Videothèque2.ViewModels
             {
                 ListSerieWindow lSw = new ListSerieWindow();
                 lSw.Show();
+            });
+
+            DiscoverCommand = new RelayCommand(() =>
+            {
+                DiscoverWindow dicover = new DiscoverWindow();
+                dicover.Show();
             });
 
             AEltCommand = new RelayCommand(() =>

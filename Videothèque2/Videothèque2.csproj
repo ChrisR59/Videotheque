@@ -107,10 +107,15 @@
     </ApplicationDefinition>
     <Compile Include="Models\CycleContent.cs" />
     <Compile Include="Models\CycleStatus.cs" />
+    <Compile Include="Models\Discover.cs" />
     <Compile Include="Models\Element.cs" />
     <Compile Include="Tools\Rating.cs" />
+    <Compile Include="ViewModels\DiscoverWindowViewModel.cs" />
     <Compile Include="ViewModels\GestionCycleViewModel.cs" />
     <Compile Include="ViewModels\ProgrammationWindowViewModel.cs" />
+    <Compile Include="Views\DiscoverWindow.xaml.cs">
+      <DependentUpon>DiscoverWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GestionCycleWindow.xaml.cs">
       <DependentUpon>GestionCycleWindow.xaml</DependentUpon>
     </Compile>
@@ -118,6 +123,10 @@
       <DependentUpon>ProgrammationWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AddElementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DiscoverWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
