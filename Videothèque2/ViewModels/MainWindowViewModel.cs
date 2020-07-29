@@ -50,7 +50,7 @@ namespace Videothèque2.ViewModels
             CycleC = new CycleContent();
             ListCycle = CycleS.GetAllCycle();
             IdCycle = CycleS.GetIdCycle();
-            ListCycleContent = CycleC.GetCurrentCycle(CycleS.Number);
+            ListCycleContent = CycleC.GetCurrentCycle(IdCycle);
             LFilmCommand = new RelayCommand(() =>
             {
                 ListFilmWindow lFw = new ListFilmWindow();
@@ -147,7 +147,7 @@ namespace Videothèque2.ViewModels
                             MessageBox.Show("Cycle Terminé");
 
                         CycleS = new CycleStatus();
-                        CycleS.GetNewCycle();
+                        IdCycle = CycleS.GetNewCycle();
 
                         if (CycleS.EditStatusCycle())
                             MessageBox.Show("Nouveau cycle chargé");
@@ -168,6 +168,7 @@ namespace Videothèque2.ViewModels
             CycleC = new CycleContent();
             ListCycleContent = CycleC.GetCurrentCycle(IdCycle);
             RaisePropertyChanged("ListCycleContent");
+            RaisePropertyChanged("IdCycle");
         }
     }
 }

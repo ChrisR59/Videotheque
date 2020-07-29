@@ -95,9 +95,9 @@ namespace Videothèque2.Models
          * Resume :
          *      Get one cycle
          */
-        public void GetNewCycle()
+        public int GetNewCycle()
         {
-            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '1'", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Number FROM CycleStatus WHERE Status = '1'", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -106,7 +106,7 @@ namespace Videothèque2.Models
             {
                 if(i == 0)
                 {
-                    Id = DataBase.Instance.reader.GetInt32(0);
+                    Number = DataBase.Instance.reader.GetInt32(0);
                     StatusC = Status.EnCours;
                     i++;
                 }
@@ -114,6 +114,8 @@ namespace Videothèque2.Models
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
+
+            return Number;
         }
 
         /*
@@ -202,9 +204,9 @@ namespace Videothèque2.Models
         public Boolean EditStatusCycle()
         {
             Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE CycleStatus SET Status = @Status WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("UPDATE CycleStatus SET Status = @Status WHERE Number = @Number", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Status", StatusC));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Number", Number));
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
