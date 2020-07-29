@@ -106,7 +106,7 @@ namespace Videothèque2.ViewModels
             ListView = Element.GetProgram();
             AddCycleCommand = new RelayCommand(CreateCycle);
             AddEltCycleCommand = new RelayCommand(AddEltCycle);
-            DelEltCycleCommand = new RelayCommand(DelEltCycle);
+            DelEltCycleCommand = new RelayCommand(DelEltCycle,CanExecute);
         }
 
         /**
@@ -212,6 +212,16 @@ namespace Videothèque2.ViewModels
                 //Deprogrammer dans Film ou Serie
             }
 
+        }
+
+        public Boolean CanExecute()
+        {
+            Boolean res = true;
+
+            if (ElementsAvailable)
+                res = false;
+
+            return res;
         }
     }
 }
