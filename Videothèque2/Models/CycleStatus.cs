@@ -77,18 +77,18 @@ namespace Videothèque2.Models
          */
         public int GetIdCycle()
         {
-            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '0'", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Number FROM CycleStatus WHERE Status = '0'", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
             if (DataBase.Instance.reader.Read())
             {
-                Id = DataBase.Instance.reader.GetInt32(0);
+                Number = DataBase.Instance.reader.GetInt32(0);
             }
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
 
-            return Id;
+            return Number;
         }
 
         /*
@@ -159,7 +159,7 @@ namespace Videothèque2.Models
         {
             ObservableCollection<int> l = new ObservableCollection<int>();
 
-            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status != '2'",DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Number FROM CycleStatus WHERE Status != '2'",DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -181,7 +181,7 @@ namespace Videothèque2.Models
         {
             ObservableCollection<int> l = new ObservableCollection<int>();
 
-            DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Number FROM CycleStatus", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 

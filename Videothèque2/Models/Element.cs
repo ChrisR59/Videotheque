@@ -100,7 +100,7 @@ namespace Videothèque2.Models
         public ObservableCollection<Element> GetCycle(int idCycleS)
         {
             ObservableCollection<Element> listC = new ObservableCollection<Element>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Type,IdElt,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Rank,Type,IdElt,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", idCycleS));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -109,9 +109,10 @@ namespace Videothèque2.Models
             {
                 Element c = new Element()
                 {
-                    Id = DataBase.Instance.reader.GetInt32(3),
+                    Id = DataBase.Instance.reader.GetInt32(4),
                     Title = DataBase.Instance.reader.GetString(1),
-                    Type = DataBase.Instance.reader.GetString(2),
+                    Place = DataBase.Instance.reader.GetInt32(2),
+                    Type = DataBase.Instance.reader.GetString(3),
                     IdCycle = DataBase.Instance.reader.GetInt32(0)
                 };
 

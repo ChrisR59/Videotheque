@@ -50,7 +50,7 @@ namespace Videothèque2.ViewModels
             CycleC = new CycleContent();
             ListCycle = CycleS.GetAllCycle();
             IdCycle = CycleS.GetIdCycle();
-            ListCycleContent = CycleC.GetCurrentCycle(CycleS.Id);
+            ListCycleContent = CycleC.GetCurrentCycle(CycleS.Number);
             LFilmCommand = new RelayCommand(() =>
             {
                 ListFilmWindow lFw = new ListFilmWindow();
