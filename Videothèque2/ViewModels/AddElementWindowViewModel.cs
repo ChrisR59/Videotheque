@@ -17,6 +17,7 @@ namespace Videothèque2.ViewModels
     {
         private Film film;
         private Serie serie;
+        private Discover discover;
 
         //Attribute related to the film
         public string TitleF
@@ -148,10 +149,32 @@ namespace Videothèque2.ViewModels
             }
         }
 
+        //Attribute Related to the Discover
+        public string TitleD
+        {
+            get => discover.Title;
+            set
+            {
+                discover.Title = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string ReleaseDateD
+        {
+            get => discover.ReleaseDate;
+            set
+            {
+                discover.ReleaseDate = value;
+                RaisePropertyChanged();
+            }
+        }
+
         //Command
         public ICommand AFilmCommand { get; set; }
         public ICommand ASerieCommand { get; set; }
         public ICommand AddPosterCommand { get; set; }
+        public ICommand ADiscoverCommand { get; set; }
 
         /*
          * Resume : 
@@ -163,12 +186,14 @@ namespace Videothèque2.ViewModels
         {
             film = new Film();
             serie = new Serie();
+            discover = new Discover();
             DateAddF = DateTime.Now;
             DateAddS = DateTime.Now;
 
             AFilmCommand = new RelayCommand(AddFilm);
             ASerieCommand = new RelayCommand(AddSerie);
             AddPosterCommand = new RelayCommand(AddPoster);
+            ADiscoverCommand = new RelayCommand(AddDiscover);
         }
 
         /**
@@ -218,6 +243,28 @@ namespace Videothèque2.ViewModels
                     StarsS = null;
                     PosterS = null;
                     DateAddS = DateTime.Now;
+                }
+                else
+                    MessageBox.Show("Error insertion");
+            }
+            else
+                MessageBox.Show("L'un des champs est vide.");
+        }
+
+
+        /**
+         * 
+         */
+        private void AddDiscover()
+        {
+            if(TitleD != null && ReleaseDateD != null)
+            {
+                if(discover.AddDiscover())
+                {
+                    MessageBox.Show("La découverte '" + TitleD + "' a bien été ajouté");
+                    discover = new Discover();
+                    TitleD = null;
+                    ReleaseDateD = null;
                 }
                 else
                     MessageBox.Show("Error insertion");

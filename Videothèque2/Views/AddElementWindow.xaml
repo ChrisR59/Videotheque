@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Videothèque2"
         xmlns:viewModel="clr-namespace:Videothèque2.ViewModels"
         mc:Ignorable="d"
-        Title="AddElementWindow" Height="600" Width="1000">
+        Title="AddElementWindow" Height="600" Width="1500">
     <Window.DataContext>
         <viewModel:AddElementWindowViewModel></viewModel:AddElementWindowViewModel>
     </Window.DataContext>
@@ -20,6 +20,7 @@
     </Window.Style>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -66,10 +67,20 @@
             <TextBlock Text="VALIDER" TextAlignment="Center" FontFamily="Verdana"></TextBlock>
         </Button>
 
-
-
         <Button Command="{Binding AddPosterCommand}" Width="225" Margin="0,0,0,50" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Text="Ajouter une affiche" TextAlignment="Center"></TextBlock>
+        </Button>
+
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ajout d'une découverte" VerticalAlignment="Top" Foreground="White" FontSize="18" Grid.Column="2" Margin="150,30,0,0"/>
+
+        <Label Content="Titre" HorizontalAlignment="Left" Margin="67,70,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="2" RenderTransformOrigin="1.444,0.654"/>
+        <TextBox HorizontalAlignment="Left" Margin="120,70,0,0" TextWrapping="Wrap" Text="{Binding TitleD}" VerticalAlignment="Top" Width="250" Grid.Column="2" />
+
+        <Label Content="Date de Sortie" HorizontalAlignment="Left" Margin="17,110,0,0" VerticalAlignment="Top" Foreground="White"  Grid.Column="2"/>
+        <TextBox HorizontalAlignment="Left" Margin="120,110,0,0" TextWrapping="Wrap" Text="{Binding ReleaseDateD}" VerticalAlignment="Top" Width="250" Grid.Column="2"/>
+
+        <Button Command="{Binding ADiscoverCommand}" Margin="0,325,0,0" Width="150" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="2">
+            <TextBlock Text="VALIDER" TextAlignment="Center" FontFamily="Verdana"></TextBlock>
         </Button>
     </Grid>
 </Window>

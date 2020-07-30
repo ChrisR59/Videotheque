@@ -58,8 +58,8 @@ namespace Videothèque2.Models
                 int w = DataBase.Instance.reader.GetInt32(3);
                 if (w == 1)
                     d.ToWatch = true;
-
-                d.Comment = DataBase.Instance.reader.GetString(4);
+                if(!DataBase.Instance.reader.IsDBNull(4))
+                    d.Comment = DataBase.Instance.reader.GetString(4);
 
                 list.Add(d);
             }
