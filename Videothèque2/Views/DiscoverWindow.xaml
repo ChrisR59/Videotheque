@@ -19,6 +19,16 @@
         </Style>
     </Window.Style>
     <Grid>
+        <Label Content="Titre" Foreground="White" Margin="50,0,0,0"></Label>
+        <TextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,0,0,268"/>
+        <Label Content="Genre" Grid.Row="0" Grid.Column="2" Foreground="White" Margin="50,30,0,0"></Label>
+        <TextBox Text="{Binding ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,30,0,7"/>
+        <Label Content="Commentaire" Grid.Row="1" Grid.Column="1" Foreground="White" Margin="50,60,0,0"></Label>
+        <TextBox Text="{Binding Comment,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="600" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,60,0,7"/>
+        <Button Command="{Binding EditDiscoverCommand}" Width="135" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,90,0,7">
+            <TextBlock Text="Editer" TextAlignment="Center"></TextBlock>
+        </Button>
+
         <DataGrid ItemsSource="{Binding ListDiscover}" SelectedItem="{Binding Discover}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
                   FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
                   BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
@@ -31,7 +41,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="150" IsReadOnly="True"  Header="Titre" Binding="{Binding ReleaseDate, UpdateSourceTrigger=PropertyChanged}">
+                <DataGridTextColumn Width="150" IsReadOnly="True"  Header="Date" Binding="{Binding ReleaseDate, UpdateSourceTrigger=PropertyChanged}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -39,7 +49,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="400" IsReadOnly="True"  Header="Titre" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}">
+                <DataGridTextColumn Width="400" IsReadOnly="True"  Header="Commentaire" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />

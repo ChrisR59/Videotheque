@@ -99,13 +99,16 @@ namespace Videothèque2.Models
         public Boolean DeleteOneDiscover()
         {
             bool res = false;
+
             DataBase.Instance.command = new SqlCommand("DELETE FROM Discover WHERE Id = @Id",DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("Id",Id));
             DataBase.Instance.connection.Open();
-            if (DataBase.Instance.command.ExecuteNonQuery() > 1)
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
                 res = true;
+
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
+
             return res;
         }
     }
