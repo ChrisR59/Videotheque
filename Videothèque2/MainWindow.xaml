@@ -33,14 +33,17 @@
         <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="255,74,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="16" Width="80"/>
         <Button Command="{Binding UpdateListCommand}" Content="ACTUALISER" VerticalAlignment="Top" Margin="371,60,273,0" FontFamily="Verdana" HorizontalAlignment="Center"/>
 
-        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
+        <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}" GridLinesVisibility="None"
                   FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
                   BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Type}" Value="Découverte">
-                            <Setter Property="Background" Value="Green"/>
+                            <Setter Property="Background" Value="#95cc81"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="Film">
+                            <Setter Property="Background" Value="#e4e4e7"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
