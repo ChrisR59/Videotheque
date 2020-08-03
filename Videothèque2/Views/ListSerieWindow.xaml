@@ -58,10 +58,12 @@
 
         <Label Content="Nombre de Saisons" Grid.Row="0" Grid.Column="3" Foreground="White"></Label>
         <TextBox TextWrapping="Wrap" Text="{Binding NbSeason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="0" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
-        <Label Content="Durée :" Grid.Row="1" Grid.Column="3" Foreground="White"></Label>
-        <TextBox TextWrapping="Wrap" Text="{Binding RunningTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
-        <Label Content="Date de Sortie :" Grid.Row="2" Grid.Column="3" Foreground="White"></Label>
-        <TextBox TextWrapping="Wrap" Text="{Binding ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="2" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,27"/>
+        <Label Content="Nombre d'épisodes" Grid.Row="1" Grid.Column="3" Foreground="White"></Label>
+        <TextBox TextWrapping="Wrap" Text="{Binding NbEpisode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
+        <Label Content="Durée :" Grid.Row="2" Grid.Column="3" Foreground="White"></Label>
+        <TextBox TextWrapping="Wrap" Text="{Binding RunningTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="2" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,27"/>
+        <Label Content="Date de Sortie :" Grid.Row="3" Grid.Column="3" Foreground="White"></Label>
+        <TextBox TextWrapping="Wrap" Text="{Binding ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="3" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
 
         <Label Content="Vu le :" VerticalAlignment="Center" Grid.Column="4" Grid.Row="0" Foreground="#FFF7F2F2" Margin="50,0,0,0"/>
         <DatePicker SelectedDate="{Binding LastView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="4" Grid.Row="0"

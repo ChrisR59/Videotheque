@@ -39,6 +39,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("RunningTime");
                 RaisePropertyChanged("ReleaseDate");
                 RaisePropertyChanged("NbSeason");
+                RaisePropertyChanged("NbEpisode");
                 RaisePropertyChanged("Content");
                 RaisePropertyChanged("Director");
                 RaisePropertyChanged("Stars");
@@ -103,6 +104,15 @@ namespace Videothèque2.ViewModels
             {
                 Serie.NbSeason = value;
                 RaisePropertyChanged("NbSeason");
+            }
+        }
+        public int NbEpisode
+        {
+            get => Serie.NbEpisode;
+            set
+            {
+                Serie.NbEpisode = value;
+                RaisePropertyChanged("NbEpisode");
             }
         }
         public string Content
