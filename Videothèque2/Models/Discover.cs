@@ -23,6 +23,10 @@ namespace Videothèque2.Models
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string Comment { get => comment; set => comment = value; }
 
+
+        /**
+         * 
+         */
         public Boolean AddDiscover()
         {
             bool res = false;
@@ -41,6 +45,9 @@ namespace Videothèque2.Models
             return res;
         }
 
+        /**
+         * 
+         */
         public ObservableCollection<Discover> GetAllDiscover()
         {
             ObservableCollection<Discover> list = new ObservableCollection<Discover>();
@@ -58,7 +65,7 @@ namespace Videothèque2.Models
                 int w = DataBase.Instance.reader.GetInt32(3);
                 if (w == 1)
                     d.ToWatch = true;
-                if(!DataBase.Instance.reader.IsDBNull(4))
+                if (!DataBase.Instance.reader.IsDBNull(4))
                     d.Comment = DataBase.Instance.reader.GetString(4);
 
                 list.Add(d);
@@ -70,6 +77,9 @@ namespace Videothèque2.Models
             return list;
         }
 
+        /**
+         * 
+         */
         public Boolean EditOneDiscover()
         {
             bool res = false;
@@ -79,7 +89,7 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Parameters.Add(new SqlParameter("Title", Title));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("ReleaseDate", ReleaseDate));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("ToWatch", ToWatch));
-            
+
             if (Comment == null)
                 DataBase.Instance.command.Parameters.Add(new SqlParameter("Comment", DBNull.Value));
             else
@@ -96,12 +106,39 @@ namespace Videothèque2.Models
             return res;
         }
 
+
+        /**
+         * 
+         */
+        public Boolean UpProgrammDiscover()
+        {
+            bool res = false;
+            string req = "UPDATE Discover SET ToWatch = @ToWatch WHERE id = @Id";
+            DataBase.Instance.command = new SqlCommand(req, DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
+
+        /**
+         * 
+         */
         public Boolean DeleteOneDiscover()
         {
             bool res = false;
 
-            DataBase.Instance.command = new SqlCommand("DELETE FROM Discover WHERE Id = @Id",DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("Id",Id));
+            DataBase.Instance.command = new SqlCommand("DELETE FROM Discover WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("Id", Id));
             DataBase.Instance.connection.Open();
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
                 res = true;

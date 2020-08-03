@@ -87,6 +87,26 @@ namespace Videothèque2.Models
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
+
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Discover WHERE ToWatch = 1", DataBase.Instance.connection);
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while (DataBase.Instance.reader.Read())
+            {
+                Element s = new Element();
+                s.Id = DataBase.Instance.reader.GetInt32(0);
+                s.Title = DataBase.Instance.reader.GetString(1);
+                s.Type = "Découverte";
+                int w = DataBase.Instance.reader.GetInt32(2);
+                if (w == 1)
+                    s.ToWatch = true;
+                l.Add(s);
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
             return l;
         }
 
@@ -220,6 +240,29 @@ namespace Videothèque2.Models
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE Series SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+            return res;
+        }
+
+        /*
+         * Resume :
+         *      Removes an element Discover from a cycle
+         * Return True is successfull
+         */
+        public Boolean UnWatchDiscover()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE Discover SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
             DataBase.Instance.connection.Open();

@@ -61,6 +61,7 @@ namespace Videothèque2.ViewModels
 
         public ICommand DeleteDiscoverCommand { get; set; }
         public ICommand EditDiscoverCommand { get; set; }
+        public ICommand ProgramEltCommand { get; set; }
 
         public DiscoverWindowViewModel()
         {
@@ -69,8 +70,12 @@ namespace Videothèque2.ViewModels
 
             DeleteDiscoverCommand = new RelayCommand(DelDiscover);
             EditDiscoverCommand = new RelayCommand(EditDiscover);
+            ProgramEltCommand = new RelayCommand(ProgramDiscover);
         }
 
+        /**
+         * 
+         */
         private void EditDiscover()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier ce Decouverte?", "Confirmation modification", MessageBoxButton.YesNo);
@@ -88,6 +93,28 @@ namespace Videothèque2.ViewModels
             }
         }
 
+        /**
+         * 
+         */
+        private void ProgramDiscover()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer cette découverte?", "Confirmation programmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                if (Discover != null)
+                {
+                    Discover.ToWatch = true;
+                    Discover.UpProgrammDiscover();
+                    MessageBox.Show("La découverte a bien été programmé.");
+                    ListDiscover = Discover.GetAllDiscover();
+                    RaisePropertyChanged("ListDiscover");
+                }
+            }
+        }
+
+        /**
+         * 
+         */
         private void DelDiscover()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer cette Decouverte?", "Confirmation Suppression", MessageBoxButton.YesNo);

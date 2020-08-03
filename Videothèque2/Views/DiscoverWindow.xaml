@@ -59,6 +59,16 @@
                 </DataGridTextColumn>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Button Command="{Binding Path=DataContext.ProgramEltCommand, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}}" Content="Programmer" FontFamily="Verdana"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate >
                             <Button Style="{StaticResource delButton}" Command="{Binding Path=DataContext.DeleteDiscoverCommand, RelativeSource= {RelativeSource FindAncestor,
                                         AncestorType={x:Type DataGrid}}}" Content="Supprimer" FontFamily="Verdana"/>

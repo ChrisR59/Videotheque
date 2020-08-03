@@ -199,6 +199,14 @@ namespace Videothèque2.ViewModels
                             del = true;
                         }
                     }
+                    else if (CycleC.Type == "Découverte")
+                    {
+                        if (Element.UnWatchDiscover())
+                        {
+                            Element.ToWatch = false;
+                            del = true;
+                        }
+                    }
                 }
 
                 if (del)
