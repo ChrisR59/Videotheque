@@ -36,6 +36,15 @@
         <DataGrid ItemsSource="{Binding ListCycleContent}" SelectedItem="{Binding CycleC}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
                   FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
                   BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Type}" Value="Découverte">
+                            <Setter Property="Background" Value="Green"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Titre" Width="350" Binding="{Binding Title,UpdateSourceTrigger=PropertyChanged}">
                     <DataGridTextColumn.ElementStyle>
@@ -45,7 +54,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="70" Header="Type" Binding="{Binding Type, UpdateSourceTrigger=PropertyChanged}">
+                <DataGridTextColumn Width="100" Header="Type" Binding="{Binding Type, UpdateSourceTrigger=PropertyChanged}">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center" />

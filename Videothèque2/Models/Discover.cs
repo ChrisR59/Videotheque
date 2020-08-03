@@ -9,7 +9,7 @@ using Videothèque2.Tools;
 
 namespace Videothèque2.Models
 {
-    class Discover
+    public class Discover
     {
         private int id;
         private string title;

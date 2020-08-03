@@ -63,6 +63,9 @@ namespace Videothèque2.ViewModels
         public ICommand EditDiscoverCommand { get; set; }
         public ICommand ProgramEltCommand { get; set; }
 
+        /**
+         * 
+         */
         public DiscoverWindowViewModel()
         {
             Discover = new Discover();

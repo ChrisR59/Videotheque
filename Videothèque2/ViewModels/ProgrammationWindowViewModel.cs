@@ -62,7 +62,8 @@ namespace Videothèque2.ViewModels
 
         //Cycle Statu item
         private int idCycle;
-        public int IdCycle { 
+        public int IdCycle
+        {
             get => idCycle;
             set
             {
@@ -106,7 +107,7 @@ namespace Videothèque2.ViewModels
             ListView = Element.GetProgram();
             AddCycleCommand = new RelayCommand(CreateCycle);
             AddEltCycleCommand = new RelayCommand(AddEltCycle);
-            DelEltCycleCommand = new RelayCommand(DelEltCycle,CanExecute);
+            DelEltCycleCommand = new RelayCommand(DelEltCycle, CanExecute);
         }
 
         /**
@@ -158,6 +159,12 @@ namespace Videothèque2.ViewModels
                             s.ToWatch = false;
                             Boolean res = s.UpSerieProgramm();
                         }
+                        else if (Element.Type == "Découverte")
+                        {
+                            Discover d = Element.GetOneDiscover();
+                            d.ToWatch = false;
+                            Boolean res = d.UpProgrammDiscover();
+                        }
                     }
                     ListView.Remove(Element);
                     RaisePropertyChanged("ListView");
@@ -184,16 +191,17 @@ namespace Videothèque2.ViewModels
                 CycleC.Id = Element.IdCycle;
                 if (CycleC.DelElement())
                 {
-                    if(CycleC.Type == "Film")
+                    if (CycleC.Type == "Film")
                     {
                         if (Element.UnWatchFilm())
                         {
                             Element.ToWatch = false;
                             del = true;
                         }
-                    } else if(CycleC.Type == "Serie")
+                    }
+                    else if (CycleC.Type == "Serie")
                     {
-                        if(Element.UnWatchSerie())
+                        if (Element.UnWatchSerie())
                         {
                             Element.ToWatch = false;
                             del = true;
@@ -222,6 +230,9 @@ namespace Videothèque2.ViewModels
 
         }
 
+        /**
+         * 
+         */
         public Boolean CanExecute()
         {
             Boolean res = true;

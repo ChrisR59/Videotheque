@@ -209,6 +209,34 @@ namespace Videothèque2.Models
 
         /*
          * Resume :
+         *      Get one serie with his Id
+         * Return an Discover object 
+         */
+        public Discover GetOneDiscover()
+        {
+            Discover d = new Discover();
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Discover WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while (DataBase.Instance.reader.Read())
+            {
+                d.Id = DataBase.Instance.reader.GetInt32(0);
+                d.Title = DataBase.Instance.reader.GetString(1);
+
+                int w = DataBase.Instance.reader.GetInt32(2);
+                if (w == 1)
+                    d.ToWatch = true;
+            }
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return d;
+        }
+
+        /*
+         * Resume :
          *      Removes an element FILM from a cycle
          * Return True is successfull
          */
