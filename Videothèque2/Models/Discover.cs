@@ -44,7 +44,7 @@ namespace Videothèque2.Models
         public ObservableCollection<Discover> GetAllDiscover()
         {
             ObservableCollection<Discover> list = new ObservableCollection<Discover>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ReleaseDate,ToWatch,Comment FROM Discover", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ReleaseDate,ToWatch,Comment FROM Discover ORDER BY Title", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
