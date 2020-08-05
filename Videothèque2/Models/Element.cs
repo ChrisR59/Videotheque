@@ -31,7 +31,7 @@ namespace Videothèque2.Models
             set
             {
                 title = value;
-                NotifyPropertyChange("Title");
+                //NotifyPropertyChange("Title");
             }
         }
         public int Place { get => place; set => place = value; }
@@ -149,6 +149,7 @@ namespace Videothèque2.Models
 
             return listC;
         }
+        
         /*
          * Resume :
          *      Get one film with his Id

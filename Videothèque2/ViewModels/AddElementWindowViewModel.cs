@@ -26,12 +26,37 @@ namespace Videothèque2.ViewModels
         private string director;
         private string stars;
         private string poster;
-        private DateTime dateAdd;
 
         public Film Film { get => film; set => film = value; }
         public Serie Serie { get => serie; set => serie = value; }
-        public bool RadioFilm { get => radioFilm; set => radioFilm = value; }
-        public bool RadioSerie { get => radioSerie; set => radioSerie = value; }
+        public bool RadioFilm
+        {
+            get => radioFilm;
+            set
+            {
+                radioFilm = value;
+                Film.Title = Serie.Title;
+                Film.Genre = Serie.Genre;
+                Film.Content = Serie.Content;
+                Film.Director = Serie.Director;
+                Film.Stars = Serie.Stars;
+                Film.Poster = Serie.Poster;
+            }
+        }
+        public bool RadioSerie
+        {
+            get => radioSerie;
+            set
+            {
+                radioSerie = value;
+                Serie.Title = Film.Title;
+                Serie.Genre = Film.Genre;
+                Serie.Content = Film.Content;
+                Serie.Director = Film.Director;
+                Serie.Stars = Film.Stars;
+                Serie.Poster = Film.Poster;
+            }
+        }
         public string Title
         {
             get => title;
@@ -122,21 +147,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public DateTime DateAdd
-        {
-            get => dateAdd;
-            set
-            {
-                dateAdd = value;
-
-                if (RadioFilm)
-                    Film.DateAdd = value;
-                else if (RadioSerie)
-                    Serie.DateAdd = value;
-
-                RaisePropertyChanged();
-            }
-        }
 
         //Attribute Related to the Discover
         public string TitleD
@@ -174,8 +184,8 @@ namespace Videothèque2.ViewModels
         {
             Film = new Film();
             Serie = new Serie();
+            RadioFilm = true;
             discover = new Discover();
-            DateAdd = DateTime.Now;
 
             AddCommand = new RelayCommand(AddElement);
             AddPosterCommand = new RelayCommand(AddPoster);
@@ -279,7 +289,6 @@ namespace Videothèque2.ViewModels
             Director = null;
             Stars = null;
             Poster = null;
-            DateAdd = DateTime.Now;
         }
 
         /*

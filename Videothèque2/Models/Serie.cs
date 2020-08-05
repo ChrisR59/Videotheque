@@ -73,7 +73,7 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@director", Director));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@stars", Stars));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@poster", Poster));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@dateAdd", DateAdd));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@dateAdd", DateTime.Now));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@rating", Rating.Aucune));
             DataBase.Instance.connection.Open();
             Id = (int)DataBase.Instance.command.ExecuteScalar();

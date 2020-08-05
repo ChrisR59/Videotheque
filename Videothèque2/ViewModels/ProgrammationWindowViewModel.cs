@@ -26,6 +26,7 @@ namespace Videothèque2.ViewModels
                 elementsAvailable = value;
                 if (value)
                 {
+                    Element = new Element();
                     ListView = Element.GetProgram();
                     RaisePropertyChanged("ListView");
                 }
@@ -40,6 +41,7 @@ namespace Videothèque2.ViewModels
                 elementsCycle = value;
                 if (value)
                 {
+                    Element = new Element();
                     ListView = Element.GetCycle(IdCycle);//list de cycleContent
                     RaisePropertyChanged("ListView");
                 }
