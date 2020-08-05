@@ -18,133 +18,122 @@ namespace Videothèque2.ViewModels
         private Film film;
         private Serie serie;
         private Discover discover;
+        private bool radioFilm;
+        private bool radioSerie;
+        private string title;
+        private string genre;
+        private string content;
+        private string director;
+        private string stars;
+        private string poster;
+        private DateTime dateAdd;
 
-        //Attribute related to the film
-        public string TitleF
+        public Film Film { get => film; set => film = value; }
+        public Serie Serie { get => serie; set => serie = value; }
+        public bool RadioFilm { get => radioFilm; set => radioFilm = value; }
+        public bool RadioSerie { get => radioSerie; set => radioSerie = value; }
+        public string Title
         {
-            get => film.Title;
+            get => title;
             set
             {
-                film.Title = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string GenreF
-        {
-            get => film.Genre;
-            set
-            {
-                film.Genre = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string ContentF
-        {
-            get => film.Content;
-            set
-            {
-                film.Content = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string DirectorF
-        {
-            get => film.Director;
-            set
-            {
-                film.Director = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string StarsF
-        {
-            get => film.Stars;
-            set
-            {
-                film.Stars = value;
-                RaisePropertyChanged();
-            }
-        }
-        public string PosterF
-        {
-            get => film.Poster;
-            set
-            {
-                film.Poster = value;
-                RaisePropertyChanged();
-            }
-        }
-        public DateTime DateAddF
-        {
-            get => film.DateAdd;
-            set
-            {
-                film.DateAdd = value;
-                RaisePropertyChanged();
-            }
-        }
+                title = value;
 
-        //Attribute related to the serie
-        public string TitleS
-        {
-            get => serie.Title;
-            set
-            {
-                serie.Title = value;
+                if (RadioFilm)
+                    Film.Title = value;
+                else if (RadioSerie)
+                    Serie.Title = value;
+
                 RaisePropertyChanged();
             }
         }
-        public string GenreS
+        public string Genre
         {
-            get => serie.Genre;
+            get => genre;
             set
             {
-                serie.Genre = value;
+                genre = value;
+
+                if (RadioFilm)
+                    Film.Genre = value;
+                else if (RadioSerie)
+                    Serie.Genre = value;
+
                 RaisePropertyChanged();
             }
         }
-        public string ContentS
+        public string Content
         {
-            get => serie.Content;
+            get => content;
             set
             {
-                serie.Content = value;
+                content = value;
+
+                if (RadioFilm)
+                    Film.Content = value;
+                else if (RadioSerie)
+                    Serie.Content = value;
+
                 RaisePropertyChanged();
             }
         }
-        public string DirectorS
+        public string Director
         {
-            get => serie.Director;
+            get => director;
             set
             {
-                serie.Director = value;
+                director = value;
+
+                if (RadioFilm)
+                    Film.Director = value;
+                else if (RadioSerie)
+                    Serie.Director = value;
+
                 RaisePropertyChanged();
             }
         }
-        public string StarsS
+        public string Stars
         {
-            get => serie.Stars;
+            get => stars;
             set
             {
-                serie.Stars = value;
+                stars = value;
+
+                if (RadioFilm)
+                    Film.Stars = value;
+                else if (RadioSerie)
+                    Serie.Stars = value;
+
                 RaisePropertyChanged();
             }
         }
-        public string PosterS
+        public string Poster
         {
-            get => serie.Poster;
+            get => poster;
             set
             {
-                serie.Poster = value;
+                poster = value;
+
+                if (RadioFilm)
+                    Film.Poster = value;
+                else if (RadioSerie)
+                    Serie.Poster = value;
+
                 RaisePropertyChanged();
             }
         }
-        public DateTime DateAddS
+        public DateTime DateAdd
         {
-            get => serie.DateAdd;
+            get => dateAdd;
             set
             {
-                serie.DateAdd = value;
+                dateAdd = value;
+
+                if (RadioFilm)
+                    Film.DateAdd = value;
+                else if (RadioSerie)
+                    Serie.DateAdd = value;
+
                 RaisePropertyChanged();
             }
         }
@@ -171,8 +160,7 @@ namespace Videothèque2.ViewModels
         }
 
         //Command
-        public ICommand AFilmCommand { get; set; }
-        public ICommand ASerieCommand { get; set; }
+        public ICommand AddCommand { get; set; }
         public ICommand AddPosterCommand { get; set; }
         public ICommand ADiscoverCommand { get; set; }
 
@@ -184,44 +172,44 @@ namespace Videothèque2.ViewModels
          */
         public AddElementWindowViewModel()
         {
-            film = new Film();
-            serie = new Serie();
+            Film = new Film();
+            Serie = new Serie();
             discover = new Discover();
-            DateAddF = DateTime.Now;
-            DateAddS = DateTime.Now;
+            DateAdd = DateTime.Now;
 
-            AFilmCommand = new RelayCommand(AddFilm);
-            ASerieCommand = new RelayCommand(AddSerie);
+            AddCommand = new RelayCommand(AddElement);
             AddPosterCommand = new RelayCommand(AddPoster);
             ADiscoverCommand = new RelayCommand(AddDiscover);
         }
 
+
+
+        private void AddElement()
+        {
+            if (Title != null && Content != null && Director != null && Genre != null && Stars != null && Poster != null)
+            {
+                if (RadioFilm)
+                    AddFilm();
+                else if (RadioSerie)
+                    AddSerie();
+            }
+            else
+                MessageBox.Show("L'un des champs est vide.");
+        }
         /**
          * Resume :
          *      Add a movie in the Bdd and then reset attribute film, TitleF,ContentF, DateAddF
          */
         private void AddFilm()
         {
-            if (TitleF != null && ContentF != null && DirectorF != null && GenreF != null && StarsF != null && PosterF != null)
+            if (Film.Add())
             {
-                if (film.Add())
-                {
-                    MessageBox.Show("Le Film '" + film.Title + "' a bien été ajouté");
-
-                    film = new Film();
-                    TitleF = null;
-                    GenreF = null;
-                    ContentF = null;
-                    DirectorF = null;
-                    StarsF = null;
-                    PosterF = null;
-                    DateAddF = DateTime.Now;
-                }
-                else
-                    MessageBox.Show("Error Insertion");
+                MessageBox.Show("Le Film '" + Film.Title + "' a bien été ajouté");
+                Film = new Film();
+                InitAttrib();
             }
             else
-                MessageBox.Show("L'un des champs est vide.");
+                MessageBox.Show("Error Insertion");
         }
 
         /**
@@ -230,25 +218,14 @@ namespace Videothèque2.ViewModels
          */
         private void AddSerie()
         {
-            if (TitleS != null && ContentS != null && GenreS != null && DirectorS != null && StarsS != null && PosterS != null)
+            if (Serie.Add())
             {
-                if (serie.Add())
-                {
-                    MessageBox.Show("La série '" + TitleS + "' a bien été ajouté");
-                    serie = new Serie();
-                    TitleS = null;
-                    GenreS = null;
-                    ContentS = null;
-                    DirectorS = null;
-                    StarsS = null;
-                    PosterS = null;
-                    DateAddS = DateTime.Now;
-                }
-                else
-                    MessageBox.Show("Error insertion");
+                MessageBox.Show("La série '" + Title + "' a bien été ajouté");
+                Serie = new Serie();
+                InitAttrib();
             }
             else
-                MessageBox.Show("L'un des champs est vide.");
+                MessageBox.Show("Error insertion");
         }
 
 
@@ -257,9 +234,9 @@ namespace Videothèque2.ViewModels
          */
         private void AddDiscover()
         {
-            if(TitleD != null && ReleaseDateD != null)
+            if (TitleD != null && ReleaseDateD != null)
             {
-                if(discover.AddDiscover())
+                if (discover.AddDiscover())
                 {
                     MessageBox.Show("La découverte '" + TitleD + "' a bien été ajouté");
                     discover = new Discover();
@@ -282,8 +259,22 @@ namespace Videothèque2.ViewModels
             OpenFileDialog open = new OpenFileDialog();
             if (open.ShowDialog() == true)
             {
-                PosterS = PosterF = MoveImageToImageFolder(open.FileName);
+                Poster = MoveImageToImageFolder(open.FileName);
             }
+        }
+
+        /**
+         * 
+         */
+        private void InitAttrib()
+        {
+            Title = null;
+            Genre = null;
+            Content = null;
+            Director = null;
+            Stars = null;
+            Poster = null;
+            DateAdd = DateTime.Now;
         }
 
         /*
