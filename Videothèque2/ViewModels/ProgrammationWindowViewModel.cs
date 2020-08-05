@@ -114,7 +114,7 @@ namespace Videothèque2.ViewModels
          * Resume : 
          *      Create a new Cycle. "Cycle Status"
          */
-        public void CreateCycle()
+        private void CreateCycle()
         {
             CycleS.CheckCycleExist();
             CycleS.GetNumberCycle();
@@ -132,7 +132,7 @@ namespace Videothèque2.ViewModels
          *      Edit BDD film or serie and Cycle Content
          *      Remove an elemenet of the listElements
          */
-        public void AddEltCycle()
+        private void AddEltCycle()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment ajouter cet élément ?", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
@@ -179,7 +179,7 @@ namespace Videothèque2.ViewModels
          * Resume :
          *      Remove a cycle
          */
-        public void DelEltCycle()
+        private void DelEltCycle()
         {
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer cet élément ?", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
@@ -231,9 +231,10 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * 
+         * Resume :
+         *      Check if the button "Supprimé" can be use
          */
-        public Boolean CanExecute()
+        private Boolean CanExecute()
         {
             Boolean res = true;
 

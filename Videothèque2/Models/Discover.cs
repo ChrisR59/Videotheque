@@ -25,7 +25,9 @@ namespace Videothèque2.Models
 
 
         /**
-         * 
+         * Resume :
+         *      Add a new Discover in the bdd
+         * Return true if insert is successful
          */
         public Boolean AddDiscover()
         {
@@ -46,7 +48,9 @@ namespace Videothèque2.Models
         }
 
         /**
-         * 
+         * Resume :
+         *      Get a Discover list
+         * Return an ObservableCollection of the Discover type order by Title
          */
         public ObservableCollection<Discover> GetAllDiscover()
         {
@@ -78,7 +82,9 @@ namespace Videothèque2.Models
         }
 
         /**
-         * 
+         * Resume :
+         *      Edit fields of the Discover
+         * Return true if update is successful
          */
         public Boolean EditOneDiscover()
         {
@@ -108,7 +114,9 @@ namespace Videothèque2.Models
 
 
         /**
-         * 
+         * Resume :
+         *      Edit one Discover for program or deprogram
+         * Return true if update is successful
          */
         public Boolean UpProgrammDiscover()
         {
@@ -131,7 +139,9 @@ namespace Videothèque2.Models
         }
 
         /**
-         * 
+         * Resume :
+         *      Delete a Discover
+         * Return true if delete is successful
          */
         public Boolean DeleteOneDiscover()
         {

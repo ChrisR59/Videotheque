@@ -235,7 +235,7 @@ namespace Videothèque2.ViewModels
 
         /**
          * Resume :
-         *      Check if the button "Modifieré can be use
+         *      Check if the button "Modifié" can be use
          */
         private Boolean EditCanExecute()
         {

@@ -182,8 +182,11 @@ namespace Videothèque2.ViewModels
             ADiscoverCommand = new RelayCommand(AddDiscover);
         }
 
-
-
+        /**
+         * Resume :
+         *      Check if a field is empty
+         *      Check if is a film or a serie
+         */
         private void AddElement()
         {
             if (Title != null && Content != null && Director != null && Genre != null && Stars != null && Poster != null)
@@ -230,7 +233,8 @@ namespace Videothèque2.ViewModels
 
 
         /**
-         * 
+         * Resume : 
+         *      Add a discover in the Bdd and then reset attribute serie, TitleD, ReleaseDateD
          */
         private void AddDiscover()
         {
@@ -264,7 +268,8 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * 
+         * Resume :
+         *      Reset attribut
          */
         private void InitAttrib()
         {

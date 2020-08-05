@@ -64,7 +64,10 @@ namespace Videothèque2.ViewModels
         public ICommand ProgramEltCommand { get; set; }
 
         /**
-         * 
+         * Resume :
+         *      Initalize a Discover
+         *      Call the GetAllDiscover methode to get a list of Discover
+         *      Initialize a commands with a methode as a parameter
          */
         public DiscoverWindowViewModel()
         {
@@ -77,7 +80,10 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * 
+         * Resume :
+         *      Confirm a editing of a Discover 
+         *      Update a Discover with a MessageBoxResult for confirmation
+         *      edit in the Bdd with the EditOneDiscover method
          */
         private void EditDiscover()
         {
@@ -97,7 +103,10 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * 
+         * Resume :
+         *      Confirm a programming of an elements in the list. Attribute ToWatch
+         *      Update a Discover with a MessageBoxResult for confirmation
+         *      edit in the Bdd with the UpProgrammDiscover method
          */
         private void ProgramDiscover()
         {
@@ -116,7 +125,10 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * 
+         * Resume :
+         *      Confirm a deleting of a Discover
+         *      Delete a Discover with a MessageBoxResult for confirmation
+         *      Delete in the Bdd with the DeleteOneDiscover method
          */
         private void DelDiscover()
         {
