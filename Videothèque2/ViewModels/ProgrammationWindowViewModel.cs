@@ -146,6 +146,7 @@ namespace Videothèque2.ViewModels
                 CycleC.Type = Element.Type;
                 CycleC.NbElt = Element.NbElt;
                 CycleC.IdElt = Element.Id;
+                CycleC.Comment = Element.Comment;
                 Boolean res = false;
 
                 if (CycleC.AddElement() && Element != null)

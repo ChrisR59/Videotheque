@@ -21,6 +21,7 @@ namespace Videothèque2.Models
         private int place;
         private Boolean toWatch;
         private string toWatchString;
+        private string comment;
         private string type;
         private int nbElt;
         private int idCycle;
@@ -38,11 +39,11 @@ namespace Videothèque2.Models
         public int Place { get => place; set => place = value; }
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
+        public string Comment { get => comment; set => comment = value; }
         public string Type { get => type; set => type = value; }
         public int NbElt { get => nbElt; set => nbElt = value; }
         public int IdCycle { get => idCycle; set => idCycle = value; }
         private ObservableCollection<Element> ListElt { get; set; }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -70,14 +71,14 @@ namespace Videothèque2.Models
         public ObservableCollection<Element> GetCycle(int idCycleS)
         {
             ObservableCollection<Element> listC = new ObservableCollection<Element>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Rank,Type,NbElt,IdElt,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Rank,Type,NbElt,IdElt,ToWatch,Comment FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", idCycleS));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
             while (DataBase.Instance.reader.Read())
             {
-                Element c = new Element()
+                Element e = new Element()
                 {
                     Id = DataBase.Instance.reader.GetInt32(5),
                     Title = DataBase.Instance.reader.GetString(1),
@@ -87,13 +88,16 @@ namespace Videothèque2.Models
                     IdCycle = DataBase.Instance.reader.GetInt32(0)
                 };
 
+                if (!DataBase.Instance.reader.IsDBNull(7))
+                    e.Comment = DataBase.Instance.reader.GetString(7);
+
                 int w = DataBase.Instance.reader.GetInt32(6);
-                c.ToWatch = false;
+                e.ToWatch = false;
+
                 if (w == 1)
-                {
-                    c.ToWatch = true;
-                }
-                listC.Add(c);
+                    e.ToWatch = true;
+
+                listC.Add(e);
             }
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
@@ -104,9 +108,9 @@ namespace Videothèque2.Models
         /**
          * 
          */
-         private void GetFilmToWatch()
+        private void GetFilmToWatch()
         {
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbFilm,ToWatch FROM Films WHERE ToWatch = 1", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbFilm,ToWatch,Comment FROM Films WHERE ToWatch = 1", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -118,8 +122,12 @@ namespace Videothèque2.Models
                 e.Type = "Film";
                 e.nbElt = DataBase.Instance.reader.GetInt32(2);
                 int w = DataBase.Instance.reader.GetInt32(3);
+
                 if (w == 1)
                     e.ToWatch = true;
+
+                if (!DataBase.Instance.reader.IsDBNull(4))
+                    e.Comment = DataBase.Instance.reader.GetString(4);
 
                 ListElt.Add(e);
             }
@@ -133,21 +141,26 @@ namespace Videothèque2.Models
          */
         private void GetSerieToWatch()
         {
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbSeason,ToWatch FROM Series WHERE ToWatch = 1", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbSeason,ToWatch,Comment FROM Series WHERE ToWatch = 1", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
             while (DataBase.Instance.reader.Read())
             {
-                Element s = new Element();
-                s.Id = DataBase.Instance.reader.GetInt32(0);
-                s.Title = DataBase.Instance.reader.GetString(1);
-                s.Type = "Serie";
-                s.nbElt = DataBase.Instance.reader.GetInt32(2);
+                Element e = new Element();
+                e.Id = DataBase.Instance.reader.GetInt32(0);
+                e.Title = DataBase.Instance.reader.GetString(1);
+                e.Type = "Serie";
+                e.nbElt = DataBase.Instance.reader.GetInt32(2);
                 int w = DataBase.Instance.reader.GetInt32(3);
+
                 if (w == 1)
-                    s.ToWatch = true;
-                ListElt.Add(s);
+                    e.ToWatch = true;
+
+                if (!DataBase.Instance.reader.IsDBNull(4))
+                    e.Comment = DataBase.Instance.reader.GetString(4);
+
+                ListElt.Add(e);
             }
 
             DataBase.Instance.command.Dispose();
@@ -159,21 +172,26 @@ namespace Videothèque2.Models
          */
         private void GetDiscoverToWatch()
         {
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Discover WHERE ToWatch = 1", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch,Comment FROM Discover WHERE ToWatch = 1", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
             while (DataBase.Instance.reader.Read())
             {
-                Element s = new Element();
-                s.Id = DataBase.Instance.reader.GetInt32(0);
-                s.Title = DataBase.Instance.reader.GetString(1);
-                s.Type = "Découverte";
-                s.NbElt = 0;
+                Element e = new Element();
+                e.Id = DataBase.Instance.reader.GetInt32(0);
+                e.Title = DataBase.Instance.reader.GetString(1);
+                e.Type = "Découverte";
+                e.NbElt = 0;
                 int w = DataBase.Instance.reader.GetInt32(2);
+
                 if (w == 1)
-                    s.ToWatch = true;
-                ListElt.Add(s);
+                    e.ToWatch = true;
+
+                if (!DataBase.Instance.reader.IsDBNull(3))
+                    e.Comment = DataBase.Instance.reader.GetString(3);
+
+                ListElt.Add(e);
             }
 
             DataBase.Instance.command.Dispose();
