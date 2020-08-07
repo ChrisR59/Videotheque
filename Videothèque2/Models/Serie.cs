@@ -154,6 +154,33 @@ namespace Videothèque2.Models
 
         /*
          * Resume :
+         *      Get one serie with his Id
+         * Return an Serie object 
+         */
+        public Serie GetOneSerie(int idFilm)
+        {
+            Serie s = new Serie();
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Series WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", idFilm));
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while (DataBase.Instance.reader.Read())
+            {
+                s.Id = DataBase.Instance.reader.GetInt32(0);
+                s.Title = DataBase.Instance.reader.GetString(1);
+                int w = DataBase.Instance.reader.GetInt32(2);
+                if (w == 1)
+                    s.ToWatch = true;
+            }
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return s;
+        }
+
+        /*
+         * Resume :
          *      Edit one serie after watching
          * Return true if update is successful
          */

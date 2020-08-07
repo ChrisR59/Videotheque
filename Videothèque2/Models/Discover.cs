@@ -81,6 +81,34 @@ namespace Videothèque2.Models
             return list;
         }
 
+        /*
+         * Resume :
+         *      Get one serie with his Id
+         * Return an Discover object 
+         */
+        public Discover GetOneDiscover(int idFilm)
+        {
+            Discover d = new Discover();
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Discover WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", idFilm));
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while (DataBase.Instance.reader.Read())
+            {
+                d.Id = DataBase.Instance.reader.GetInt32(0);
+                d.Title = DataBase.Instance.reader.GetString(1);
+
+                int w = DataBase.Instance.reader.GetInt32(2);
+                if (w == 1)
+                    d.ToWatch = true;
+            }
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return d;
+        }
+
         /**
          * Resume :
          *      Edit fields of the Discover

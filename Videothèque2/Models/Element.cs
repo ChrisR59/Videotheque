@@ -12,7 +12,7 @@ namespace Videothèque2.Models
 {
     /*
      * Resume : 
-     *      An element can be a Film or a Serie
+     *      An element can be a Film or a Serie or a Discover
      */
     public class Element : INotifyPropertyChanged
     {
@@ -41,6 +41,8 @@ namespace Videothèque2.Models
         public string Type { get => type; set => type = value; }
         public int NbElt { get => nbElt; set => nbElt = value; }
         public int IdCycle { get => idCycle; set => idCycle = value; }
+        private ObservableCollection<Element> ListElt { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -51,68 +53,11 @@ namespace Videothèque2.Models
          */
         public ObservableCollection<Element> GetProgram()
         {
-            ObservableCollection<Element> l = new ObservableCollection<Element>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbFilm,ToWatch FROM Films WHERE ToWatch = 1", DataBase.Instance.connection);
-            DataBase.Instance.connection.Open();
-            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
-
-            while (DataBase.Instance.reader.Read())
-            {
-                Element e = new Element();
-                e.Id = DataBase.Instance.reader.GetInt32(0);
-                e.Title = DataBase.Instance.reader.GetString(1);
-                e.Type = "Film";
-                e.nbElt = DataBase.Instance.reader.GetInt32(2);
-                int w = DataBase.Instance.reader.GetInt32(3);
-                if (w == 1)
-                    e.ToWatch = true;
-
-                l.Add(e);
-            }
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbSeason,ToWatch FROM Series WHERE ToWatch = 1", DataBase.Instance.connection);
-            DataBase.Instance.connection.Open();
-            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
-
-            while (DataBase.Instance.reader.Read())
-            {
-                Element s = new Element();
-                s.Id = DataBase.Instance.reader.GetInt32(0);
-                s.Title = DataBase.Instance.reader.GetString(1);
-                s.Type = "Serie";
-                s.nbElt = DataBase.Instance.reader.GetInt32(2);
-                int w = DataBase.Instance.reader.GetInt32(3);
-                if (w == 1)
-                    s.ToWatch = true;
-                l.Add(s);
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Discover WHERE ToWatch = 1", DataBase.Instance.connection);
-            DataBase.Instance.connection.Open();
-            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
-
-            while (DataBase.Instance.reader.Read())
-            {
-                Element s = new Element();
-                s.Id = DataBase.Instance.reader.GetInt32(0);
-                s.Title = DataBase.Instance.reader.GetString(1);
-                s.Type = "Découverte";
-                s.NbElt = 0;
-                int w = DataBase.Instance.reader.GetInt32(2);
-                if (w == 1)
-                    s.ToWatch = true;
-                l.Add(s);
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            return l;
+            ListElt = new ObservableCollection<Element>();
+            GetFilmToWatch();
+            GetSerieToWatch();
+            GetDiscoverToWatch();
+            return ListElt;
         }
 
         /*
@@ -155,91 +100,84 @@ namespace Videothèque2.Models
 
             return listC;
         }
-        
-        /*
-         * Resume :
-         *      Get one film with his Id
-         * Return an Film object 
+
+        /**
+         * 
          */
-        public Film GetOneFilm()
+         private void GetFilmToWatch()
         {
-            Film f = new Film();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,LastView,ToWatch FROM Films WHERE Id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbFilm,ToWatch FROM Films WHERE ToWatch = 1", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
             while (DataBase.Instance.reader.Read())
             {
-                f.Id = DataBase.Instance.reader.GetInt32(0);
-                f.Title = DataBase.Instance.reader.GetString(1);
-                if (!DataBase.Instance.reader.IsDBNull(2))
-                    f.LastView = DataBase.Instance.reader.GetDateTime(2);
+                Element e = new Element();
+                e.Id = DataBase.Instance.reader.GetInt32(0);
+                e.Title = DataBase.Instance.reader.GetString(1);
+                e.Type = "Film";
+                e.nbElt = DataBase.Instance.reader.GetInt32(2);
                 int w = DataBase.Instance.reader.GetInt32(3);
                 if (w == 1)
-                    f.ToWatch = true;
+                    e.ToWatch = true;
+
+                ListElt.Add(e);
             }
+
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
-
-            return f;
         }
 
-        /*
-         * Resume :
-         *      Get one serie with his Id
-         * Return an Serie object 
+        /**
+         * 
          */
-        public Serie GetOneSerie()
+        private void GetSerieToWatch()
         {
-            Serie s = new Serie();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,LastView,ToWatch FROM Series WHERE Id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbSeason,ToWatch FROM Series WHERE ToWatch = 1", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
             while (DataBase.Instance.reader.Read())
             {
+                Element s = new Element();
                 s.Id = DataBase.Instance.reader.GetInt32(0);
                 s.Title = DataBase.Instance.reader.GetString(1);
-                if (!DataBase.Instance.reader.IsDBNull(2))
-                    s.LastView = DataBase.Instance.reader.GetDateTime(2);
+                s.Type = "Serie";
+                s.nbElt = DataBase.Instance.reader.GetInt32(2);
                 int w = DataBase.Instance.reader.GetInt32(3);
                 if (w == 1)
                     s.ToWatch = true;
+                ListElt.Add(s);
             }
+
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
-
-            return s;
         }
 
-        /*
-         * Resume :
-         *      Get one serie with his Id
-         * Return an Discover object 
+        /**
+         * 
          */
-        public Discover GetOneDiscover()
+        private void GetDiscoverToWatch()
         {
-            Discover d = new Discover();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Discover WHERE Id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Discover WHERE ToWatch = 1", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
             while (DataBase.Instance.reader.Read())
             {
-                d.Id = DataBase.Instance.reader.GetInt32(0);
-                d.Title = DataBase.Instance.reader.GetString(1);
-
+                Element s = new Element();
+                s.Id = DataBase.Instance.reader.GetInt32(0);
+                s.Title = DataBase.Instance.reader.GetString(1);
+                s.Type = "Découverte";
+                s.NbElt = 0;
                 int w = DataBase.Instance.reader.GetInt32(2);
                 if (w == 1)
-                    d.ToWatch = true;
+                    s.ToWatch = true;
+                ListElt.Add(s);
             }
+
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
-
-            return d;
         }
 
         /*

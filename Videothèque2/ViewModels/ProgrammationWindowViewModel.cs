@@ -146,34 +146,43 @@ namespace Videothèque2.ViewModels
                 CycleC.Type = Element.Type;
                 CycleC.NbElt = Element.NbElt;
                 CycleC.IdElt = Element.Id;
-                if (CycleC.AddElement())
+                Boolean res = false;
+
+                if (CycleC.AddElement() && Element != null)
                 {
-                    if (Element != null)
+                    switch (Element.Type)
                     {
-                        if (Element.Type == "Film")
-                        {
-                            Film f = Element.GetOneFilm();
+                        case "Film":
+                            Film f = new Film();
+                            f = f.GetOneFilm(Element.Id);
                             f.ToWatch = false;
-                            Boolean res = f.UpFilmProgramm();
-                        }
-                        else if (Element.Type == "Serie")
-                        {
-                            Serie s = Element.GetOneSerie();
+                            res = f.UpFilmProgramm();
+                            break;
+                        case "Serie":
+                            Serie s = new Serie();
+                            s = s.GetOneSerie(Element.Id);
                             s.ToWatch = false;
-                            Boolean res = s.UpSerieProgramm();
-                        }
-                        else if (Element.Type == "Découverte")
-                        {
-                            Discover d = Element.GetOneDiscover();
+                            res = s.UpSerieProgramm();
+                            break;
+                        case "Découverte":
+                            Discover d = new Discover();
+                            d = d.GetOneDiscover(Element.Id);
                             d.ToWatch = false;
-                            Boolean res = d.UpProgrammDiscover();
-                        }
+                            res = d.UpProgrammDiscover();
+                            break;
+                        default:
+                            MessageBox.Show("Je ne reconnais pas cette élément.");
+                            break;
                     }
-                    ListView.Remove(Element);
-                    RaisePropertyChanged("ListView");
-                    MessageBox.Show("Element bien ajouté au cycle.");
-                    CycleC.Rank = 0;
-                    Element = new Element();
+
+                    if (res)
+                    {
+                        ListView.Remove(Element);
+                        RaisePropertyChanged("ListView");
+                        MessageBox.Show("Element bien ajouté au cycle.");
+                        CycleC.Rank = 0;
+                        Element = new Element();
+                    }
                 }
             }
         }
