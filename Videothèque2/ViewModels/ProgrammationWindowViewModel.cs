@@ -144,6 +144,7 @@ namespace Videothèque2.ViewModels
                 CycleC.Title = Element.Title;
                 CycleC.Status = "A voir";
                 CycleC.Type = Element.Type;
+                CycleC.NbElt = Element.NbElt;
                 CycleC.IdElt = Element.Id;
                 if (CycleC.AddElement())
                 {

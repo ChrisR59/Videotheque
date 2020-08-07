@@ -21,6 +21,7 @@ namespace Videothèque2.Models
         private string status;
         private int rank;
         private string type;
+        private int nbElt;
         private int idElt;
         private int idCycle;
         private Boolean toWatch;
@@ -30,6 +31,7 @@ namespace Videothèque2.Models
         public string Status { get => status; set => status = value; }
         public int Rank { get => rank; set => rank = value; }
         public string Type { get => type; set => type = value; }
+        public int NbElt { get => nbElt; set => nbElt = value; }
         public int IdElt { get => idElt; set => idElt = value; }
         public int IdCycle { get => idCycle; set => idCycle = value; }
         public bool ToWatch
@@ -42,6 +44,7 @@ namespace Videothèque2.Models
             }
         }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         /*
@@ -53,11 +56,12 @@ namespace Videothèque2.Models
         public Boolean AddElement()
         {
             Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("INSERT INTO CycleContent(Title,Status,Rank,Type,IdElt,IdCycle,ToWatch) OUTPUT INSERTED.ID VALUES(@title,@status,@rank,@type,@idElt,@idCycle,'0')", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("INSERT INTO CycleContent(Title,Status,Rank,Type,NbElt,IdElt,IdCycle,ToWatch) OUTPUT INSERTED.ID VALUES(@title,@status,@rank,@type,@NbElt,@idElt,@idCycle,'0')", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@title", Title));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@status", Status));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@rank", Rank));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@type", Type));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@NbElt", NbElt));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@idElt", IdElt));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", IdCycle));
             DataBase.Instance.connection.Open();
@@ -80,7 +84,7 @@ namespace Videothèque2.Models
         public ObservableCollection<CycleContent> GetCurrentCycle(int idCycleS)
         {
             ObservableCollection<CycleContent> listC = new ObservableCollection<CycleContent>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Status,Rank,Type,IdElt,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Status,Rank,Type,NbElt,IdElt,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", idCycleS));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -94,15 +98,18 @@ namespace Videothèque2.Models
                     Status = DataBase.Instance.reader.GetString(2),
                     Rank = DataBase.Instance.reader.GetInt32(3),
                     Type = DataBase.Instance.reader.GetString(4),
-                    IdElt = DataBase.Instance.reader.GetInt32(5),
+                    NbElt = DataBase.Instance.reader.GetInt32(5),
+                    IdElt = DataBase.Instance.reader.GetInt32(6),
                     IdCycle = idCycleS,
                 };
-                int w = DataBase.Instance.reader.GetInt32(6);
+
+                int w = DataBase.Instance.reader.GetInt32(7);
                 c.ToWatch = false;
                 if (w == 1)
                 {
                     c.ToWatch = true;
                 }
+
                 listC.Add(c);
             }
             DataBase.Instance.command.Dispose();

@@ -22,6 +22,7 @@ namespace Videothèque2.Models
         private Boolean toWatch;
         private string toWatchString;
         private string type;
+        private int nbElt;
         private int idCycle;
 
         public int Id { get => id; set => id = value; }
@@ -38,6 +39,7 @@ namespace Videothèque2.Models
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
         public string Type { get => type; set => type = value; }
+        public int NbElt { get => nbElt; set => nbElt = value; }
         public int IdCycle { get => idCycle; set => idCycle = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -50,7 +52,7 @@ namespace Videothèque2.Models
         public ObservableCollection<Element> GetProgram()
         {
             ObservableCollection<Element> l = new ObservableCollection<Element>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Films WHERE ToWatch = 1", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbFilm,ToWatch FROM Films WHERE ToWatch = 1", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -60,7 +62,8 @@ namespace Videothèque2.Models
                 e.Id = DataBase.Instance.reader.GetInt32(0);
                 e.Title = DataBase.Instance.reader.GetString(1);
                 e.Type = "Film";
-                int w = DataBase.Instance.reader.GetInt32(2);
+                e.nbElt = DataBase.Instance.reader.GetInt32(2);
+                int w = DataBase.Instance.reader.GetInt32(3);
                 if (w == 1)
                     e.ToWatch = true;
 
@@ -69,7 +72,7 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
 
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Series WHERE ToWatch = 1", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,NbSeason,ToWatch FROM Series WHERE ToWatch = 1", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -79,7 +82,8 @@ namespace Videothèque2.Models
                 s.Id = DataBase.Instance.reader.GetInt32(0);
                 s.Title = DataBase.Instance.reader.GetString(1);
                 s.Type = "Serie";
-                int w = DataBase.Instance.reader.GetInt32(2);
+                s.nbElt = DataBase.Instance.reader.GetInt32(2);
+                int w = DataBase.Instance.reader.GetInt32(3);
                 if (w == 1)
                     s.ToWatch = true;
                 l.Add(s);
@@ -98,6 +102,7 @@ namespace Videothèque2.Models
                 s.Id = DataBase.Instance.reader.GetInt32(0);
                 s.Title = DataBase.Instance.reader.GetString(1);
                 s.Type = "Découverte";
+                s.NbElt = 0;
                 int w = DataBase.Instance.reader.GetInt32(2);
                 if (w == 1)
                     s.ToWatch = true;
@@ -120,7 +125,7 @@ namespace Videothèque2.Models
         public ObservableCollection<Element> GetCycle(int idCycleS)
         {
             ObservableCollection<Element> listC = new ObservableCollection<Element>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Rank,Type,IdElt,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Rank,Type,NbElt,IdElt,ToWatch FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", idCycleS));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -129,14 +134,15 @@ namespace Videothèque2.Models
             {
                 Element c = new Element()
                 {
-                    Id = DataBase.Instance.reader.GetInt32(4),
+                    Id = DataBase.Instance.reader.GetInt32(5),
                     Title = DataBase.Instance.reader.GetString(1),
                     Place = DataBase.Instance.reader.GetInt32(2),
                     Type = DataBase.Instance.reader.GetString(3),
+                    NbElt = DataBase.Instance.reader.GetInt32(4),
                     IdCycle = DataBase.Instance.reader.GetInt32(0)
                 };
 
-                int w = DataBase.Instance.reader.GetInt32(4);
+                int w = DataBase.Instance.reader.GetInt32(6);
                 c.ToWatch = false;
                 if (w == 1)
                 {

@@ -97,7 +97,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("ReleaseDate");
             }
         }
-        public string NbSeason
+        public int NbSeason
         {
             get => Serie.NbSeason;
             set
