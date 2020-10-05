@@ -113,7 +113,8 @@ namespace Videothèque2.Models
                 if (!DataBase.Instance.reader.IsDBNull(4))
                     s.ReleaseDate = DataBase.Instance.reader.GetString(4);
 
-                s.NbSeason = DataBase.Instance.reader.GetInt32(5);
+                if (!DataBase.Instance.reader.IsDBNull(5))
+                    s.NbSeason = DataBase.Instance.reader.GetInt32(5);
 
                 if (!DataBase.Instance.reader.IsDBNull(6))
                     s.NbEpisode = DataBase.Instance.reader.GetInt32(6);

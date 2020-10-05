@@ -27,15 +27,7 @@ namespace Videothèque2.Models
         private int idCycle;
 
         public int Id { get => id; set => id = value; }
-        public string Title
-        {
-            get => title;
-            set
-            {
-                title = value;
-                //NotifyPropertyChange("Title");
-            }
-        }
+        public string Title { get => title; set => title = value;  }
         public int Place { get => place; set => place = value; }
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
