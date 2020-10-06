@@ -34,6 +34,7 @@ namespace Videothèque2.Models
         private Boolean toWatch;
         private string toWatchString;
         private string comment;
+        private SerieStatus status;
         private Rating rating;
 
         public int Id { get => id; set => id = value; }
@@ -55,6 +56,7 @@ namespace Videothèque2.Models
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
         public string Comment { get => comment; set => comment = value; }
+        public SerieStatus Status { get => status; set => status = value; }
         public Rating Rating { get => rating; set => rating = value; }
 
         /*
@@ -374,5 +376,13 @@ namespace Videothèque2.Models
 
             return res;
         }
+    }
+    public enum SerieStatus
+    {
+        Inconnu,
+        EnCours,
+        Prevu,
+        Termine,
+        Interrompu
     }
 }

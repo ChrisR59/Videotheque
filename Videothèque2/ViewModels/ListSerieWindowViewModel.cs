@@ -21,6 +21,7 @@ namespace Videothèque2.ViewModels
 
         private ObservableCollection<Serie> listSerieView;
         private List<Rating> listRating;
+        private List<SerieStatus> listStatus;
         private string searchTitleSerie;
         public ObservableCollection<Serie> ListSerieView 
         { 
@@ -32,6 +33,7 @@ namespace Videothèque2.ViewModels
             }
         }
         public List<Rating> ListRating { get => listRating; set => listRating = value; }
+        public List<SerieStatus> ListStatus { get => listStatus; set => listStatus = value; }
 
         private Serie serie;
         public Serie Serie
@@ -196,6 +198,15 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Comment");
             }
         }
+        public SerieStatus Status
+        {
+            get => Serie.Status;
+            set
+            {
+                Serie.Status = value;
+                RaisePropertyChanged("Status");
+            }
+        }
         public Rating Rating
         {
             get => Serie.Rating;
@@ -232,6 +243,7 @@ namespace Videothèque2.ViewModels
             Serie = new Serie();
             ListSerieView = Serie.GetSerie();
             ListRating = Enum.GetValues(typeof(Rating)).Cast<Rating>().ToList();
+            ListStatus = Enum.GetValues(typeof(SerieStatus)).Cast<SerieStatus>().ToList();
             EditSerieCommand = new RelayCommand(EditSerie, EditCanExecute);
             DeleteSerieCommand = new RelayCommand(DeleteSerie);
             ProgramEltCommand = new RelayCommand(ProgramSerie);
