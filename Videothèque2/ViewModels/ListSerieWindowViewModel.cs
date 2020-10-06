@@ -21,7 +21,16 @@ namespace Videothèque2.ViewModels
 
         private ObservableCollection<Serie> listSerieView;
         private List<Rating> listRating;
-        public ObservableCollection<Serie> ListSerieView { get => listSerieView; set => listSerieView = value; }
+        private string searchTitleSerie;
+        public ObservableCollection<Serie> ListSerieView 
+        { 
+            get => listSerieView;
+            set
+            { 
+                listSerieView = value;
+                RaisePropertyChanged();
+            }
+        }
         public List<Rating> ListRating { get => listRating; set => listRating = value; }
 
         private Serie serie;
@@ -196,12 +205,21 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Rating");
             }
         }
+        public string SearchTitleSerie { 
+            get => searchTitleSerie;
+            set 
+            { 
+                searchTitleSerie = value;
+                RaisePropertyChanged();
+            }
+        }
 
         //Command
         public ICommand EditSerieCommand { get; set; }
         public ICommand DeleteSerieCommand { get; set; }
         public ICommand ProgramEltCommand { get; set; }
         public ICommand EditPosterCommand { get; set; }
+        public ICommand SearchSerieCommand { get; set; }
 
         /*
          * Resume : 
@@ -218,6 +236,7 @@ namespace Videothèque2.ViewModels
             DeleteSerieCommand = new RelayCommand(DeleteSerie);
             ProgramEltCommand = new RelayCommand(ProgramSerie);
             EditPosterCommand = new RelayCommand(EditPoster);
+            SearchSerieCommand = new RelayCommand(SearchSerie);
         }
 
         /*
@@ -324,6 +343,20 @@ namespace Videothèque2.ViewModels
                     UpList();
                 }
             }
+        }
+
+
+        /**
+         * 
+         */
+        private void SearchSerie()
+        {
+            if(SearchTitleSerie == "" || SearchTitleSerie == null)
+                ListSerieView = Serie.GetSerie();
+            else
+                ListSerieView = Serie.GetSearchSerie(SearchTitleSerie);
+
+            SearchTitleSerie = null;
         }
 
         /*

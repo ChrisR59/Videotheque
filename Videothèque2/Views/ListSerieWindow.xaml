@@ -37,6 +37,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         
         <Label Content="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Foreground="White"/>
@@ -52,31 +53,36 @@
         <Label Content="Genre" Grid.Row="0" Grid.Column="2" Foreground="White" Margin="50,0,0,0"></Label>
         <TextBox TextWrapping="Wrap" Text="{Binding Genre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="0" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
         <Label Content="Réalisateur" Grid.Row="3" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
-        <TextBox TextWrapping="Wrap" Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Width="500" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
+        <Label Content="Date de Sortie :" Grid.Row="3" Grid.Column="2" Foreground="White" Margin="75,0,0,7"></Label>
+        <TextBox TextWrapping="Wrap" Text="{Binding ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.Row="3" Width="275" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="75,0,0,7"/>
         <Label Content="Acteurs / Actrices" Grid.Row="4" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
         <TextBox TextWrapping="Wrap" Text="{Binding Stars, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Grid.RowSpan="2" Height="50" Width="500" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,25,0,7"/>
 
         <Label Content="Nombre de Saisons" Grid.Row="0" Grid.Column="3" Foreground="White"></Label>
         <TextBox TextWrapping="Wrap" Text="{Binding NbSeason, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="0" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
-        <Label Content="Nombre d'épisodes" Grid.Row="1" Grid.Column="3" Foreground="White"></Label>
-        <TextBox TextWrapping="Wrap" Text="{Binding NbEpisode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
-        <Label Content="Durée :" Grid.Row="2" Grid.Column="3" Foreground="White"></Label>
-        <TextBox TextWrapping="Wrap" Text="{Binding RunningTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="2" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,27"/>
-        <Label Content="Date de Sortie :" Grid.Row="3" Grid.Column="3" Foreground="White"></Label>
-        <TextBox TextWrapping="Wrap" Text="{Binding ReleaseDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="3" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
+        <Label Content="Nombre d'épisodes" Grid.Row="0" Grid.Column="4" Foreground="White"></Label>
+        <TextBox TextWrapping="Wrap" Text="{Binding NbEpisode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="0" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
+        <Label Content="Durée :" Grid.Row="1" Grid.Column="3" Foreground="White"></Label>
+        <TextBox TextWrapping="Wrap" Text="{Binding RunningTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="1" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
+        <Label Content="Recherche :" Grid.Row="4" Grid.Column="3" Foreground="White"></Label>
+        <TextBox TextWrapping="Wrap" Text="{Binding SearchTitleSerie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="4" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
+        <Button  Command="{Binding SearchSerieCommand}" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="RECHERCHE" FontFamily="Verdana" TextAlignment="Center"></TextBlock>
+        </Button>
 
-        <Label Content="Vu le :" VerticalAlignment="Center" Grid.Column="4" Grid.Row="0" Foreground="#FFF7F2F2" Margin="50,0,0,0"/>
-        <DatePicker SelectedDate="{Binding LastView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="4" Grid.Row="0"
+        <Label Content="Vu le :" VerticalAlignment="Center" Grid.Column="5" Grid.Row="0" Foreground="#FFF7F2F2" Margin="50,0,0,0"/>
+        <DatePicker SelectedDate="{Binding LastView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="5" Grid.Row="0"
                     Height="22" Width="110" Foreground="Blue" Margin="100,0,0,0">
         </DatePicker>
-        <Label Content="{Binding NbView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Grid.Column="4" Grid.Row="1" Foreground="White" Margin="50,0,0,0"/>
-        <Label Content="fois" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1" Foreground="White" Margin="100,0,0,0"/>
-        <Label Content="Commentaire" Grid.Row="2" Grid.Column="4" Foreground="White" Margin="50,0,0,0"></Label>
-        <TextBox TextWrapping="Wrap" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="2" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,25"/>
-        <Label Content="Note" Grid.Row="3" Grid.Column="4" Foreground="White" Margin="50,0,0,0"></Label>
-        <ComboBox ItemsSource="{Binding ListRating}" SelectedItem="{Binding Rating}" SelectedIndex="0" Grid.Column="4" Grid.Row="3" Height="30" Width="150" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7" />
+        <Label Content="{Binding NbView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="25" Grid.Column="5" Grid.Row="1" Foreground="White" Margin="50,0,0,0"/>
+        <Label Content="fois" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" Foreground="White" Margin="100,0,0,0"/>
+        <Label Content="Commentaire" Grid.Row="2" Grid.Column="5" Foreground="White" Margin="50,0,0,0"></Label>
+        <TextBox TextWrapping="Wrap" Text="{Binding Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="5" Grid.Row="2" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,25"/>
+        <Label Content="Note" Grid.Row="3" Grid.Column="5" Foreground="White" Margin="50,0,0,0"></Label>
+        <ComboBox ItemsSource="{Binding ListRating}" SelectedItem="{Binding Rating}" SelectedIndex="0" Grid.Column="5" Grid.Row="3" Height="30" Width="150" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7" />
         
-        <Button Style="{StaticResource editButton}" Command="{Binding EditSerieCommand}" Grid.Column="4" Grid.Row="5" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button Style="{StaticResource editButton}" Command="{Binding EditSerieCommand}" Grid.Column="5" Grid.Row="5" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="MODIFIER" FontFamily="Verdana" TextAlignment="Center"></TextBlock>
         </Button>
 

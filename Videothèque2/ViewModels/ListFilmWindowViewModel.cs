@@ -18,11 +18,20 @@ using Videothèque2.Tools;
 
 namespace Videothèque2.ViewModels
 {
-    public class ListFilmWindowViewModel:ViewModelBase
+    public class ListFilmWindowViewModel : ViewModelBase
     {
         private ObservableCollection<Film> listFilmView;
         private List<Rating> listRating;
-        public ObservableCollection<Film> ListFilmView { get => listFilmView; set => listFilmView = value; }
+        private string searchTitleFilm;
+        public ObservableCollection<Film> ListFilmView
+        {
+            get => listFilmView;
+            set
+            {
+                listFilmView = value;
+                RaisePropertyChanged();
+            }
+        }
         public List<Rating> ListRating { get => listRating; set => listRating = value; }
 
         private Film film;
@@ -51,7 +60,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Rating");
             }
         }
-        
+
 
         //List a attributes a film
         public int Id
@@ -75,7 +84,8 @@ namespace Videothèque2.ViewModels
         public string Genre
         {
             get => Film.Genre;
-            set {
+            set
+            {
                 Film.Genre = value;
                 RaisePropertyChanged("Genre");
             }
@@ -188,6 +198,15 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Rating");
             }
         }
+        public string SearchTitleFilm 
+        { 
+            get => searchTitleFilm;
+            set
+            {
+                searchTitleFilm = value;
+                RaisePropertyChanged();
+            }
+        }
 
 
 
@@ -196,6 +215,7 @@ namespace Videothèque2.ViewModels
         public ICommand DeleteFilmCommand { get; set; }
         public ICommand ProgramEltCommand { get; set; }
         public ICommand EditPosterCommand { get; set; }
+        public ICommand SearchFilmCommand { get; set; }
 
         /*
          * Resume :
@@ -213,6 +233,7 @@ namespace Videothèque2.ViewModels
             DeleteFilmCommand = new RelayCommand(DeleteFilm);
             ProgramEltCommand = new RelayCommand(ProgramFilm);
             EditPosterCommand = new RelayCommand(EditPoster);
+            SearchFilmCommand = new RelayCommand(SearchFilm);
         }
 
         /*
@@ -236,7 +257,7 @@ namespace Videothèque2.ViewModels
         {
             Boolean res = true;
 
-            if(Id == 0)
+            if (Id == 0)
                 res = false;
 
             return res;
@@ -318,6 +339,19 @@ namespace Videothèque2.ViewModels
         {
             ListFilmView = Film.GetFilms();
             RaisePropertyChanged("ListFilmView");
+        }
+
+        /**
+         * 
+         */
+        private void SearchFilm()
+        {
+            if (SearchTitleFilm == "" || SearchTitleFilm == null)
+                ListFilmView = Film.GetFilms();
+            else
+                ListFilmView = Film.GetSearchFilm(SearchTitleFilm);
+
+            SearchTitleFilm = null;
         }
 
         /*

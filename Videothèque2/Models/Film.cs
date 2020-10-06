@@ -174,6 +174,69 @@ namespace Videothèque2.Models
             return f;
         }
 
+        /**
+         * 
+         */
+        public ObservableCollection<Film> GetSearchFilm(string search)
+        {
+            ObservableCollection<Film> l = new ObservableCollection<Film>();
+
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,RunningTime,ReleaseDate,NbFilm,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Comment," +
+                "Rating FROM Films WHERE Title=@title ORDER BY Title", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@title", search));
+            DataBase.Instance.connection.Open();
+            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
+            while (DataBase.Instance.reader.Read())
+            {
+                Film f = new Film();
+                f.Id = DataBase.Instance.reader.GetInt32(0);
+                f.Title = DataBase.Instance.reader.GetString(1);
+                f.Genre = DataBase.Instance.reader.GetString(2);
+
+                if (!DataBase.Instance.reader.IsDBNull(3))
+                    f.RunningTime = DataBase.Instance.reader.GetString(3);
+
+                if (!DataBase.Instance.reader.IsDBNull(4))
+                    f.ReleaseDate = DataBase.Instance.reader.GetString(4);
+
+                if (!DataBase.Instance.reader.IsDBNull(5))
+                    f.NbFilm = DataBase.Instance.reader.GetInt32(5);
+
+                f.Content = DataBase.Instance.reader.GetString(6);
+                f.Director = DataBase.Instance.reader.GetString(7);
+                f.Stars = DataBase.Instance.reader.GetString(8);
+                f.Poster = DataBase.Instance.reader.GetString(9);
+                f.DateAdd = DataBase.Instance.reader.GetDateTime(10);
+                f.DateAddFormated = f.DateAdd.ToString("dd/MM/yyyy");
+                f.LastViewFormated = "Pas visionné";
+                if (!DataBase.Instance.reader.IsDBNull(11))
+                {
+                    f.LastView = DataBase.Instance.reader.GetDateTime(11);
+                    f.LastViewFormated = f.LastView.ToString("dd/MM/yyyy");
+                }
+                f.NbView = DataBase.Instance.reader.GetInt32(12);
+                int w = DataBase.Instance.reader.GetInt32(13);
+                f.ToWatchString = "Non programmé";
+                if (w == 1)
+                {
+                    f.ToWatch = true;
+                    f.ToWatchString = "Programmé";
+                }
+                if (!DataBase.Instance.reader.IsDBNull(14))
+                    f.Comment = DataBase.Instance.reader.GetString(14);
+
+                f.Rating = (Rating)DataBase.Instance.reader.GetInt32(15);
+
+                l.Add(f);
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return l;
+        }
+
         /*
          * Resume :
          *      Edit one film after watching the movie
