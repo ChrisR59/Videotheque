@@ -347,7 +347,8 @@ namespace Videothèque2.ViewModels
 
 
         /**
-         * 
+         * Resume : 
+         *      Search Serie in the list or Get complete list
          */
         private void SearchSerie()
         {

@@ -41,7 +41,7 @@ namespace Videothèque2.Models
 
         /*
          * Resume :
-         *      Get a element list which "ToWatch" = 1 in the base of the Film and Serie
+         *      Get a element list which "ToWatch" = 1 in the base of the Film, Serie and Discover
          * Return an ObservableCollection of the Element type Which "ToWatch" = 1
          */
         public ObservableCollection<Element> GetProgram()
@@ -98,7 +98,8 @@ namespace Videothèque2.Models
         }
 
         /**
-         * 
+         * Resume
+         *      Get items Film ToWatch = 1 and add ListElt
          */
         private void GetFilmToWatch()
         {
@@ -129,7 +130,8 @@ namespace Videothèque2.Models
         }
 
         /**
-         * 
+         * Resume
+         *      Get items Serie ToWatch = 1 and add ListElt
          */
         private void GetSerieToWatch()
         {
@@ -160,7 +162,8 @@ namespace Videothèque2.Models
         }
 
         /**
-         * 
+         * Resume
+         *      Get items Discover ToWatch = 1 and add ListElt
          */
         private void GetDiscoverToWatch()
         {

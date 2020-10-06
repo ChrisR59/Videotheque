@@ -342,7 +342,8 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * 
+         * Resume : 
+         *      Search Film in the list or Get complete list
          */
         private void SearchFilm()
         {

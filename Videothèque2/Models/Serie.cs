@@ -181,7 +181,11 @@ namespace Videothèque2.Models
         }
 
         /**
-         * 
+         * Resume : 
+         *      Get List Series Search by user
+         * Parameter :
+         *      a string  : search
+         * Return an ObservableCollection of the Serie type order by Title Where Title == search
          */
         public ObservableCollection<Serie> GetSearchSerie(string search)
         {

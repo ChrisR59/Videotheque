@@ -44,7 +44,6 @@ namespace Videothèque2.Models
                 NotifyPropertyChange("ToWatch");
             }
         }
-
         public string Comment { get => comment; set => comment = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;

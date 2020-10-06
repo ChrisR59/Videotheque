@@ -175,7 +175,11 @@ namespace Videothèque2.Models
         }
 
         /**
-         * 
+         * Resume : 
+         *      Get List Films Search by user
+         * Parameter :
+         *      a string  : search
+         * Return an ObservableCollection of the Films type order by Title Where Title == search
          */
         public ObservableCollection<Film> GetSearchFilm(string search)
         {
