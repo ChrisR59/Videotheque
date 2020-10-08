@@ -139,6 +139,7 @@ namespace Videothèque2.ViewModels
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment ajouter cet élément ?", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
+                Boolean res = false;
                 CycleC.IdCycle = IdCycle;
                 CycleC.GetRankElt();
                 CycleC.Title = Element.Title;
@@ -147,7 +148,8 @@ namespace Videothèque2.ViewModels
                 CycleC.NbElt = Element.NbElt;
                 CycleC.IdElt = Element.Id;
                 CycleC.Comment = Element.Comment;
-                Boolean res = false;
+                if (Element.Comment == null)
+                    CycleC.Comment = "";
 
                 if (CycleC.AddElement() && Element != null)
                 {

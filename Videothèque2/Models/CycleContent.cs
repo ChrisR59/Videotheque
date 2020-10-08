@@ -29,7 +29,7 @@ namespace Videothèque2.Models
 
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
-        public string Status { get => status; set => status = value; }
+        public string Status { get => status; set => status = value; }//?
         public int Rank { get => rank; set => rank = value; }
         public string Type { get => type; set => type = value; }
         public int NbElt { get => nbElt; set => nbElt = value; }
