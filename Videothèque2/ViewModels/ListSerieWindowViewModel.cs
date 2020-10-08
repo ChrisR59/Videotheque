@@ -58,6 +58,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("LastView");
                 RaisePropertyChanged("NbView");
                 RaisePropertyChanged("Comment");
+                RaisePropertyChanged("Status");
                 RaisePropertyChanged("Rating");
             }
         }

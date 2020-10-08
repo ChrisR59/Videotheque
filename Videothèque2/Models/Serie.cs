@@ -67,8 +67,8 @@ namespace Videothèque2.Models
         public Boolean Add()
         {
             bool res = false;
-            DataBase.Instance.command = new SqlCommand("INSERT INTO Series (Title,Genre,Content,Director,Stars,Poster,DateAdd,NbView,ToWatch,Rating)" +
-                " OUTPUT INSERTED.ID VALUES(@title,@genre,@content,@director,@stars,@poster,@dateAdd,'0','0',@rating)", DataBase.Instance.connection);
+            DataBase.Instance.command = new SqlCommand("INSERT INTO Series (Title,Genre,Content,Director,Stars,Poster,DateAdd,NbView,ToWatch,Status,Rating)" +
+                " OUTPUT INSERTED.ID VALUES(@title,@genre,@content,@director,@stars,@poster,@dateAdd,'0','0',@status,@rating)", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@title", Title));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@genre", Genre));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@content", Content));
@@ -76,6 +76,7 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@stars", Stars));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@poster", Poster));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@dateAdd", DateTime.Now));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@status", SerieStatus.Inconnu));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@rating", Rating.Aucune));
             DataBase.Instance.connection.Open();
             Id = (int)DataBase.Instance.command.ExecuteScalar();
@@ -98,7 +99,7 @@ namespace Videothèque2.Models
             ObservableCollection<Serie> l = new ObservableCollection<Serie>();
 
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,RunningTime,ReleaseDate,NbSeason,NbEpisode,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch," +
-                "Comment,Rating FROM Series ORDER BY Title", DataBase.Instance.connection);
+                "Comment,Status,Rating FROM Series ORDER BY Title", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -144,7 +145,10 @@ namespace Videothèque2.Models
                 if (!DataBase.Instance.reader.IsDBNull(15))
                     s.Comment = DataBase.Instance.reader.GetString(15);
 
-                s.Rating = (Rating)DataBase.Instance.reader.GetInt32(16);
+                if (!DataBase.Instance.reader.IsDBNull(16))
+                    s.Status = (SerieStatus)DataBase.Instance.reader.GetInt32(16);
+
+                s.Rating = (Rating)DataBase.Instance.reader.GetInt32(17);
 
                 l.Add(s);
             }
@@ -194,7 +198,7 @@ namespace Videothèque2.Models
             ObservableCollection<Serie> l = new ObservableCollection<Serie>();
 
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,RunningTime,ReleaseDate,NbSeason,NbEpisode,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch," +
-                "Comment,Rating FROM Series WHERE Title=@title ORDER BY Title", DataBase.Instance.connection);
+                "Comment,Status,Rating FROM Series WHERE Title=@title ORDER BY Title", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@title", search));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -241,7 +245,10 @@ namespace Videothèque2.Models
                 if (!DataBase.Instance.reader.IsDBNull(15))
                     s.Comment = DataBase.Instance.reader.GetString(15);
 
-                s.Rating = (Rating)DataBase.Instance.reader.GetInt32(16);
+                if (!DataBase.Instance.reader.IsDBNull(16))
+                    s.Status = (SerieStatus)DataBase.Instance.reader.GetInt32(16);
+
+                s.Rating = (Rating)DataBase.Instance.reader.GetInt32(17);
 
                 l.Add(s);
             }
@@ -314,7 +321,7 @@ namespace Videothèque2.Models
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE Series SET Title = @Title, Genre = @Genre, RunningTime = @RunningTime, ReleaseDate = @ReleaseDate," +
                 " NbSeason = @NbSeason, NbEpisode = @NbEpisode, Content = @Content, Director = @Director, Stars = @Stars, Poster = @Poster, Comment = @Comment, " +
-                "Rating = @Rating WHERE Id = @Id",
+                "Status = @Status, Rating = @Rating WHERE Id = @Id",
                 DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Title", Title));
@@ -342,6 +349,7 @@ namespace Videothèque2.Models
             else
                 DataBase.Instance.command.Parameters.Add(new SqlParameter("@Comment", Comment));
 
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Status", Status));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Rating", Rating));
             DataBase.Instance.connection.Open();
 
