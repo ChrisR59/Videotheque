@@ -11,24 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Videothèque2.Models;
-using Videothèque2.ViewModels;
 
-namespace Videothèque2
+namespace Videothèque2.Views
 {
     /// <summary>
-    /// Logique d'interaction pour ListFilmWindow.xaml
+    /// Logique d'interaction pour GestionCycleWindow.xaml
     /// </summary>
-    public partial class ListFilmWindow : Window
+    public partial class ListCycleWindow : Window
     {
-        public ListFilmWindow()
+        public ListCycleWindow()
         {
             InitializeComponent();
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

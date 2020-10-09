@@ -230,6 +230,30 @@ namespace Videothèque2.Models
         }
 
         /*
+         * Resume
+         *      Edit "Rank" of an element of a cycle
+         * Return True if update is successful
+         */
+        public Boolean UpdateRank()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE CycleContent SET Rank = @Rank WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Rank", Rank));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
+
+        /*
          * Resume : 
          *      Remove a Cycle 
          *  Return True is successful

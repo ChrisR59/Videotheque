@@ -1,0 +1,76 @@
+﻿<Window x:Class="Videothèque2.Views.ListCycleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Videothèque2.Views"
+        xmlns:viewModel="clr-namespace:Videothèque2.ViewModels"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="Liste des Cycles">
+    <Window.DataContext>
+        <viewModel:ListCycleViewModel></viewModel:ListCycleViewModel>
+    </Window.DataContext>
+    <Window.Resources>
+        <SolidColorBrush x:Key="WindowBrush" Color="#1f1f33"/>
+    </Window.Resources>
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="Background" Value="{StaticResource WindowBrush}"/>
+        </Style>
+    </Window.Style>
+    <Grid>
+        <!--
+        <ListView x:Name="ListCycle" ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" Margin="0,80,0,75" Background="#FF211059" Foreground="White">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Width="200" Header="Programmation" DisplayMemberBinding="{Binding StatusC}"/>
+                    <GridViewColumn Header="Action" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding Path=DeleteCycleCommand}" Content="Supprimer" FontFamily="Verdana" Width="105"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+
+        </ListView>-->
+        <DataGrid ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
+                  FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
+                  BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/>
+                <!-- ligne click -->
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Width="350" Binding="{Binding Id,UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Width="200" Binding="{Binding StatusC, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource delButton}" Command="{Binding Path=DataContext.DeleteCycleCommand, RelativeSource= {RelativeSource FindAncestor,
+                                        AncestorType={x:Type DataGrid}}}" Content="Supprimé" FontFamily="Verdana"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

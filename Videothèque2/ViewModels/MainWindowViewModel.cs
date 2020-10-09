@@ -34,9 +34,10 @@ namespace Videothèque2.ViewModels
         public ICommand LFilmCommand { get; set; }
         public ICommand LSerieCommand { get; set; }
         public ICommand AEltCommand { get; set; }
-        public ICommand CyclesCommand { get; set; }
+        public ICommand ListCyclesCommand { get; set; }
         public ICommand ProgrammationCommand { get; set; }
         public ICommand DiscoverCommand { get; set; }
+        public ICommand GestionCyclesCommand { get; set; }
 
         /*
          * Resume :
@@ -76,10 +77,16 @@ namespace Videothèque2.ViewModels
                 aEw.Show();
             });
 
-            CyclesCommand = new RelayCommand(() =>
+            ListCyclesCommand = new RelayCommand(() =>
             {
-               GestionCycleWindow gc = new GestionCycleWindow();
-               gc.Show();
+                ListCycleWindow lc = new ListCycleWindow();
+                lc.Show();
+            });
+
+            GestionCyclesCommand = new RelayCommand(() =>
+            {
+                GestionCycleWindow gc = new GestionCycleWindow();
+                gc.Show();
             });
 
             ProgrammationCommand = new RelayCommand(() =>

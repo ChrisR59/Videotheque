@@ -27,7 +27,8 @@
             <MenuItem Header="Ajout éléments" Command="{Binding AEltCommand}"/>
             <MenuItem Header="Programmation" Command="{Binding ProgrammationCommand}" Height="25"/>
             <!-- programmation -->
-            <MenuItem Header="Cycles" Command="{Binding CyclesCommand}"/>
+            <MenuItem Header="Cycles" Command="{Binding ListCyclesCommand}"/>
+            <MenuItem Header="Gestion Cycle" Command="{Binding GestionCyclesCommand}"/>
         </Menu>
 
         <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="255,74,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="16" Width="80"/>

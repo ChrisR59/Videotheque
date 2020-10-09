@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Videothèque2.Models;
+using Videothèque2.Views;
 
 namespace Videothèque2.ViewModels
 {
-    class GestionCycleViewModel : ViewModelBase
+    class ListCycleViewModel : ViewModelBase
     {
         public ObservableCollection<CycleStatus> ListCycles { get; set; }
         private CycleStatus cycle;
@@ -48,7 +49,7 @@ namespace Videothèque2.ViewModels
          *      Call the GetCycle methode to get a list of cycle
          *      Initialize DeleteCycleCommand with a methode as a parameter
          */
-        public GestionCycleViewModel()
+        public ListCycleViewModel()
         {
             Cycle = new CycleStatus();
             ListCycles = Cycle.GetCycleList();

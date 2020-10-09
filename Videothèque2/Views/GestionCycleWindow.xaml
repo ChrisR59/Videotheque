@@ -9,7 +9,7 @@
         WindowState="Maximized"
         Title="GestionCycleWindow">
     <Window.DataContext>
-        <viewModel:GestionCycleViewModel></viewModel:GestionCycleViewModel>
+        <viewModel:GestionCycleWindowViewModel></viewModel:GestionCycleWindowViewModel>
     </Window.DataContext>
     <Window.Resources>
         <SolidColorBrush x:Key="WindowBrush" Color="#1f1f33"/>
@@ -20,57 +20,18 @@
         </Style>
     </Window.Style>
     <Grid>
-        <!--
-        <ListView x:Name="ListCycle" ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" Margin="0,80,0,75" Background="#FF211059" Foreground="White">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Width="200" Header="Programmation" DisplayMemberBinding="{Binding StatusC}"/>
-                    <GridViewColumn Header="Action" Width="150">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Command="{Binding Path=DeleteCycleCommand}" Content="Supprimer" FontFamily="Verdana" Width="105"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
+        <TextBlock Text="Rank" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Margin="0,25,0,0"/>
+        <TextBox Text="{Binding Rank}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" />
+        <ComboBox ItemsSource="{Binding ListCycleID}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="63,39,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="16" Width="80"/>
+        <Button Style="{StaticResource editButton}" Command="{Binding EditEltCycleCommand}" Content="MODIFIER ELEMENT" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,26,58,0"/>
 
-        </ListView>-->
-        <DataGrid ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
-                  FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
-                  BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">
+        <DataGrid ItemsSource="{Binding CycleCView}" SelectedItem="{Binding CycleC}"  AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
+                 FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" 
+                  BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Coral"/>
                 <!-- ligne click -->
             </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Width="350" Binding="{Binding Id,UpdateSourceTrigger=PropertyChanged}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Status" Width="200" Binding="{Binding StatusC, UpdateSourceTrigger=PropertyChanged}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Style="{StaticResource delButton}" Command="{Binding Path=DataContext.DeleteCycleCommand, RelativeSource= {RelativeSource FindAncestor,
-                                        AncestorType={x:Type DataGrid}}}" Content="Supprimé" FontFamily="Verdana"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
         </DataGrid>
-
     </Grid>
 </Window>
