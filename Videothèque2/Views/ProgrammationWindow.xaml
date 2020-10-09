@@ -23,7 +23,10 @@
         <RadioButton IsChecked="{Binding ElementsAvailable}" Content="Ajout d'éléments" HorizontalAlignment="Left" Margin="187,32,0,0" VerticalAlignment="Top" Foreground="White"/>
         <RadioButton IsChecked="{Binding ElementsCycle}" Content="modification dans un cycle" HorizontalAlignment="Left" Margin="469,32,0,0" VerticalAlignment="Top" Foreground="White"/>
 
+        <TextBlock Text="{Binding Title}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100" Foreground="White"/>
         <Button Command="{Binding AddCycleCommand}" Content="NEW CYCLE" FontFamily="Verdana" VerticalAlignment="Top" Margin="135" HorizontalAlignment="Center"/>
+        <Button Command="{Binding SaveEltCommand}" Content="Save Element" FontFamily="Verdana" VerticalAlignment="Top" Margin="469,135,168,0" HorizontalAlignment="Center"/>
+        <Button Command="{Binding AddEltSaveCommand}" Content="Add Elt Save" FontFamily="Verdana" VerticalAlignment="Top" Margin="613,135,24,0" HorizontalAlignment="Center"/>
         
         <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="250,213,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="16" Width="80"/>
         <Button Command="{Binding AddEltCycleCommand}" Content="ADD ELEMENT" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,200,250,0"/>

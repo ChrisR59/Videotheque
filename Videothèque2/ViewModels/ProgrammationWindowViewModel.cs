@@ -18,6 +18,7 @@ namespace Videothèque2.ViewModels
         private bool elementsCycle;
         private ObservableCollection<int> listCycle;
         private ObservableCollection<Element> listView;
+        private string title;
         public bool ElementsAvailable
         {
             get => elementsAvailable;
@@ -60,7 +61,18 @@ namespace Videothèque2.ViewModels
         public CycleContent CycleC { get => cycleC; set => cycleC = value; }
 
         private Element element;
+        private Element elementSave;
         public Element Element { get => element; set => element = value; }
+        public Element ElementSave
+        {
+            get => elementSave;
+            set
+            {
+                elementSave = value;
+                Title = elementSave.Title;
+                RaisePropertyChanged("Title");
+            }
+        }
 
         //Cycle Statu item
         private int idCycle;
@@ -87,11 +99,22 @@ namespace Videothèque2.ViewModels
             }
 
         }
+        public string Title
+        {
+            get => title;
+            set
+            {
+                title = value;
+                RaisePropertyChanged("Title");
+            }
+        }
 
         //Command
         public ICommand AddCycleCommand { get; set; }
         public ICommand AddEltCycleCommand { get; set; }
         public ICommand DelEltCycleCommand { get; set; }
+        public ICommand SaveEltCommand { get; set; }
+        public ICommand AddEltSaveCommand { get; set; }
 
         /*
          * Resume : 
@@ -107,9 +130,12 @@ namespace Videothèque2.ViewModels
             ListCycle = CycleS.GetCycleListNotFinish();
             ElementsAvailable = true;
             ListView = Element.GetProgram();
+            Title = "Aucun élement sauvegardé";
             AddCycleCommand = new RelayCommand(CreateCycle);
             AddEltCycleCommand = new RelayCommand(AddEltCycle);
             DelEltCycleCommand = new RelayCommand(DelEltCycle, CanExecute);
+            SaveEltCommand = new RelayCommand(SaveElt);
+            AddEltSaveCommand = new RelayCommand(AddEltSave);
         }
 
         /**
@@ -153,7 +179,7 @@ namespace Videothèque2.ViewModels
 
                 if (CycleC.AddElement() && Element != null)
                 {
-                    switch (Element.Type)
+                    switch (Element.Type)// Deprogram a element
                     {
                         case "Film":
                             Film f = new Film();
@@ -189,6 +215,45 @@ namespace Videothèque2.ViewModels
                 }
             }
         }
+
+        /**
+         * Resume : 
+         *      Add an Element to the save in the cycle
+         *      Call UpdateElement for maj Film or Serie selected
+         *      Edit BDD film or serie and Cycle Content
+         */
+        private void AddEltSave()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment ajouter cet élément ?", "Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                CycleC.IdCycle = IdCycle;
+                CycleC.GetRankElt();
+                CycleC.Title = ElementSave.Title;
+                CycleC.Status = "A voir";
+                CycleC.Type = ElementSave.Type;
+                CycleC.NbElt = ElementSave.NbElt;
+                CycleC.IdElt = ElementSave.Id;
+                CycleC.Comment = ElementSave.Comment;
+                if (ElementSave.Comment == null)
+                    CycleC.Comment = "";
+
+                if (CycleC.AddElement() && ElementSave != null)
+                {
+                    MessageBox.Show("Element bien ajouté au cycle.");
+                    CycleC.Rank = 0;
+                }
+            }
+        }
+
+        /**
+         * 
+         */
+        private void SaveElt()
+        {
+            ElementSave = Element;
+        }
+
 
         /*
          * Resume :
