@@ -18,7 +18,7 @@ namespace Videothèque2.Models
         private int id;
         private string title;
         private string genre;
-        private string runningTime;
+        private string runTime;
         private string releaseDate;
         private int nbFilm;
         private string content;
@@ -38,7 +38,7 @@ namespace Videothèque2.Models
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value; }
         public string Genre { get => genre; set => genre = value; }
-        public string RunningTime { get => runningTime; set => runningTime = value; }
+        public string RunTime { get => runTime; set => runTime = value; }
         public string ReleaseDate { get => releaseDate; set => releaseDate = value; }
         public int NbFilm { get => nbFilm; set => nbFilm = value; }
         public string Content { get => content; set => content = value; }
@@ -92,7 +92,7 @@ namespace Videothèque2.Models
         public ObservableCollection<Film> GetFilms()
         {
             ObservableCollection<Film> l = new ObservableCollection<Film>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,RunningTime,ReleaseDate,NbFilm,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Comment," +
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,RunTime,ReleaseDate,NbFilm,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Comment," +
                 "Rating FROM Films ORDER BY Title",DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -105,7 +105,7 @@ namespace Videothèque2.Models
                 f.Genre = DataBase.Instance.reader.GetString(2);
 
                 if (!DataBase.Instance.reader.IsDBNull(3))
-                    f.RunningTime = DataBase.Instance.reader.GetString(3);
+                    f.RunTime = DataBase.Instance.reader.GetString(3);
 
                 if (!DataBase.Instance.reader.IsDBNull(4))
                     f.ReleaseDate = DataBase.Instance.reader.GetString(4);
@@ -185,7 +185,7 @@ namespace Videothèque2.Models
         {
             ObservableCollection<Film> l = new ObservableCollection<Film>();
 
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,RunningTime,ReleaseDate,NbFilm,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Comment," +
+            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,RunTime,ReleaseDate,NbFilm,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Comment," +
                 "Rating FROM Films WHERE Title=@title ORDER BY Title", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@title", search));
             DataBase.Instance.connection.Open();
@@ -199,7 +199,7 @@ namespace Videothèque2.Models
                 f.Genre = DataBase.Instance.reader.GetString(2);
 
                 if (!DataBase.Instance.reader.IsDBNull(3))
-                    f.RunningTime = DataBase.Instance.reader.GetString(3);
+                    f.RunTime = DataBase.Instance.reader.GetString(3);
 
                 if (!DataBase.Instance.reader.IsDBNull(4))
                     f.ReleaseDate = DataBase.Instance.reader.GetString(4);
@@ -300,17 +300,17 @@ namespace Videothèque2.Models
         public Boolean UpdateFilm()
         {
             Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE Films SET Title = @Title, Genre = @Genre, RunningTime = @RunningTime, ReleaseDate = @ReleaseDate, " +
+            DataBase.Instance.command = new SqlCommand("UPDATE Films SET Title = @Title, Genre = @Genre, RunTime = @RunTime, ReleaseDate = @ReleaseDate, " +
                 "NbFilm = @NbFilm, Content = @Content, Director = @Director, Stars = @Stars, Poster = @Poster, Comment = @Comment, Rating = @Rating WHERE Id = @Id",
                 DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Title", Title));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Genre", Genre));
 
-            if (RunningTime == null)
-                DataBase.Instance.command.Parameters.Add(new SqlParameter("@RunningTime", DBNull.Value));
+            if (RunTime == null)
+                DataBase.Instance.command.Parameters.Add(new SqlParameter("@RunTime", DBNull.Value));
             else
-                DataBase.Instance.command.Parameters.Add(new SqlParameter("@RunningTime", RunningTime));
+                DataBase.Instance.command.Parameters.Add(new SqlParameter("@RunTime", RunTime));
 
             if (ReleaseDate == null)
                 DataBase.Instance.command.Parameters.Add(new SqlParameter("@ReleaseDate", DBNull.Value));

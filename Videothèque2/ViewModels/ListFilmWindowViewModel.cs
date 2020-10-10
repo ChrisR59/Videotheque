@@ -47,7 +47,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Id");
                 RaisePropertyChanged("Title");
                 RaisePropertyChanged("Genre");
-                RaisePropertyChanged("RunningTime");
+                RaisePropertyChanged("RunTime");
                 RaisePropertyChanged("ReleaseDate");
                 RaisePropertyChanged("NbFilm");
                 RaisePropertyChanged("Content");
@@ -90,13 +90,13 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Genre");
             }
         }
-        public string RunningTime
+        public string RunTime
         {
-            get => Film.RunningTime;
+            get => Film.RunTime;
             set
             {
-                Film.RunningTime = value;
-                RaisePropertyChanged("RunningTime");
+                Film.RunTime = value;
+                RaisePropertyChanged("RunTime");
             }
         }
         public string ReleaseDate

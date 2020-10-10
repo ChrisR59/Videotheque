@@ -62,7 +62,7 @@
         <Label Content="Nombre de Films" Grid.Row="0" Grid.Column="3" Foreground="White"></Label>
         <TextBox TextWrapping="Wrap" Text="{Binding NbFilm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="0" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
         <Label Content="Durée Total :" Grid.Row="0" Grid.Column="4" Foreground="White"></Label>
-        <TextBox TextWrapping="Wrap" Text="{Binding RunningTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="0" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding RunTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="0" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
         <Label Content="Recherche :" Grid.Row="4" Grid.Column="3" Foreground="White"></Label>
         <TextBox TextWrapping="Wrap" Text="{Binding SearchTitleFilm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="3" Grid.Row="4" Width="300" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
         <Button  Command="{Binding SearchFilmCommand}" Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
