@@ -186,7 +186,7 @@ namespace Videothèque2.Models
             ObservableCollection<Film> l = new ObservableCollection<Film>();
 
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,RunTime,ReleaseDate,NbFilm,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Comment," +
-                "Rating FROM Films WHERE Title=@title ORDER BY Title", DataBase.Instance.connection);
+                "Rating FROM Films WHERE Title LIKE '%' + @title + '%' ORDER BY Title", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@title", search));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
