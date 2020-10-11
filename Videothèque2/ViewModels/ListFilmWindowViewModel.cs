@@ -272,14 +272,14 @@ namespace Videothèque2.ViewModels
          */
         private void EditFilm()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier ce film?", "Confirmation modification", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier " + Film.Title + "?", "Confirmation modification", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Title != null && Genre != null && Content != null && Director != null && Stars != null && Poster != null)
                 {
                     if (Film.UpdateFilm())
                     {
-                        MessageBox.Show("Le Film a bien été modifié.");
+                        MessageBox.Show(Film.Title + " a bien été modifié.");
                         UpList();
                     }
                 }
@@ -295,7 +295,7 @@ namespace Videothèque2.ViewModels
          */
         private void ProgramFilm()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer ce film?", "Confirmation programmation", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer " + Film.Title  +"?", "Confirmation programmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Film != null)
@@ -316,14 +316,14 @@ namespace Videothèque2.ViewModels
          */
         private void DeleteFilm()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer ce film?", "Confirmation Suppression", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer " + Film.Title + "?", "Confirmation Suppression", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Film.Id != 0)
                 {
                     if (Film.DeleteFilm())
                     {
-                        MessageBox.Show("Le Film a bien été supprimé.");
+                        MessageBox.Show(Film.Title + " a bien été supprimé.");
                         UpList();
                     }
                 }

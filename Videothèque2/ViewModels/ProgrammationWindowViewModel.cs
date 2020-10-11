@@ -162,7 +162,7 @@ namespace Videothèque2.ViewModels
          */
         private void AddEltCycle()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment ajouter cet élément ?", "Confirmation", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment ajouter " + Element.Title + " ?", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 Boolean res = false;
@@ -208,7 +208,7 @@ namespace Videothèque2.ViewModels
                     {
                         ListView.Remove(Element);
                         RaisePropertyChanged("ListView");
-                        MessageBox.Show("Element bien ajouté au cycle.");
+                        MessageBox.Show(Element.Title + " bien ajouté au cycle.");
                         CycleC.Rank = 0;
                         Element = new Element();
                     }
@@ -224,7 +224,7 @@ namespace Videothèque2.ViewModels
          */
         private void AddEltSave()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment ajouter cet élément ?", "Confirmation", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment ajouter " + Element.Title + "?", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 CycleC.IdCycle = IdCycle;
@@ -240,7 +240,7 @@ namespace Videothèque2.ViewModels
 
                 if (CycleC.AddElement() && ElementSave != null)
                 {
-                    MessageBox.Show("Element bien ajouté au cycle.");
+                    MessageBox.Show(Element.Title + " bien ajouté au cycle.");
                     CycleC.Rank = 0;
                 }
             }
@@ -261,7 +261,7 @@ namespace Videothèque2.ViewModels
          */
         private void DelEltCycle()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer cet élément ?", "Confirmation", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer " + Element.Title + "?", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 bool del = false;
@@ -301,7 +301,7 @@ namespace Videothèque2.ViewModels
                 {
                     ListView.Remove(Element);
                     RaisePropertyChanged("ListView");
-                    MessageBox.Show("Element bien supprimé au cycle.");
+                    MessageBox.Show(Element.Title + " bien supprimé au cycle.");
                     CycleC = new CycleContent();
                     Element = new Element();
                 }

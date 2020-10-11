@@ -87,14 +87,14 @@ namespace Videothèque2.ViewModels
          */
         private void EditDiscover()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier ce Decouverte?", "Confirmation modification", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier " + Discover.Title + "?", "Confirmation modification", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Title != null && ReleaseDate != null)
                 {
                     if (Discover.EditOneDiscover())
                     {
-                        MessageBox.Show("Le Decouverte a bien été modifié.");
+                        MessageBox.Show(Discover.Title + " a bien été modifié.");
                         ListDiscover = Discover.GetAllDiscover();
                         RaisePropertyChanged("ListDiscover");
                     }
@@ -110,14 +110,14 @@ namespace Videothèque2.ViewModels
          */
         private void ProgramDiscover()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer cette découverte?", "Confirmation programmation", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer " + Discover.Title + "?", "Confirmation programmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Discover != null)
                 {
                     Discover.ToWatch = true;
                     Discover.UpProgrammDiscover();
-                    MessageBox.Show("La découverte a bien été programmé.");
+                    MessageBox.Show(Discover.Title + " a bien été programmé.");
                     ListDiscover = Discover.GetAllDiscover();
                     RaisePropertyChanged("ListDiscover");
                 }
@@ -132,14 +132,14 @@ namespace Videothèque2.ViewModels
          */
         private void DelDiscover()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer cette Decouverte?", "Confirmation Suppression", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer " + Discover.Title + "?", "Confirmation Suppression", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Discover.Id != 0)
                 {
                     if (Discover.DeleteOneDiscover())
                     {
-                        MessageBox.Show("La Decouverte a bien été supprimé.");
+                        MessageBox.Show(Discover.Title + " a bien été supprimé.");
                         ListDiscover = Discover.GetAllDiscover();
                         RaisePropertyChanged("ListDiscover");
                     }

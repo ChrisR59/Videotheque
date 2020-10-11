@@ -108,7 +108,7 @@ namespace Videothèque2.ViewModels
          */
         private void ValidViewElt()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Vous avez vu ce film/série ?", "Confirmation!", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Vous avez vu " + CycleC.Title + " ?", "Confirmation!", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (CycleC != null)
@@ -126,7 +126,7 @@ namespace Videothèque2.ViewModels
                         resCycle = CycleC.UpdateToWatch();
 
                         if (resFilm && resCycle)
-                            MessageBox.Show("Le date du film a bien été modifié");
+                            MessageBox.Show("Le date de " + CycleC.Title + " a bien été modifié");
                     }
                     else if (CycleC.Type == "Serie")
                     {
@@ -138,7 +138,7 @@ namespace Videothèque2.ViewModels
                         resCycle = CycleC.UpdateToWatch();
 
                         if (resSerie && resCycle)
-                            MessageBox.Show("La date de la série a bien été modifié");
+                            MessageBox.Show("La date de " + CycleC.Title + " a bien été modifié");
                     }
 
                     //Verifie si les élement ont tous était vu

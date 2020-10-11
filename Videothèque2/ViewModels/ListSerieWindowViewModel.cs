@@ -288,14 +288,14 @@ namespace Videothèque2.ViewModels
          */
         private void EditSerie()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier cette série?", "Confirmation modification", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier " + Title + "?", "Confirmation modification", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Title != null && Genre != null && Content != null && Director != null && Stars != null && Poster != null)
                 {
                     if (Serie.UpdateSerie())
                     {
-                        MessageBox.Show("La serie a bien été modifié.");
+                        MessageBox.Show(Title + " a bien été modifié.");
                         UpList();
                     }
                 }
@@ -311,14 +311,14 @@ namespace Videothèque2.ViewModels
          */
         private void DeleteSerie()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer cette série?", "Confirmation Suppression", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer " + Serie.Title + "?", "Confirmation Suppression", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Serie.Id != 0)
                 {
                     if (Serie.DeleteSerie())
                     {
-                        MessageBox.Show("La serie a bien été supprimé.");
+                        MessageBox.Show(Serie.Title + " a bien été supprimé.");
                         UpList();
                     }
                 }
@@ -345,14 +345,14 @@ namespace Videothèque2.ViewModels
          */
         private void ProgramSerie()
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer cette série?", "Confirmation programmation", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment programmer " + Serie.Title + "?", "Confirmation programmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 if (Serie != null)
                 {
                     Serie.ToWatch = true;
                     Serie.UpSerieProgramm();
-                    MessageBox.Show("La serie a bien été programmé.");
+                    MessageBox.Show(Serie.Title + " a bien été programmé.");
                     UpList();
                 }
             }
