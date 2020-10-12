@@ -14,7 +14,7 @@ using Videothèque2.Views;
 
 namespace Videothèque2.ViewModels
 {
-    public class MainWindowViewModel: ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
         private ObservableCollection<int> listCycle;
         private ObservableCollection<CycleContent> listCycleContent;
@@ -91,8 +91,8 @@ namespace Videothèque2.ViewModels
 
             ProgrammationCommand = new RelayCommand(() =>
             {
-               ProgrammationWindow pc = new ProgrammationWindow();
-               pc.Show();
+                ProgrammationWindow pc = new ProgrammationWindow();
+                pc.Show();
             });
 
             ValidateViewCommand = new RelayCommand(ValidViewElt);
@@ -113,62 +113,90 @@ namespace Videothèque2.ViewModels
             {
                 if (CycleC != null)
                 {
-                    Boolean resCycle = false;
-                    CycleC.ToWatch = true;
-
-                    if (CycleC.Type == "Film")
-                    {
-                        Film f = CycleC.GetOneFilm();
-                        f.LastView = DateTime.Now;
-                        f.NbView++;
-                        f.ToWatch = false;
-                        Boolean resFilm = f.UpdateLastView();
-                        resCycle = CycleC.UpdateToWatch();
-
-                        if (resFilm && resCycle)
-                            MessageBox.Show("Le date de " + CycleC.Title + " a bien été modifié");
-                    }
-                    else if (CycleC.Type == "Serie")
-                    {
-                        Serie s = CycleC.GetOneSerie();
-                        s.LastView = DateTime.Now;
-                        s.NbView++;
-                        s.ToWatch = false;
-                        Boolean resSerie = s.UpdateLastView();
-                        resCycle = CycleC.UpdateToWatch();
-
-                        if (resSerie && resCycle)
-                            MessageBox.Show("La date de " + CycleC.Title + " a bien été modifié");
-                    }
-
-                    //Verifie si les élement ont tous était vu
-                    Boolean cycleEnd = true;
-
-                    foreach (CycleContent c in ListCycleContent)
-                    {
-                        if (!c.ToWatch)
-                        {
-                            cycleEnd = false;
-                        }
-                    }
-
-                    //Changement de status du cycle
-                    if (cycleEnd)
-                    {
-                        CycleS.StatusC = Status.Termine;
-
-                        if (CycleS.EditStatusCycle())
-                            MessageBox.Show("Cycle Terminé");
-
-                        CycleS = new CycleStatus();
-                        IdCycle = CycleS.GetNewCycle();
-
-                        if (CycleS.EditStatusCycle())
-                            MessageBox.Show("Nouveau cycle chargé");
-                    }
-
+                    UpEltToWatch();
+                    Boolean cycleEnd = CheckCycle();
+                    UpCycle(cycleEnd);
                     UpList();
                 }
+            }
+        }
+
+        /**
+         * Resume :
+         *      confirm that an Element of the Cycle has been viewed
+         */
+        private void UpEltToWatch()
+        {
+            Boolean resCycle = false;
+            Boolean resFilm = false;
+            Boolean resSerie = false;
+            CycleC.ToWatch = true;
+
+            switch (CycleC.Type)
+            {
+                case "Film":
+                    Film f = CycleC.GetOneFilm();
+                    f.LastView = DateTime.Now;
+                    f.NbView++;
+                    f.ToWatch = false;
+                    resFilm = f.UpdateLastView();
+                    resCycle = CycleC.UpdateToWatch();
+                    break;
+                case "Serie":
+                    Serie s = CycleC.GetOneSerie();
+                    s.LastView = DateTime.Now;
+                    s.NbView++;
+                    s.ToWatch = false;
+                    resSerie = s.UpdateLastView();
+                    resCycle = CycleC.UpdateToWatch();
+                    break;
+            }
+
+            if(resCycle && (resFilm || resSerie))
+                MessageBox.Show("La date de " + CycleC.Title + " a bien été modifié");
+        }
+
+        /**
+         * Resume :
+         *      check if the elements have all been viewed
+         * Return
+         *      a boolean which will confirm if the cycle is finished 
+         */
+        private Boolean CheckCycle()
+        {
+            Boolean CycleEnd = false;
+
+            foreach (CycleContent c in ListCycleContent)
+            {
+                if (!c.ToWatch)
+                {
+                    CycleEnd = false;
+                }
+            }
+
+            return CycleEnd;
+        }
+
+        /**
+         * Resume :
+         *      cycle change
+         * Parameter
+         *      Boolean which is true if the cycle is finished
+         */
+        private void UpCycle(Boolean CycleEnd)
+        {
+            if (CycleEnd)
+            {
+                CycleS.StatusC = Status.Termine;
+
+                if (CycleS.EditStatusCycle())
+                    MessageBox.Show("Cycle Terminé");
+
+                CycleS = new CycleStatus();
+                IdCycle = CycleS.GetNewCycle();
+
+                if (CycleS.EditStatusCycle())
+                    MessageBox.Show("Nouveau cycle chargé");
             }
         }
 
