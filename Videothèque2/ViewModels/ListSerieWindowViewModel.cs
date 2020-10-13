@@ -253,7 +253,7 @@ namespace Videothèque2.ViewModels
         }
 
         /*
-         * Remuse :
+         * Resume :
          *      opens a dialog box to choose a file.
          */
         private void EditPoster()

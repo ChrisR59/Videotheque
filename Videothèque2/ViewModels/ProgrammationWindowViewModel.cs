@@ -165,7 +165,6 @@ namespace Videothèque2.ViewModels
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment ajouter " + Element.Title + " ?", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                Boolean res = false;
                 CycleC.IdCycle = IdCycle;
                 CycleC.GetRankElt();
                 CycleC.Title = Element.Title;
@@ -179,41 +178,64 @@ namespace Videothèque2.ViewModels
 
                 if (CycleC.AddElement() && Element != null)
                 {
-                    switch (Element.Type)// Deprogram a element
-                    {
-                        case "Film":
-                            Film f = new Film();
-                            f = f.GetOneFilm(Element.Id);
-                            f.ToWatch = false;
-                            res = f.UpFilmProgramm();
-                            break;
-                        case "Serie":
-                            Serie s = new Serie();
-                            s = s.GetOneSerie(Element.Id);
-                            s.ToWatch = false;
-                            res = s.UpSerieProgramm();
-                            break;
-                        case "Découverte":
-                            Discover d = new Discover();
-                            d = d.GetOneDiscover(Element.Id);
-                            d.ToWatch = false;
-                            res = d.UpProgrammDiscover();
-                            break;
-                        default:
-                            MessageBox.Show("Je ne reconnais pas cette élément.");
-                            break;
-                    }
-
-                    if (res)
-                    {
-                        ListView.Remove(Element);
-                        RaisePropertyChanged("ListView");
-                        MessageBox.Show(Element.Title + " bien ajouté au cycle.");
-                        CycleC.Rank = 0;
-                        Element = new Element();
-                    }
+                    Boolean res = UnprogramElement();
+                    RemoveELtList(res);
                 }
             }
+        }
+
+        /**
+         * Resume :
+         *      Remove a element in the list
+         */
+        private void RemoveELtList(Boolean Unprogram)
+        {
+            if (Unprogram)
+            {
+                ListView.Remove(Element);
+                RaisePropertyChanged("ListView");
+                MessageBox.Show(Element.Title + " bien ajouté au cycle.");
+                CycleC.Rank = 0;
+                Element = new Element();
+            }
+        }
+
+        /**
+         * Resume :
+         *      Unprogram a element 
+         * Return :
+         *      a Boolean 
+         */
+        private Boolean UnprogramElement()
+        {
+            Boolean Unprogram = false;
+
+            switch (Element.Type)
+            {
+                case "Film":
+                    Film f = new Film();
+                    f = f.GetOneFilm(Element.Id);
+                    f.ToWatch = false;
+                    Unprogram = f.UpFilmProgramm();
+                    break;
+                case "Serie":
+                    Serie s = new Serie();
+                    s = s.GetOneSerie(Element.Id);
+                    s.ToWatch = false;
+                    Unprogram = s.UpSerieProgramm();
+                    break;
+                case "Découverte":
+                    Discover d = new Discover();
+                    d = d.GetOneDiscover(Element.Id);
+                    d.ToWatch = false;
+                    Unprogram = d.UpProgrammDiscover();
+                    break;
+                default:
+                    MessageBox.Show("Je ne reconnais pas cette élément.");
+                    break;
+            }
+
+            return Unprogram;
         }
 
         /**
@@ -247,7 +269,8 @@ namespace Videothèque2.ViewModels
         }
 
         /**
-         * 
+         * Resume :
+         *      Save a element selected
          */
         private void SaveElt()
         {
@@ -264,50 +287,61 @@ namespace Videothèque2.ViewModels
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer " + Element.Title + "?", "Confirmation", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                bool del = false;
                 //Supprimer dans CycleContent
                 CycleC.IdCycle = Element.Id;
                 CycleC.Type = Element.Type;
                 CycleC.Id = Element.IdCycle;
                 if (CycleC.DelElement())
                 {
-                    if (CycleC.Type == "Film")
-                    {
-                        if (Element.UnWatchFilm())
-                        {
-                            Element.ToWatch = false;
-                            del = true;
-                        }
-                    }
-                    else if (CycleC.Type == "Serie")
-                    {
-                        if (Element.UnWatchSerie())
-                        {
-                            Element.ToWatch = false;
-                            del = true;
-                        }
-                    }
-                    else if (CycleC.Type == "Découverte")
-                    {
-                        if (Element.UnWatchDiscover())
-                        {
-                            Element.ToWatch = false;
-                            del = true;
-                        }
-                    }
-                }
+                    Boolean del = UnprogramDeleteElt();
 
-                if (del)
-                {
-                    ListView.Remove(Element);
-                    RaisePropertyChanged("ListView");
-                    MessageBox.Show(Element.Title + " bien supprimé au cycle.");
-                    CycleC = new CycleContent();
-                    Element = new Element();
+                    if (del)
+                    {
+                        ListView.Remove(Element);
+                        RaisePropertyChanged("ListView");
+                        MessageBox.Show(Element.Title + " bien supprimé au cycle.");
+                        CycleC = new CycleContent();
+                        Element = new Element();
+                    }
                 }
-                //Deprogrammer dans Film ou Serie
+            }
+        }
+
+        /**
+         * Resume : 
+         *      Unprogram a element who has remove
+         * Return :
+         *      a Boolean 
+         */
+         private Boolean UnprogramDeleteElt()
+        {
+            Boolean validDeleteElement = false;
+            switch (CycleC.Type)
+            {
+                case "Film":
+                    if (Element.UnWatchFilm())
+                    {
+                        Element.ToWatch = false;
+                        validDeleteElement = true;
+                    }
+                    break;
+                case "Serie":
+                    if (Element.UnWatchSerie())
+                    {
+                        Element.ToWatch = false;
+                        validDeleteElement = true;
+                    }
+                    break;
+                case "Découverte":
+                    if (Element.UnWatchDiscover())
+                    {
+                        Element.ToWatch = false;
+                        validDeleteElement = true;
+                    }
+                    break;
             }
 
+            return validDeleteElement;
         }
 
         /**

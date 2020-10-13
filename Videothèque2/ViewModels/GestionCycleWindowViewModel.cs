@@ -58,6 +58,12 @@ namespace Videothèque2.ViewModels
 
         public ICommand EditEltCycleCommand { get; set; }
 
+        /*
+         * Resume : 
+         *      Initialize a Cycle Status, Element and Cycle Content
+         *      Get List Cycle not Finish
+         *      Initialize a commands with a methode as a parameter
+         */
         public GestionCycleWindowViewModel()
         {
             CycleS = new CycleStatus();
@@ -68,6 +74,10 @@ namespace Videothèque2.ViewModels
             EditEltCycleCommand = new RelayCommand(EditRank);
         }
 
+        /**
+         * Resume :
+         *      Edit the rank rank of an element of a cycle
+         */
         private void EditRank()
         {
             CycleC.UpdateRank();
