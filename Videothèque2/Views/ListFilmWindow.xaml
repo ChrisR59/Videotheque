@@ -64,7 +64,7 @@
         <Label Content="Réalisateur" Grid.Row="1" Grid.Column="1" Foreground="White" Margin="50,0,0,0"></Label>
         <TextBox Text="{Binding Director, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Width="450" 
                  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,7"/>
-        <Label Content="Durée Total" Grid.Row="1" Grid.Column="4" Foreground="White"></Label>
+        <Label Content="Durée Total 'min)" Grid.Row="1" Grid.Column="4" Foreground="White"></Label>
         <TextBox TextWrapping="Wrap" Text="{Binding RunTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="4" Grid.Row="1" Width="300" 
                  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,7"/>
         <Label Content="Recherche de film" Grid.Row="1" Grid.Column="6" Foreground="White" Margin="60,0,0,0"></Label>
