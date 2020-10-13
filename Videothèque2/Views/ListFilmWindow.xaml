@@ -112,7 +112,7 @@
         </Button>
 
         <DataGrid 
-            ItemsSource="{Binding ListFilmView}" SelectedItem="{Binding Film,Mode=TwoWay}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
+            ItemsSource="{Binding ListFilms}" SelectedItem="{Binding Film,Mode=TwoWay}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
             AutoGenerateColumns="False" FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" BorderBrush="#1f1f33" Background="#1f1f33" 
             Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="6" Grid.RowSpan="3" CanUserAddRows="False">
             <DataGrid.Resources>

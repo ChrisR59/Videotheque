@@ -28,7 +28,7 @@ namespace Videothèque2.ViewModels
                 if (value)
                 {
                     Element = new Element();
-                    ListView = Element.GetProgram();
+                    ListView = Element.GetEltProgram();
                     RaisePropertyChanged("ListView");
                 }
                 RaisePropertyChanged();
@@ -43,7 +43,7 @@ namespace Videothèque2.ViewModels
                 if (value)
                 {
                     Element = new Element();
-                    ListView = Element.GetCycle(IdCycle);//list de cycleContent
+                    ListView = Element.GetEltCycle(IdCycle);//list de cycleContent
                     RaisePropertyChanged("ListView");
                 }
                 RaisePropertyChanged();
@@ -84,7 +84,7 @@ namespace Videothèque2.ViewModels
                 idCycle = value;
                 if (ElementsCycle)
                 {
-                    ListView = Element.GetCycle(IdCycle);//list de cycleContent
+                    ListView = Element.GetEltCycle(IdCycle);//list de cycleContent
                     RaisePropertyChanged("ListView");
                 }
             }
@@ -129,7 +129,7 @@ namespace Videothèque2.ViewModels
             Element = new Element();
             ListCycle = CycleS.GetCycleListNotFinish();
             ElementsAvailable = true;
-            ListView = Element.GetProgram();
+            ListView = Element.GetEltProgram();
             Title = "Aucun élement sauvegardé";
             AddCycleCommand = new RelayCommand(CreateCycle);
             AddEltCycleCommand = new RelayCommand(AddEltCycle);
@@ -192,9 +192,9 @@ namespace Videothèque2.ViewModels
         {
             if (Unprogram)
             {
+                MessageBox.Show(Element.Title + " bien ajouté au cycle.");
                 ListView.Remove(Element);
                 RaisePropertyChanged("ListView");
-                MessageBox.Show(Element.Title + " bien ajouté au cycle.");
                 CycleC.Rank = 0;
                 Element = new Element();
             }
@@ -297,9 +297,9 @@ namespace Videothèque2.ViewModels
 
                     if (del)
                     {
+                        MessageBox.Show(Element.Title + " bien supprimé du cycle.");
                         ListView.Remove(Element);
                         RaisePropertyChanged("ListView");
-                        MessageBox.Show(Element.Title + " bien supprimé au cycle.");
                         CycleC = new CycleContent();
                         Element = new Element();
                     }

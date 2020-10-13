@@ -44,7 +44,7 @@ namespace Videothèque2.Models
          *      Get a element list which "ToWatch" = 1 in the base of the Film, Serie and Discover
          * Return an ObservableCollection of the Element type Which "ToWatch" = 1
          */
-        public ObservableCollection<Element> GetProgram()
+        public ObservableCollection<Element> GetEltProgram()
         {
             ListElt = new ObservableCollection<Element>();
             GetFilmToWatch();
@@ -60,7 +60,7 @@ namespace Videothèque2.Models
          *      An Integer corresponding to the id of the current cycle
          * Return an ObservableCollection of the CycleContent type
          */
-        public ObservableCollection<Element> GetCycle(int idCycleS)
+        public ObservableCollection<Element> GetEltCycle(int idCycleS)
         {
             ObservableCollection<Element> listC = new ObservableCollection<Element>();
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Rank,Type,NbElt,IdElt,ToWatch,Comment FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);

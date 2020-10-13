@@ -20,15 +20,15 @@ namespace Videothèque2.ViewModels
 {
     public class ListFilmWindowViewModel : ViewModelBase
     {
-        private ObservableCollection<Film> listFilmView;
+        private ObservableCollection<Film> listFilms;
         private List<Rating> listRating;
         private string searchTitleFilm;
-        public ObservableCollection<Film> ListFilmView
+        public ObservableCollection<Film> ListFilms
         {
-            get => listFilmView;
+            get => listFilms;
             set
             {
-                listFilmView = value;
+                listFilms = value;
                 RaisePropertyChanged();
             }
         }
@@ -227,7 +227,7 @@ namespace Videothèque2.ViewModels
         public ListFilmWindowViewModel()
         {
             Film = new Film();
-            ListFilmView = Film.GetFilms();
+            ListFilms = Film.GetFilms();
             ListRating = Enum.GetValues(typeof(Rating)).Cast<Rating>().ToList();
             EditFilmCommand = new RelayCommand(EditFilm, EditCanExecute);
             DeleteFilmCommand = new RelayCommand(DeleteFilm);
@@ -337,7 +337,7 @@ namespace Videothèque2.ViewModels
          */
         private void UpList()
         {
-            ListFilmView = Film.GetFilms();
+            ListFilms = Film.GetFilms();
             RaisePropertyChanged("ListFilmView");
         }
 
@@ -348,9 +348,9 @@ namespace Videothèque2.ViewModels
         private void SearchFilm()
         {
             if (SearchTitleFilm == "" || SearchTitleFilm == null)
-                ListFilmView = Film.GetFilms();
+                ListFilms = Film.GetFilms();
             else
-                ListFilmView = Film.GetSearchFilm(SearchTitleFilm);
+                ListFilms = Film.GetSearchFilm(SearchTitleFilm);
 
             SearchTitleFilm = null;
         }
