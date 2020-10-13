@@ -113,7 +113,10 @@ namespace Videothèque2.Models
                 e.Id = DataBase.Instance.reader.GetInt32(0);
                 e.Title = DataBase.Instance.reader.GetString(1);
                 e.Type = "Film";
-                e.nbElt = DataBase.Instance.reader.GetInt32(2);
+
+                if (!DataBase.Instance.reader.IsDBNull(2))
+                    e.nbElt = DataBase.Instance.reader.GetInt32(2);
+
                 int w = DataBase.Instance.reader.GetInt32(3);
 
                 if (w == 1)
