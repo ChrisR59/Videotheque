@@ -25,11 +25,21 @@ namespace Videothèque2.ViewModels
         public ObservableCollection<CycleContent> ListCycleContent { get => listCycleContent; set => listCycleContent = value; }
         public CycleContent CycleC { get => cycleC; set => cycleC = value; }
         public CycleStatus CycleS { get => cycleS; set => cycleS = value; }
-        public int IdCycle { get => idCycle; set => idCycle = value; }
+        public int IdCycle 
+        { 
+            get => idCycle;
+            set
+            {
+                idCycle = value;
+                CycleC = new CycleContent();
+                ListCycleContent = CycleC.GetCurrentCycle(IdCycle);
+                RaisePropertyChanged("ListCycleContent");
+            }
+        }
 
         //Commands button
         public ICommand ValidateViewCommand { get; set; }
-        public ICommand UpdateListCommand { get; set; }
+        public ICommand UpdateListCommand { get; set; } // Command inutile mise à jours de la list
         //Command Menu 
         public ICommand LFilmCommand { get; set; }
         public ICommand LSerieCommand { get; set; }
@@ -203,7 +213,7 @@ namespace Videothèque2.ViewModels
             }
         }
 
-        /**
+        /** potentiellement inutile mise à jours list
          * Resume : 
          *      Initialize a CycleC
          *      Call GetCycleActually method for initialize a list with a parameter CycleS.Id
