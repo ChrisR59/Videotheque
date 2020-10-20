@@ -150,6 +150,9 @@ namespace Videothèque2.ViewModels
                     resSerie = s.UpdateLastView();
                     resCycle = CycleC.UpdateToWatch();
                     break;
+                case "Découverte":
+                    resCycle = CycleC.UpdateToWatch();
+                    break;
             }
 
             if(resCycle && (resFilm || resSerie))
