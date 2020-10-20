@@ -222,6 +222,30 @@ namespace Videothèque2.Models
 
         /*
          * Resume :
+         *      Edit "Status" of a cycle
+         * Return true if update is successful
+         */
+        public Boolean UpdateCycleStatus()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE CycleStatus SET Status = @Status WHERE id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Status", StatusC));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+            {
+                res = true;
+            }
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
+
+        /*
+         * Resume :
          *      Delete one cycle
          * Return true if delete is successful
          */

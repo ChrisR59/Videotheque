@@ -20,23 +20,13 @@
         </Style>
     </Window.Style>
     <Grid>
-        <!--
-        <ListView x:Name="ListCycle" ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" Margin="0,80,0,75" Background="#FF211059" Foreground="White">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="350" Header="Titre" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Width="200" Header="Programmation" DisplayMemberBinding="{Binding StatusC}"/>
-                    <GridViewColumn Header="Action" Width="150">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Command="{Binding Path=DeleteCycleCommand}" Content="Supprimer" FontFamily="Verdana" Width="105"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
 
-        </ListView>-->
+        <ComboBox ItemsSource="{Binding ListStatus}" SelectedItem="{Binding StatusC}" SelectedIndex="0" Height="30" 
+                  Width="150" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="123,55,0,0" />
+        <Button Style="{StaticResource editButton}" Command="{Binding EditCycleCommand}" Width="150" 
+                VerticalAlignment="Top" HorizontalAlignment="Center" Margin="397,45,213,0">
+            <TextBlock Text="CHANGER STATUS" FontFamily="Verdana" TextAlignment="Center"></TextBlock>
+        </Button>
         <DataGrid ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
                   FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
                   BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">

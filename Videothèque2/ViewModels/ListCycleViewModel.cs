@@ -15,9 +15,19 @@ namespace Videothèque2.ViewModels
 {
     class ListCycleViewModel : ViewModelBase
     {
-        public ObservableCollection<CycleStatus> ListCycles { get; set; }
+        private ObservableCollection<CycleStatus> listCycles;
+        public ObservableCollection<CycleStatus> ListCycles 
+        { 
+            get;
+            set; 
+        }
+        public List<Status> ListStatus { get; set; }
         private CycleStatus cycle;
-        public CycleStatus Cycle { get => cycle; set => cycle = value; }
+        public CycleStatus Cycle 
+        { 
+            get => cycle;
+            set => cycle = value;
+        }
 
         //Attribute related in the cycle
         public int Id
@@ -35,12 +45,23 @@ namespace Videothèque2.ViewModels
             set
             {
                 Cycle.StatusC = value;
-                RaisePropertyChanged("Title");
+                RaisePropertyChanged("StatusC");
+            }
+        }
+
+        public Status Status
+        {
+            get => Cycle.StatusC;
+            set
+            {
+                Cycle.StatusC = value;
+                RaisePropertyChanged("Status");
             }
         }
 
         //Command
         public ICommand DeleteCycleCommand { get; set; }
+        public ICommand EditCycleCommand { get; set; }
 
 
         /*
@@ -53,7 +74,9 @@ namespace Videothèque2.ViewModels
         {
             Cycle = new CycleStatus();
             ListCycles = Cycle.GetCycleList();
+            ListStatus = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
             DeleteCycleCommand = new RelayCommand(DeleteCycle);
+            EditCycleCommand = new RelayCommand(EditCycleStatus);
         }
 
         /*
@@ -69,6 +92,24 @@ namespace Videothèque2.ViewModels
                 if (Cycle != null && Cycle.DeleteOne())//!! si supression du cycle en cours changé status du cycle suivant
                 {
                     ListCycles.Remove(Cycle);
+                    RaisePropertyChanged("ListCycles");
+                }
+            }
+        }
+
+        /**
+         * Resume :
+         *      edit status of a cycle
+         */
+        private void EditCycleStatus()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier le status du cycle ?", "Confirmation modification", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                if(Cycle.UpdateCycleStatus())
+                {
+                    MessageBox.Show("Le Status du cycle " + Cycle.Id + " a bien été modifié.");
+                    ListCycles = Cycle.GetCycleList();
                     RaisePropertyChanged("ListCycles");
                 }
             }
