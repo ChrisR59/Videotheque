@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Videothèque2.Models;
 
@@ -57,6 +58,7 @@ namespace Videothèque2.ViewModels
         public ObservableCollection<CycleContent> CycleCView { get => cycleCView; set => cycleCView = value; }
 
         public ICommand EditEltCycleCommand { get; set; }
+        public ICommand DelEltCycleCommand { get; set; }
 
         /*
          * Resume : 
@@ -72,6 +74,7 @@ namespace Videothèque2.ViewModels
             ListCycleID = CycleS.GetCycleListNotFinish();
 
             EditEltCycleCommand = new RelayCommand(EditRank);
+            DelEltCycleCommand = new RelayCommand(RemoveElement);
         }
 
         /**
@@ -83,6 +86,24 @@ namespace Videothèque2.ViewModels
             CycleC.UpdateRank();
             CycleCView = CycleC.GetCurrentCycle(IdCycle);
             RaisePropertyChanged("CycleCView");
+        }
+
+        /**
+         * Resume : 
+         *      Delete Element of a cycle
+         */
+        private void RemoveElement()
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer " + Element.Title + "?", "Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                if (CycleC.DelElement())
+                {
+                    MessageBox.Show(CycleC.Title + " bien supprimé du cycle.");
+                    CycleCView = CycleC.GetCurrentCycle(IdCycle);
+                    RaisePropertyChanged("CycleCView");
+                }
+            }
         }
     }
 }
