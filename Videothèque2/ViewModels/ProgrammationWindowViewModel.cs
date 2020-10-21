@@ -14,6 +14,7 @@ namespace Videothèque2.ViewModels
 {
     class ProgrammationWindowViewModel : ViewModelBase
     {
+        private Boolean unprogramm = false;
         private ObservableCollection<int> listCycle;
         private ObservableCollection<Element> listView;
         private string title;
@@ -67,7 +68,7 @@ namespace Videothèque2.ViewModels
 
         //Command
         public ICommand AddEltCycleCommand { get; set; }
-        public ICommand DelEltCycleCommand { get; set; }
+        public ICommand UnprogramCommand { get; set; }
         public ICommand SaveEltCommand { get; set; }
         public ICommand AddEltSaveCommand { get; set; }
 
@@ -86,7 +87,7 @@ namespace Videothèque2.ViewModels
             ListView = Element.GetEltProgram();
             Title = "Aucun élement sauvegardé";
             AddEltCycleCommand = new RelayCommand(AddEltCycle);
-            DelEltCycleCommand = new RelayCommand(DelEltCycle, CanExecute);
+            UnprogramCommand = new RelayCommand(UnprogramElement, CanExecute);
             SaveEltCommand = new RelayCommand(SaveElt);
             AddEltSaveCommand = new RelayCommand(AddEltSave);
         }
@@ -116,8 +117,7 @@ namespace Videothèque2.ViewModels
 
                 if (CycleC.AddElement() && Element != null)
                 {
-                    Boolean res = UnprogramElement();
-                    RemoveELtList(res);
+                    UnprogramElement();
                 }
             }
         }
@@ -141,39 +141,34 @@ namespace Videothèque2.ViewModels
         /**
          * Resume :
          *      Unprogram a element 
-         * Return :
-         *      a Boolean 
          */
-        private Boolean UnprogramElement()
+        private void UnprogramElement()
         {
-            Boolean Unprogram = false;
-
             switch (Element.Type)
             {
                 case "Film":
                     Film f = new Film();
                     f = f.GetOneFilm(Element.Id);
                     f.ToWatch = false;
-                    Unprogram = f.UpFilmProgramm();
+                    unprogramm = f.UpFilmProgramm();
                     break;
                 case "Serie":
                     Serie s = new Serie();
                     s = s.GetOneSerie(Element.Id);
                     s.ToWatch = false;
-                    Unprogram = s.UpSerieProgramm();
+                    unprogramm = s.UpSerieProgramm();
                     break;
                 case "Découverte":
                     Discover d = new Discover();
                     d = d.GetOneDiscover(Element.Id);
                     d.ToWatch = false;
-                    Unprogram = d.UpProgrammDiscover();
+                    unprogramm = d.UpProgrammDiscover();
                     break;
                 default:
                     MessageBox.Show("Je ne reconnais pas cette élément.");
                     break;
             }
-
-            return Unprogram;
+            RemoveELtList(unprogramm);
         }
 
         /**
@@ -213,73 +208,6 @@ namespace Videothèque2.ViewModels
         private void SaveElt()
         {
             ElementSave = Element;
-        }
-
-
-        /*
-         * Resume :
-         *      Remove a cycle
-         */
-        private void DelEltCycle()
-        {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment supprimer " + Element.Title + "?", "Confirmation", MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
-            {
-                //Supprimer dans CycleContent
-                CycleC.IdCycle = Element.Id;
-                CycleC.Type = Element.Type;
-                CycleC.Id = Element.IdCycle;
-                if (CycleC.DelElement())
-                {
-                    Boolean del = UnprogramDeleteElt();
-
-                    if (del)
-                    {
-                        MessageBox.Show(Element.Title + " bien supprimé du cycle.");
-                        ListView.Remove(Element);
-                        RaisePropertyChanged("ListView");
-                        CycleC = new CycleContent();
-                        Element = new Element();
-                    }
-                }
-            }
-        }
-
-        /**
-         * Resume : 
-         *      Unprogram a element who has remove
-         * Return :
-         *      a Boolean 
-         */
-         private Boolean UnprogramDeleteElt()
-        {
-            Boolean validDeleteElement = false;
-            switch (CycleC.Type)
-            {
-                case "Film":
-                    if (Element.UnWatchFilm())
-                    {
-                        Element.ToWatch = false;
-                        validDeleteElement = true;
-                    }
-                    break;
-                case "Serie":
-                    if (Element.UnWatchSerie())
-                    {
-                        Element.ToWatch = false;
-                        validDeleteElement = true;
-                    }
-                    break;
-                case "Découverte":
-                    if (Element.UnWatchDiscover())
-                    {
-                        Element.ToWatch = false;
-                        validDeleteElement = true;
-                    }
-                    break;
-            }
-
-            return validDeleteElement;
         }
 
         /**

@@ -26,7 +26,7 @@
         
         <ComboBox ItemsSource="{Binding ListCycle}" SelectedItem="{Binding IdCycle}" HorizontalAlignment="Left" Margin="250,213,0,0" VerticalAlignment="Top" SelectedIndex="0" FontSize="16" Width="80"/>
         <Button Command="{Binding AddEltCycleCommand}" Content="ADD ELEMENT" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,200,250,0"/>
-        <Button Style="{StaticResource delButton}" Command="{Binding DelEltCycleCommand}" Content="DELETE ELEMENT" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,200,66,0"/>
+        <Button Style="{StaticResource delButton}" Command="{Binding UnprogramCommand}" Content="DEPROGRAMMER ELEMENT" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,200,50,0"/>
 
         <DataGrid ItemsSource="{Binding ListView}" SelectedItem="{Binding Element}"  AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
                  FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,270,0,0" AutoGenerateColumns="False"
