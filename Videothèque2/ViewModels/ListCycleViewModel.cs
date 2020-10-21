@@ -62,6 +62,7 @@ namespace Videothèque2.ViewModels
         //Command
         public ICommand DeleteCycleCommand { get; set; }
         public ICommand EditCycleCommand { get; set; }
+        public ICommand CreateCycleCommand { get; set; }
 
 
         /*
@@ -77,6 +78,7 @@ namespace Videothèque2.ViewModels
             ListStatus = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
             DeleteCycleCommand = new RelayCommand(DeleteCycle);
             EditCycleCommand = new RelayCommand(EditCycleStatus);
+            CreateCycleCommand = new RelayCommand(NewCycle);
         }
 
         /*
@@ -112,6 +114,23 @@ namespace Videothèque2.ViewModels
                     ListCycles = Cycle.GetCycleList();
                     RaisePropertyChanged("ListCycles");
                 }
+            }
+        }
+
+        /**
+         * Resume :
+         *      Create a new cycle
+         */
+        private void NewCycle()
+        {
+            Cycle.CheckCycleExist();
+            Cycle.GetNumberCycle();
+
+            if (Cycle.NewCycle())
+            {
+                MessageBox.Show("Un nouveau Cycle a été crée.");
+                ListCycles = Cycle.GetCycleList();
+                RaisePropertyChanged("ListCycles");
             }
         }
     }

@@ -66,7 +66,6 @@ namespace Videothèque2.ViewModels
         }
 
         //Command
-        public ICommand AddCycleCommand { get; set; }
         public ICommand AddEltCycleCommand { get; set; }
         public ICommand DelEltCycleCommand { get; set; }
         public ICommand SaveEltCommand { get; set; }
@@ -86,26 +85,10 @@ namespace Videothèque2.ViewModels
             ListCycle = CycleS.GetCycleListNotFinish();
             ListView = Element.GetEltProgram();
             Title = "Aucun élement sauvegardé";
-            AddCycleCommand = new RelayCommand(CreateCycle);
             AddEltCycleCommand = new RelayCommand(AddEltCycle);
             DelEltCycleCommand = new RelayCommand(DelEltCycle, CanExecute);
             SaveEltCommand = new RelayCommand(SaveElt);
             AddEltSaveCommand = new RelayCommand(AddEltSave);
-        }
-
-        /**
-         * Resume : 
-         *      Create a new Cycle. "Cycle Status"
-         */
-        private void CreateCycle()
-        {
-            CycleS.CheckCycleExist();
-            CycleS.GetNumberCycle();
-
-            if (CycleS.NewCycle())
-            {
-                MessageBox.Show("Un nouveau Cycle a été crée.");
-            }
         }
 
         /**

@@ -27,6 +27,8 @@
                 VerticalAlignment="Top" HorizontalAlignment="Center" Margin="397,45,213,0">
             <TextBlock Text="CHANGER STATUS" FontFamily="Verdana" TextAlignment="Center"></TextBlock>
         </Button>
+
+        <Button Command="{Binding CreateCycleCommand}"  Content="NEW CYCLE" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,45,64,0"/>
         <DataGrid ItemsSource="{Binding ListCycles}" SelectedItem="{Binding Cycle}" AlternatingRowBackground="#e4e4e7" GridLinesVisibility="None"
                   FontSize="16" HeadersVisibility="Column" FontFamily="Verdana" Margin="0,150,0,0" AutoGenerateColumns="False"
                   BorderBrush="#1f1f33" Background="#1f1f33" Foreground="Black" OpacityMask="Black" CanUserAddRows="False">

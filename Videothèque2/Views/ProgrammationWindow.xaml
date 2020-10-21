@@ -21,7 +21,6 @@
     </Window.Style>
     <Grid>
         <TextBlock Text="{Binding Title}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100" Foreground="White"/>
-        <Button Command="{Binding AddCycleCommand}" Content="NEW CYCLE" FontFamily="Verdana" VerticalAlignment="Top" Margin="135" HorizontalAlignment="Center"/>
         <Button Command="{Binding SaveEltCommand}" Content="Save Element" FontFamily="Verdana" VerticalAlignment="Top" Margin="469,135,168,0" HorizontalAlignment="Center"/>
         <Button Command="{Binding AddEltSaveCommand}" Content="Add Elt Save" FontFamily="Verdana" VerticalAlignment="Top" Margin="613,135,24,0" HorizontalAlignment="Center"/>
         
