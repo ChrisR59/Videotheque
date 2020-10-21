@@ -18,8 +18,8 @@ namespace Videothèque2.ViewModels
         private ObservableCollection<CycleStatus> listCycles;
         public ObservableCollection<CycleStatus> ListCycles 
         { 
-            get;
-            set; 
+            get => listCycles;
+            set => listCycles = value; 
         }
         public List<Status> ListStatus { get; set; }
         private CycleStatus cycle;

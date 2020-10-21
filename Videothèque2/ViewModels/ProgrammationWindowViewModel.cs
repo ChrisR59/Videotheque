@@ -14,41 +14,9 @@ namespace Videothèque2.ViewModels
 {
     class ProgrammationWindowViewModel : ViewModelBase
     {
-        private bool elementsAvailable;
-        private bool elementsCycle;
         private ObservableCollection<int> listCycle;
         private ObservableCollection<Element> listView;
         private string title;
-        public bool ElementsAvailable
-        {
-            get => elementsAvailable;
-            set
-            {
-                elementsAvailable = value;
-                if (value)
-                {
-                    Element = new Element();
-                    ListView = Element.GetEltProgram();
-                    RaisePropertyChanged("ListView");
-                }
-                RaisePropertyChanged();
-            }
-        }
-        public bool ElementsCycle
-        {
-            get => elementsCycle;
-            set
-            {
-                elementsCycle = value;
-                if (value)
-                {
-                    Element = new Element();
-                    ListView = Element.GetEltCycle(IdCycle);//list de cycleContent
-                    RaisePropertyChanged("ListView");
-                }
-                RaisePropertyChanged();
-            }
-        }
         public ObservableCollection<int> ListCycle { get => listCycle; set => listCycle = value; }
         public ObservableCollection<Element> ListView { get => listView; set => listView = value; }
 
@@ -76,19 +44,7 @@ namespace Videothèque2.ViewModels
 
         //Cycle Statu item
         private int idCycle;
-        public int IdCycle
-        {
-            get => idCycle;
-            set
-            {
-                idCycle = value;
-                if (ElementsCycle)
-                {
-                    ListView = Element.GetEltCycle(IdCycle);//list de cycleContent
-                    RaisePropertyChanged("ListView");
-                }
-            }
-        }
+        public int IdCycle { get => idCycle; set => idCycle = value; }       
         public Status Status
         {
             get => CycleS.StatusC;
@@ -128,7 +84,6 @@ namespace Videothèque2.ViewModels
             CycleC = new CycleContent();
             Element = new Element();
             ListCycle = CycleS.GetCycleListNotFinish();
-            ElementsAvailable = true;
             ListView = Element.GetEltProgram();
             Title = "Aucun élement sauvegardé";
             AddCycleCommand = new RelayCommand(CreateCycle);
@@ -347,13 +302,11 @@ namespace Videothèque2.ViewModels
         /**
          * Resume :
          *      Check if the button "Supprimé" can be use
+         *      UTILITE DE LA METHODE??????????
          */
         private Boolean CanExecute()
         {
             Boolean res = true;
-
-            if (ElementsAvailable)
-                res = false;
 
             return res;
         }

@@ -20,9 +20,6 @@
         </Style>
     </Window.Style>
     <Grid>
-        <RadioButton IsChecked="{Binding ElementsAvailable}" Content="Ajout d'éléments" HorizontalAlignment="Left" Margin="187,32,0,0" VerticalAlignment="Top" Foreground="White"/>
-        <RadioButton IsChecked="{Binding ElementsCycle}" Content="modification dans un cycle" HorizontalAlignment="Left" Margin="469,32,0,0" VerticalAlignment="Top" Foreground="White"/>
-
         <TextBlock Text="{Binding Title}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100" Foreground="White"/>
         <Button Command="{Binding AddCycleCommand}" Content="NEW CYCLE" FontFamily="Verdana" VerticalAlignment="Top" Margin="135" HorizontalAlignment="Center"/>
         <Button Command="{Binding SaveEltCommand}" Content="Save Element" FontFamily="Verdana" VerticalAlignment="Top" Margin="469,135,168,0" HorizontalAlignment="Center"/>
