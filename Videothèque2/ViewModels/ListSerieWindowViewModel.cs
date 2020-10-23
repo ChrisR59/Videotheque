@@ -23,6 +23,8 @@ namespace Videothèque2.ViewModels
         private List<Rating> listRating;
         private List<SerieStatus> listStatus;
         private string searchTitleSerie;
+        private Serie serie;
+
         public ObservableCollection<Serie> ListSerieView 
         { 
             get => listSerieView;
@@ -34,8 +36,6 @@ namespace Videothèque2.ViewModels
         }
         public List<Rating> ListRating { get => listRating; set => listRating = value; }
         public List<SerieStatus> ListStatus { get => listStatus; set => listStatus = value; }
-
-        private Serie serie;
         public Serie Serie
         {
             get => serie;
@@ -63,7 +63,6 @@ namespace Videothèque2.ViewModels
             }
         }
 
-        //List a attributes a serie
         public int Id
         {
             get => Serie.Id;
@@ -242,7 +241,7 @@ namespace Videothèque2.ViewModels
         public ListSerieWindowViewModel()
         {
             Serie = new Serie();
-            ListSerieView = Serie.GetSerie();
+            ListSerieView = Serie.GetAll();
             ListRating = Enum.GetValues(typeof(Rating)).Cast<Rating>().ToList();
             ListStatus = Enum.GetValues(typeof(SerieStatus)).Cast<SerieStatus>().ToList();
             EditSerieCommand = new RelayCommand(EditSerie, EditCanExecute);
@@ -293,7 +292,7 @@ namespace Videothèque2.ViewModels
             {
                 if (Title != null && Genre != null && Content != null && Director != null && Stars != null && Poster != null)
                 {
-                    if (Serie.UpdateSerie())
+                    if (Serie.UpdateOne())
                     {
                         MessageBox.Show(Title + " a bien été modifié.");
                         UpList();
@@ -316,7 +315,7 @@ namespace Videothèque2.ViewModels
             {
                 if (Serie.Id != 0)
                 {
-                    if (Serie.DeleteSerie())
+                    if (Serie.DeleteOne())
                     {
                         MessageBox.Show(Serie.Title + " a bien été supprimé.");
                         UpList();
@@ -332,7 +331,7 @@ namespace Videothèque2.ViewModels
          */
         private void UpList()
         {
-            ListSerieView = Serie.GetSerie();
+            ListSerieView = Serie.GetAll();
             RaisePropertyChanged("ListSerieView");
         }
 
@@ -351,7 +350,7 @@ namespace Videothèque2.ViewModels
                 if (Serie != null)
                 {
                     Serie.ToWatch = true;
-                    Serie.UpSerieProgramm();
+                    Serie.UpdateToWatchSerie();
                     MessageBox.Show(Serie.Title + " a bien été programmé.");
                     UpList();
                 }
@@ -366,9 +365,9 @@ namespace Videothèque2.ViewModels
         private void SearchSerie()
         {
             if(SearchTitleSerie == "" || SearchTitleSerie == null)
-                ListSerieView = Serie.GetSerie();
+                ListSerieView = Serie.GetAll();
             else
-                ListSerieView = Serie.GetSearchSerie(SearchTitleSerie);
+                ListSerieView = Serie.GetSearch(SearchTitleSerie);
 
             SearchTitleSerie = null;
         }

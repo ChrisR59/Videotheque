@@ -23,6 +23,8 @@ namespace Videothèque2.ViewModels
         private ObservableCollection<Film> listFilms;
         private List<Rating> listRating;
         private string searchTitleFilm;
+        private Film film;
+
         public ObservableCollection<Film> ListFilms
         {
             get => listFilms;
@@ -33,8 +35,6 @@ namespace Videothèque2.ViewModels
             }
         }
         public List<Rating> ListRating { get => listRating; set => listRating = value; }
-
-        private Film film;
         public Film Film
         {
             get => film;
@@ -61,8 +61,6 @@ namespace Videothèque2.ViewModels
             }
         }
 
-
-        //List a attributes a film
         public int Id
         {
             get => Film.Id;
@@ -208,8 +206,6 @@ namespace Videothèque2.ViewModels
             }
         }
 
-
-
         //Command
         public ICommand EditFilmCommand { get; set; }
         public ICommand DeleteFilmCommand { get; set; }
@@ -227,7 +223,7 @@ namespace Videothèque2.ViewModels
         public ListFilmWindowViewModel()
         {
             Film = new Film();
-            ListFilms = Film.GetFilms();
+            ListFilms = Film.GetAll();
             ListRating = Enum.GetValues(typeof(Rating)).Cast<Rating>().ToList();
             EditFilmCommand = new RelayCommand(EditFilm, EditCanExecute);
             DeleteFilmCommand = new RelayCommand(DeleteFilm);
@@ -277,7 +273,7 @@ namespace Videothèque2.ViewModels
             {
                 if (Title != null && Genre != null && Content != null && Director != null && Stars != null && Poster != null)
                 {
-                    if (Film.UpdateFilm())
+                    if (Film.UpdateOne())
                     {
                         MessageBox.Show(Film.Title + " a bien été modifié.");
                         UpList();
@@ -301,7 +297,7 @@ namespace Videothèque2.ViewModels
                 if (Film != null)
                 {
                     Film.ToWatch = true;
-                    Film.UpFilmProgramm();
+                    Film.UpdateToWatchFilm();
                     UpList();
                 }
             }
@@ -321,7 +317,7 @@ namespace Videothèque2.ViewModels
             {
                 if (Film.Id != 0)
                 {
-                    if (Film.DeleteFilm())
+                    if (Film.DeleteOne())
                     {
                         MessageBox.Show(Film.Title + " a bien été supprimé.");
                         UpList();
@@ -337,7 +333,7 @@ namespace Videothèque2.ViewModels
          */
         private void UpList()
         {
-            ListFilms = Film.GetFilms();
+            ListFilms = Film.GetAll();
             RaisePropertyChanged("ListFilmView");
         }
 
@@ -348,9 +344,9 @@ namespace Videothèque2.ViewModels
         private void SearchFilm()
         {
             if (SearchTitleFilm == "" || SearchTitleFilm == null)
-                ListFilms = Film.GetFilms();
+                ListFilms = Film.GetAll();
             else
-                ListFilms = Film.GetSearchFilm(SearchTitleFilm);
+                ListFilms = Film.GetSearch(SearchTitleFilm);
 
             SearchTitleFilm = null;
         }

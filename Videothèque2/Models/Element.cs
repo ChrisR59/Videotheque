@@ -14,7 +14,7 @@ namespace Videothèque2.Models
      * Resume : 
      *      An element can be a Film or a Serie or a Discover
      */
-    public class Element : INotifyPropertyChanged
+    public class Element
     {
         private int id;
         private string title;
@@ -37,8 +37,6 @@ namespace Videothèque2.Models
         public int IdCycle { get => idCycle; set => idCycle = value; }
         private ObservableCollection<Element> ListElt { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         /*
          * Resume :
          *      Get a element list which "ToWatch" = 1 in the base of the Film, Serie and Discover
@@ -51,50 +49,6 @@ namespace Videothèque2.Models
             GetSerieToWatch();
             GetDiscoverToWatch();
             return ListElt;
-        }
-
-        /*
-         * Resume 
-         *      Get an items list form the cycle
-         * Parameter
-         *      An Integer corresponding to the id of the current cycle
-         * Return an ObservableCollection of the CycleContent type
-         */
-        public ObservableCollection<Element> GetEltCycle(int idCycleS)
-        {
-            ObservableCollection<Element> listC = new ObservableCollection<Element>();
-            DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Rank,Type,NbElt,IdElt,ToWatch,Comment FROM CycleContent WHERE IdCycle = @idCycle", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@idCycle", idCycleS));
-            DataBase.Instance.connection.Open();
-            DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
-
-            while (DataBase.Instance.reader.Read())
-            {
-                Element e = new Element()
-                {
-                    Id = DataBase.Instance.reader.GetInt32(5),
-                    Title = DataBase.Instance.reader.GetString(1),
-                    Place = DataBase.Instance.reader.GetInt32(2),
-                    Type = DataBase.Instance.reader.GetString(3),
-                    NbElt = DataBase.Instance.reader.GetInt32(4),
-                    IdCycle = DataBase.Instance.reader.GetInt32(0)
-                };
-
-                if (!DataBase.Instance.reader.IsDBNull(7))
-                    e.Comment = DataBase.Instance.reader.GetString(7);
-
-                int w = DataBase.Instance.reader.GetInt32(6);
-                e.ToWatch = false;
-
-                if (w == 1)
-                    e.ToWatch = true;
-
-                listC.Add(e);
-            }
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            return listC;
         }
 
         /**
@@ -201,7 +155,7 @@ namespace Videothèque2.Models
          *      Removes an element FILM from a cycle
          * Return True is successfull
          */
-        public Boolean UnWatchFilm()
+        public Boolean UpdateToWatchFilm()
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE Films SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
@@ -225,7 +179,7 @@ namespace Videothèque2.Models
          *      Removes an element SERIE from a cycle
          * Return True is successfull
          */
-        public Boolean UnWatchSerie()
+        public Boolean UpdateToWatchSerie()
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE Series SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
@@ -264,12 +218,6 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
             return res;
-        }
-
-        private void NotifyPropertyChange(string propertyName)
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

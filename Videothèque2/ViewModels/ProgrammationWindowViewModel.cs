@@ -17,20 +17,17 @@ namespace Videothèque2.ViewModels
         private Boolean unprogramm = false;
         private ObservableCollection<int> listCycle;
         private ObservableCollection<Element> listView;
-        private string title;
-        public ObservableCollection<int> ListCycle { get => listCycle; set => listCycle = value; }
-        public ObservableCollection<Element> ListView { get => listView; set => listView = value; }
-
-        //Cycle Status
         private CycleStatus cycleS;
-        public CycleStatus CycleS { get => cycleS; set => cycleS = value; }
-
-        //Cycle Content
         private CycleContent cycleC;
-        public CycleContent CycleC { get => cycleC; set => cycleC = value; }
-
         private Element element;
         private Element elementSave;
+        private int idCycle;
+        private string title;
+
+        public ObservableCollection<int> ListCycle { get => listCycle; set => listCycle = value; }
+        public ObservableCollection<Element> ListView { get => listView; set => listView = value; }
+        public CycleStatus CycleS { get => cycleS; set => cycleS = value; }
+        public CycleContent CycleC { get => cycleC; set => cycleC = value; }
         public Element Element { get => element; set => element = value; }
         public Element ElementSave
         {
@@ -42,9 +39,6 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Title");
             }
         }
-
-        //Cycle Statu item
-        private int idCycle;
         public int IdCycle { get => idCycle; set => idCycle = value; }       
         public Status Status
         {
@@ -148,15 +142,15 @@ namespace Videothèque2.ViewModels
             {
                 case "Film":
                     Film f = new Film();
-                    f = f.GetOneFilm(Element.Id);
+                    f = f.GetOneWithId(Element.Id);
                     f.ToWatch = false;
-                    unprogramm = f.UpFilmProgramm();
+                    unprogramm = f.UpdateToWatchFilm();
                     break;
                 case "Serie":
                     Serie s = new Serie();
-                    s = s.GetOneSerie(Element.Id);
+                    s = s.GetOneWithId(Element.Id);
                     s.ToWatch = false;
-                    unprogramm = s.UpSerieProgramm();
+                    unprogramm = s.UpdateToWatchSerie();
                     break;
                 case "Découverte":
                     Discover d = new Discover();

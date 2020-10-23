@@ -250,7 +250,7 @@ namespace Videothèque2.ViewModels
         {
             if (TitleD != null && ReleaseDateD != null)
             {
-                if (discover.AddDiscover())
+                if (discover.Add())
                 {
                     MessageBox.Show("La découverte '" + TitleD + "' a bien été ajouté");
                     discover = new Discover();

@@ -23,13 +23,12 @@ namespace Videothèque2.Models
         public bool ToWatch { get => toWatch; set => toWatch = value; }
         public string Comment { get => comment; set => comment = value; }
 
-
         /**
          * Resume :
          *      Add a new Discover in the bdd
          * Return true if insert is successful
          */
-        public Boolean AddDiscover()
+        public Boolean Add()
         {
             bool res = false;
             DataBase.Instance.command = new SqlCommand("INSERT INTO Discover (Title, ReleaseDate, ToWatch) OUTPUT INSERTED.ID VALUES (@Title,@ReleaseDate, '0')",
@@ -52,7 +51,7 @@ namespace Videothèque2.Models
          *      Get a Discover list
          * Return an ObservableCollection of the Discover type order by Title
          */
-        public ObservableCollection<Discover> GetAllDiscover()
+        public ObservableCollection<Discover> GetAll()
         {
             ObservableCollection<Discover> list = new ObservableCollection<Discover>();
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ReleaseDate,ToWatch,Comment FROM Discover ORDER BY Title", DataBase.Instance.connection);

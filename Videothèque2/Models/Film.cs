@@ -13,10 +13,8 @@ namespace Videothèque2.Models
      * Resume
      *      A film
      */
-    public class Film
+    public class Film : Element
     {
-        private int id;
-        private string title;
         private string genre;
         private string runTime;
         private string releaseDate;
@@ -30,13 +28,8 @@ namespace Videothèque2.Models
         private DateTime lastView;
         private string lastViewFormated;
         private int nbView;
-        private Boolean toWatch;
-        private string toWatchString;
-        private string comment;
         private Rating rating;
 
-        public int Id { get => id; set => id = value; }
-        public string Title { get => title; set => title = value; }
         public string Genre { get => genre; set => genre = value; }
         public string RunTime { get => runTime; set => runTime = value; }
         public string ReleaseDate { get => releaseDate; set => releaseDate = value; }
@@ -50,9 +43,6 @@ namespace Videothèque2.Models
         public DateTime LastView { get => lastView; set => lastView = value; }
         public string LastViewFormated { get => lastViewFormated; set => lastViewFormated = value; }
         public int NbView { get => nbView; set => nbView = value; }
-        public bool ToWatch { get => toWatch; set => toWatch = value; }
-        public string ToWatchString { get => toWatchString; set => toWatchString = value; }
-        public string Comment { get => comment; set => comment = value; }
         public Rating Rating { get => rating; set => rating = value; }
 
         /*
@@ -89,7 +79,7 @@ namespace Videothèque2.Models
          *      Get a film list
          * Return an ObservableCollection of the Film type order by Title
          */
-        public ObservableCollection<Film> GetFilms()
+        public ObservableCollection<Film> GetAll()
         {
             ObservableCollection<Film> l = new ObservableCollection<Film>();
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,Genre,RunTime,ReleaseDate,NbFilm,Content,Director,Stars,Poster,DateAdd,LastView,NbView,ToWatch,Comment," +
@@ -151,7 +141,7 @@ namespace Videothèque2.Models
          *      Get one film with his Id
          * Return an Film object 
          */
-        public Film GetOneFilm(int idFilm)
+        public Film GetOneWithId(int idFilm)
         {
             Film f = new Film();
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Films WHERE Id = @Id", DataBase.Instance.connection);
@@ -181,7 +171,7 @@ namespace Videothèque2.Models
          *      a string  : search
          * Return an ObservableCollection of the Films type order by Title Where Title == search
          */
-        public ObservableCollection<Film> GetSearchFilm(string search)
+        public ObservableCollection<Film> GetSearch(string search)
         {
             ObservableCollection<Film> l = new ObservableCollection<Film>();
 
@@ -269,35 +259,10 @@ namespace Videothèque2.Models
 
         /*
          * Resume :
-         *      Edit one film for program or deprogram
-         * Return true if update is successful
-         */
-        public Boolean UpFilmProgramm()
-        {
-            Boolean res = false;
-            string req = "UPDATE Films SET ToWatch = @ToWatch WHERE id = @Id";
-            DataBase.Instance.command = new SqlCommand(req, DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
-            DataBase.Instance.connection.Open();
-
-            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
-                res = true;
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            return res;
-        }
-
-        /*
-         * Resume :
          *      Edit title and content of the film
          * Return true if update is successful
          */
-        public Boolean UpdateFilm()
+        public Boolean UpdateOne()
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE Films SET Title = @Title, Genre = @Genre, RunTime = @RunTime, ReleaseDate = @ReleaseDate, " +
@@ -346,7 +311,7 @@ namespace Videothèque2.Models
          *      Delete a film
          * Return true if delete is successful
          */
-        public Boolean DeleteFilm()
+        public Boolean DeleteOne()
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("DELETE FROM Films WHERE id = @Id", DataBase.Instance.connection);

@@ -72,7 +72,7 @@ namespace Videothèque2.ViewModels
         public DiscoverWindowViewModel()
         {
             Discover = new Discover();
-            ListDiscover = Discover.GetAllDiscover();
+            ListDiscover = Discover.GetAll();
 
             DeleteDiscoverCommand = new RelayCommand(DelDiscover);
             EditDiscoverCommand = new RelayCommand(EditDiscover);
@@ -95,7 +95,7 @@ namespace Videothèque2.ViewModels
                     if (Discover.EditOneDiscover())
                     {
                         MessageBox.Show(Discover.Title + " a bien été modifié.");
-                        ListDiscover = Discover.GetAllDiscover();
+                        ListDiscover = Discover.GetAll();
                         RaisePropertyChanged("ListDiscover");
                     }
                 }
@@ -118,7 +118,7 @@ namespace Videothèque2.ViewModels
                     Discover.ToWatch = true;
                     Discover.UpProgrammDiscover();
                     MessageBox.Show(Discover.Title + " a bien été programmé.");
-                    ListDiscover = Discover.GetAllDiscover();
+                    ListDiscover = Discover.GetAll();
                     RaisePropertyChanged("ListDiscover");
                 }
             }
@@ -140,7 +140,7 @@ namespace Videothèque2.ViewModels
                     if (Discover.DeleteOneDiscover())
                     {
                         MessageBox.Show(Discover.Title + " a bien été supprimé.");
-                        ListDiscover = Discover.GetAllDiscover();
+                        ListDiscover = Discover.GetAll();
                         RaisePropertyChanged("ListDiscover");
                     }
                 }

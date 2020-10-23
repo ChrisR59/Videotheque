@@ -182,6 +182,7 @@ namespace Videothèque2.Models
 
             return s;
         }
+
         /*
          * Resume :
          *      Get one serie

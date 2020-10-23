@@ -13,10 +13,8 @@ namespace Videothèque2.Models
      * Resume
      *      a serie
      */
-    public class Serie
+    public class Serie :Element
     {
-        private int id;
-        private string title;
         private string genre;
         private string runTime;
         private string releaseDate;
@@ -31,14 +29,9 @@ namespace Videothèque2.Models
         private DateTime lastView;
         private string lastViewFormated;
         private int nbView;
-        private Boolean toWatch;
-        private string toWatchString;
-        private string comment;
         private SerieStatus status;
         private Rating rating;
 
-        public int Id { get => id; set => id = value; }
-        public string Title { get => title; set => title = value; }
         public string Genre { get => genre; set => genre = value; }
         public string RunTime { get => runTime; set => runTime = value; }
         public string ReleaseDate { get => releaseDate; set => releaseDate = value; }
@@ -53,9 +46,6 @@ namespace Videothèque2.Models
         public DateTime LastView { get => lastView; set => lastView = value; }
         public string LastViewFormated { get => lastViewFormated; set => lastViewFormated = value; }
         public int NbView { get => nbView; set => nbView = value; }
-        public bool ToWatch { get => toWatch; set => toWatch = value; }
-        public string ToWatchString { get => toWatchString; set => toWatchString = value; }
-        public string Comment { get => comment; set => comment = value; }
         public SerieStatus Status { get => status; set => status = value; }
         public Rating Rating { get => rating; set => rating = value; }
 
@@ -94,7 +84,7 @@ namespace Videothèque2.Models
          *      Get a serie list
          * Return an ObservableCollection of the Serie type order by Title
          */
-        public ObservableCollection<Serie> GetSerie()
+        public ObservableCollection<Serie> GetAll()
         {
             ObservableCollection<Serie> l = new ObservableCollection<Serie>();
 
@@ -164,11 +154,11 @@ namespace Videothèque2.Models
          *      Get one serie with his Id
          * Return an Serie object 
          */
-        public Serie GetOneSerie(int idFilm)
+        public Serie GetOneWithId(int idSerie)
         {
             Serie s = new Serie();
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Series WHERE Id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", idFilm));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", idSerie));
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
@@ -193,7 +183,7 @@ namespace Videothèque2.Models
          *      a string  : search
          * Return an ObservableCollection of the Serie type order by Title Where Title == search
          */
-        public ObservableCollection<Serie> GetSearchSerie(string search)
+        public ObservableCollection<Serie> GetSearch(string search)
         {
             ObservableCollection<Serie> l = new ObservableCollection<Serie>();
 
@@ -288,35 +278,10 @@ namespace Videothèque2.Models
 
         /*
          * Resume :
-         *      Edit one serie for program or deprogram
-         * Return true if update is successful
-         */
-        public Boolean UpSerieProgramm()
-        {
-            Boolean res = false;
-            string req = "UPDATE Series SET ToWatch = @ToWatch WHERE id = @Id";
-            DataBase.Instance.command = new SqlCommand(req, DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
-            DataBase.Instance.connection.Open();
-
-            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
-                res = true;
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            return res;
-        }
-
-        /*
-         * Resume :
          *      Edit title, nbSeason and content of the serie
          * Return true if update is successful
          */
-        public Boolean UpdateSerie()
+        public Boolean UpdateOne()
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE Series SET Title = @Title, Genre = @Genre, RunTime = @RunTime, ReleaseDate = @ReleaseDate," +
@@ -367,7 +332,7 @@ namespace Videothèque2.Models
          *      Delete a serie
          * Return true if selete is successful
          */
-        public Boolean DeleteSerie()
+        public Boolean DeleteOne()
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("DELETE FROM Series WHERE id = @Id", DataBase.Instance.connection);
@@ -385,6 +350,10 @@ namespace Videothèque2.Models
             return res;
         }
     }
+
+    /**
+     * Status of a Serie
+     */
     public enum SerieStatus
     {
         Inconnu,
