@@ -14,7 +14,7 @@ namespace Videothèque2.Models
      * Resume : 
      *      An element can be a Film or a Serie or a Discover
      */
-    public class Element : INotifyPropertyChanged
+    public class Element
     {
         private int id;
         private string title;
@@ -36,8 +36,6 @@ namespace Videothèque2.Models
         public int NbElt { get => nbElt; set => nbElt = value; }
         public int IdCycle { get => idCycle; set => idCycle = value; }
         private ObservableCollection<Element> ListElt { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         /*
          * Resume :

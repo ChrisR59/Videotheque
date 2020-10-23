@@ -13,7 +13,7 @@ namespace Videothèque2.Models
      * Resume
      *      a serie
      */
-    public class Serie :Element
+    public class Serie : Element
     {
         private string genre;
         private string runTime;
@@ -94,54 +94,7 @@ namespace Videothèque2.Models
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
             while (DataBase.Instance.reader.Read())
-            {
-                Serie s = new Serie();
-                s.Id = DataBase.Instance.reader.GetInt32(0);
-                s.Title = DataBase.Instance.reader.GetString(1);
-                s.Genre = DataBase.Instance.reader.GetString(2);
-
-                if (!DataBase.Instance.reader.IsDBNull(3))
-                    s.RunTime = DataBase.Instance.reader.GetString(3);
-
-                if (!DataBase.Instance.reader.IsDBNull(4))
-                    s.ReleaseDate = DataBase.Instance.reader.GetString(4);
-
-                if (!DataBase.Instance.reader.IsDBNull(5))
-                    s.NbSeason = DataBase.Instance.reader.GetInt32(5);
-
-                if (!DataBase.Instance.reader.IsDBNull(6))
-                    s.NbEpisode = DataBase.Instance.reader.GetInt32(6);
-
-                s.Content = DataBase.Instance.reader.GetString(7);
-                s.Director = DataBase.Instance.reader.GetString(8);
-                s.Stars = DataBase.Instance.reader.GetString(9);
-                s.Poster = DataBase.Instance.reader.GetString(10);
-                s.DateAdd = DataBase.Instance.reader.GetDateTime(11);
-                s.DateAddFormated = s.DateAdd.ToString("dd/MM/yyyy");
-                s.LastViewFormated = "Pas visionné";
-                if (!DataBase.Instance.reader.IsDBNull(12))
-                {
-                    s.LastView = DataBase.Instance.reader.GetDateTime(12);
-                    s.LastViewFormated = s.LastView.ToString("dd/MM/yyyy");
-                }
-                s.NbView = DataBase.Instance.reader.GetInt32(13);
-                int w = DataBase.Instance.reader.GetInt32(14);
-                s.ToWatchString = "Non programmé";
-                if (w == 1)
-                {
-                    s.ToWatch = true;
-                    s.ToWatchString = "Programmé";
-                }
-                if (!DataBase.Instance.reader.IsDBNull(15))
-                    s.Comment = DataBase.Instance.reader.GetString(15);
-
-                if (!DataBase.Instance.reader.IsDBNull(16))
-                    s.Status = (SerieStatus)DataBase.Instance.reader.GetInt32(16);
-
-                s.Rating = (Rating)DataBase.Instance.reader.GetInt32(17);
-
-                l.Add(s);
-            }
+                l.Add(SaveSerie());
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
@@ -194,54 +147,7 @@ namespace Videothèque2.Models
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
             while (DataBase.Instance.reader.Read())
-            {
-                Serie s = new Serie();
-                s.Id = DataBase.Instance.reader.GetInt32(0);
-                s.Title = DataBase.Instance.reader.GetString(1);
-                s.Genre = DataBase.Instance.reader.GetString(2);
-
-                if (!DataBase.Instance.reader.IsDBNull(3))
-                    s.RunTime = DataBase.Instance.reader.GetString(3);
-
-                if (!DataBase.Instance.reader.IsDBNull(4))
-                    s.ReleaseDate = DataBase.Instance.reader.GetString(4);
-
-                if (!DataBase.Instance.reader.IsDBNull(5))
-                    s.NbSeason = DataBase.Instance.reader.GetInt32(5);
-
-                if (!DataBase.Instance.reader.IsDBNull(6))
-                    s.NbEpisode = DataBase.Instance.reader.GetInt32(6);
-
-                s.Content = DataBase.Instance.reader.GetString(7);
-                s.Director = DataBase.Instance.reader.GetString(8);
-                s.Stars = DataBase.Instance.reader.GetString(9);
-                s.Poster = DataBase.Instance.reader.GetString(10);
-                s.DateAdd = DataBase.Instance.reader.GetDateTime(11);
-                s.DateAddFormated = s.DateAdd.ToString("dd/MM/yyyy");
-                s.LastViewFormated = "Pas visionné";
-                if (!DataBase.Instance.reader.IsDBNull(12))
-                {
-                    s.LastView = DataBase.Instance.reader.GetDateTime(12);
-                    s.LastViewFormated = s.LastView.ToString("dd/MM/yyyy");
-                }
-                s.NbView = DataBase.Instance.reader.GetInt32(13);
-                int w = DataBase.Instance.reader.GetInt32(14);
-                s.ToWatchString = "Non programmé";
-                if (w == 1)
-                {
-                    s.ToWatch = true;
-                    s.ToWatchString = "Programmé";
-                }
-                if (!DataBase.Instance.reader.IsDBNull(15))
-                    s.Comment = DataBase.Instance.reader.GetString(15);
-
-                if (!DataBase.Instance.reader.IsDBNull(16))
-                    s.Status = (SerieStatus)DataBase.Instance.reader.GetInt32(16);
-
-                s.Rating = (Rating)DataBase.Instance.reader.GetInt32(17);
-
-                l.Add(s);
-            }
+                l.Add(SaveSerie());
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
@@ -262,13 +168,10 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@NbView", NbView));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
-            //DataBase.Instance.command.Parameters.Add(new SqlParameter("@Rating", Rating));
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
                 res = true;
-            }
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
@@ -340,26 +243,68 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
                 res = true;
-            }
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
 
             return res;
         }
-    }
 
-    /**
-     * Status of a Serie
-     */
-    public enum SerieStatus
-    {
-        Inconnu,
-        EnCours,
-        Prevu,
-        Termine,
-        Interrompu
+        /**
+         * Resume :
+         *      Save a Serie in the object serie
+         * Return :
+         *      a Serie for be add a list
+         */
+        private Serie SaveSerie()
+        {
+            Serie s = new Serie();
+            s.Id = DataBase.Instance.reader.GetInt32(0);
+            s.Title = DataBase.Instance.reader.GetString(1);
+            s.Genre = DataBase.Instance.reader.GetString(2);
+
+            if (!DataBase.Instance.reader.IsDBNull(3))
+                s.RunTime = DataBase.Instance.reader.GetString(3);
+
+            if (!DataBase.Instance.reader.IsDBNull(4))
+                s.ReleaseDate = DataBase.Instance.reader.GetString(4);
+
+            if (!DataBase.Instance.reader.IsDBNull(5))
+                s.NbSeason = DataBase.Instance.reader.GetInt32(5);
+
+            if (!DataBase.Instance.reader.IsDBNull(6))
+                s.NbEpisode = DataBase.Instance.reader.GetInt32(6);
+
+            s.Content = DataBase.Instance.reader.GetString(7);
+            s.Director = DataBase.Instance.reader.GetString(8);
+            s.Stars = DataBase.Instance.reader.GetString(9);
+            s.Poster = DataBase.Instance.reader.GetString(10);
+            s.DateAdd = DataBase.Instance.reader.GetDateTime(11);
+            s.DateAddFormated = s.DateAdd.ToString("dd/MM/yyyy");
+            s.LastViewFormated = "Pas visionné";
+            if (!DataBase.Instance.reader.IsDBNull(12))
+            {
+                s.LastView = DataBase.Instance.reader.GetDateTime(12);
+                s.LastViewFormated = s.LastView.ToString("dd/MM/yyyy");
+            }
+            s.NbView = DataBase.Instance.reader.GetInt32(13);
+            int w = DataBase.Instance.reader.GetInt32(14);
+            s.ToWatchString = "Non programmé";
+            if (w == 1)
+            {
+                s.ToWatch = true;
+                s.ToWatchString = "Programmé";
+            }
+            if (!DataBase.Instance.reader.IsDBNull(15))
+                s.Comment = DataBase.Instance.reader.GetString(15);
+
+            if (!DataBase.Instance.reader.IsDBNull(16))
+                s.Status = (SerieStatus)DataBase.Instance.reader.GetInt32(16);
+
+            s.Rating = (Rating)DataBase.Instance.reader.GetInt32(17);
+
+            return s;
+        }
     }
 }
