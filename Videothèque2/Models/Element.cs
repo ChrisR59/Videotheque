@@ -50,6 +50,69 @@ namespace Videothèque2.Models
             GetDiscoverToWatch();
             return ListElt;
         }
+        /*
+         * Resume :
+         *      Removes an element FILM from a cycle
+         * Return True is successfull
+         */
+        public Boolean UpdateToWatchFilm()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE Films SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+                res = true;
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+
+            return res;
+        }
+
+        /*
+         * Resume :
+         *      Removes an element SERIE from a cycle
+         * Return True is successfull
+         */
+        public Boolean UpdateToWatchSerie()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE Series SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+                res = true;
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+            return res;
+        }
+
+        /*
+         * Resume :
+         *      Removes an element Discover from a cycle
+         * Return True is successfull
+         */
+        public Boolean UpadateToWatchDiscover()
+        {
+            Boolean res = false;
+            DataBase.Instance.command = new SqlCommand("UPDATE Discover SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
+            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
+            DataBase.Instance.connection.Open();
+
+            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
+                res = true;
+
+            DataBase.Instance.command.Dispose();
+            DataBase.Instance.connection.Close();
+            return res;
+        }
 
         /**
          * Resume
@@ -150,74 +213,5 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
         }
 
-        /*
-         * Resume :
-         *      Removes an element FILM from a cycle
-         * Return True is successfull
-         */
-        public Boolean UpdateToWatchFilm()
-        {
-            Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE Films SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
-            DataBase.Instance.connection.Open();
-
-            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
-                res = true;
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            return res;
-        }
-
-        /*
-         * Resume :
-         *      Removes an element SERIE from a cycle
-         * Return True is successfull
-         */
-        public Boolean UpdateToWatchSerie()
-        {
-            Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE Series SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
-            DataBase.Instance.connection.Open();
-
-            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
-                res = true;
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-            return res;
-        }
-
-        /*
-         * Resume :
-         *      Removes an element Discover from a cycle
-         * Return True is successfull
-         */
-        public Boolean UpadateToWatchDiscover()
-        {
-            Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE Discover SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
-            DataBase.Instance.connection.Open();
-
-            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
-                res = true;
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-            return res;
-        }
     }
 }

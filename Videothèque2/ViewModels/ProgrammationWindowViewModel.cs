@@ -162,6 +162,7 @@ namespace Videothèque2.ViewModels
                     MessageBox.Show("Je ne reconnais pas cette élément.");
                     break;
             }
+
             RemoveELtList(unprogramm);
         }
 

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Videothèque2.Models;
+using Videothèque2.Tools;
 using Videothèque2.Views;
 
 namespace Videothèque2.ViewModels
@@ -16,13 +17,9 @@ namespace Videothèque2.ViewModels
     class ListCycleViewModel : ViewModelBase
     {
         private ObservableCollection<CycleStatus> listCycles;
-        public ObservableCollection<CycleStatus> ListCycles 
-        { 
-            get => listCycles;
-            set => listCycles = value; 
-        }
-        public List<Status> ListStatus { get; set; }
         private CycleStatus cycle;
+        public ObservableCollection<CycleStatus> ListCycles { get => listCycles; set => listCycles = value; }
+        public List<StatusOfCycle> ListStatus { get; set; }
         public CycleStatus Cycle 
         { 
             get => cycle;
@@ -39,7 +36,7 @@ namespace Videothèque2.ViewModels
                 RaisePropertyChanged("Id");
             }
         }
-        public Status StatusC
+        public StatusOfCycle StatusC
         {
             get => Cycle.StatusC;
             set
@@ -49,7 +46,7 @@ namespace Videothèque2.ViewModels
             }
         }
 
-        public Status Status
+        public StatusOfCycle Status
         {
             get => Cycle.StatusC;
             set
@@ -74,8 +71,8 @@ namespace Videothèque2.ViewModels
         public ListCycleViewModel()
         {
             Cycle = new CycleStatus();
-            ListCycles = Cycle.GetCycleList();
-            ListStatus = Enum.GetValues(typeof(Status)).Cast<Status>().ToList();
+            ListCycles = Cycle.GetAll();
+            ListStatus = Enum.GetValues(typeof(StatusOfCycle)).Cast<StatusOfCycle>().ToList();
             DeleteCycleCommand = new RelayCommand(DeleteCycle);
             EditCycleCommand = new RelayCommand(EditCycleStatus);
             CreateCycleCommand = new RelayCommand(NewCycle);
@@ -111,7 +108,7 @@ namespace Videothèque2.ViewModels
                 if(Cycle.UpdateCycleStatus())
                 {
                     MessageBox.Show("Le Status du cycle " + Cycle.Id + " a bien été modifié.");
-                    ListCycles = Cycle.GetCycleList();
+                    ListCycles = Cycle.GetAll();
                     RaisePropertyChanged("ListCycles");
                 }
             }
@@ -126,10 +123,10 @@ namespace Videothèque2.ViewModels
             Cycle.CheckCycleExist();
             Cycle.GetNumberCycle();
 
-            if (Cycle.NewCycle())
+            if (Cycle.Add())
             {
                 MessageBox.Show("Un nouveau Cycle a été crée.");
-                ListCycles = Cycle.GetCycleList();
+                ListCycles = Cycle.GetAll();
                 RaisePropertyChanged("ListCycles");
             }
         }

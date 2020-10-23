@@ -47,6 +47,7 @@ namespace Videothèque2.Models
 
             if ((int)DataBase.Instance.command.ExecuteNonQuery() > 0)
                 res = true;
+
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
 
@@ -71,27 +72,24 @@ namespace Videothèque2.Models
 
             while (DataBase.Instance.reader.Read())
             {
-                CycleContent c = new CycleContent()
-                {
-                    Id = DataBase.Instance.reader.GetInt32(0),
-                    Title = DataBase.Instance.reader.GetString(1),
-                    Status = DataBase.Instance.reader.GetString(2),
-                    Rank = DataBase.Instance.reader.GetInt32(3),
-                    Type = DataBase.Instance.reader.GetString(4),
-                    NbElt = DataBase.Instance.reader.GetInt32(5),
-                    IdElt = DataBase.Instance.reader.GetInt32(6),
-                    IdCycle = idCycleS,
-                };
+                CycleContent c = new CycleContent();
+                c.Id = DataBase.Instance.reader.GetInt32(0);
+                c.Title = DataBase.Instance.reader.GetString(1);
+                c.Status = DataBase.Instance.reader.GetString(2);
+                c.Rank = DataBase.Instance.reader.GetInt32(3);
+                c.Type = DataBase.Instance.reader.GetString(4);
+                c.NbElt = DataBase.Instance.reader.GetInt32(5);
+                c.IdElt = DataBase.Instance.reader.GetInt32(6);
+                c.IdCycle = idCycleS;
 
                 if (!DataBase.Instance.reader.IsDBNull(8))
                     c.Comment = DataBase.Instance.reader.GetString(8);
 
                 int w = DataBase.Instance.reader.GetInt32(7);
                 c.ToWatch = false;
+
                 if (w == 1)
-                {
                     c.ToWatch = true;
-                }
 
                 listC.Add(c);
             }
@@ -103,7 +101,7 @@ namespace Videothèque2.Models
 
         /*
          * Resume : 
-         *      get the rank of an element of a cycle
+         *      get the rank of an element of a cycle and increment for a new elt
          */
         public void GetRankElt()
         {
@@ -137,9 +135,7 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
                 res = true;
-            }
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
@@ -161,9 +157,7 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
                 res = true;
-            }
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
@@ -184,9 +178,7 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
                 res = true;
-            }
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();

@@ -17,26 +17,28 @@ namespace Videothèque2.Models
     {
         private int id;
         private int number;
-        private Status statusC;
+        private StatusOfCycle statusC;
 
         public int Id { get => id; set => id = value; }
         public int Number { get => number; set => number = value; }
-        public Status StatusC { get => statusC; set => statusC = value; }
+        public StatusOfCycle StatusC { get => statusC; set => statusC = value; }
 
         /*
          * Resume
          *      Add one cycle in the bdd
          * Return true if insert is successful
          */
-        public Boolean NewCycle()
+        public Boolean Add()
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("INSERT INTO CycleStatus(Number, Status) OUTPUT INSERTED.ID VALUES(@Number, @StatusC)", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@Number", Number));
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@StatusC", StatusC));
             DataBase.Instance.connection.Open();
+
             if ((int)DataBase.Instance.command.ExecuteScalar() > 0)
                 res = true;
+
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
 
@@ -48,7 +50,7 @@ namespace Videothèque2.Models
          *      Get a cycle list
          * Return an ObservableCollection of the CycleStatus type
          */
-        public ObservableCollection<CycleStatus> GetCycleList()
+        public ObservableCollection<CycleStatus> GetAll()
         {
             ObservableCollection<CycleStatus> l = new ObservableCollection<CycleStatus>();
 
@@ -61,7 +63,7 @@ namespace Videothèque2.Models
                 CycleStatus c = new CycleStatus();
                 c.Id = DataBase.Instance.reader.GetInt32(0);
                 c.Number = DataBase.Instance.reader.GetInt32(1);
-                c.StatusC = (Status)DataBase.Instance.reader.GetInt32(2);
+                c.StatusC = (StatusOfCycle)DataBase.Instance.reader.GetInt32(2);
                 l.Add(c);
             }
 
@@ -80,10 +82,9 @@ namespace Videothèque2.Models
             DataBase.Instance.command = new SqlCommand("SELECT Number FROM CycleStatus WHERE Status = '0'", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
+
             if (DataBase.Instance.reader.Read())
-            {
                 Number = DataBase.Instance.reader.GetInt32(0);
-            }
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
@@ -94,6 +95,8 @@ namespace Videothèque2.Models
         /*
          * Resume :
          *      Get one cycle
+         * Return
+         *      a attribut Number
          */
         public int GetNewCycle()
         {
@@ -101,13 +104,13 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
 
-            int i = 0;
+            int i = 0;// partie à ameliorer
             while (DataBase.Instance.reader.Read())
             {
                 if(i == 0)
                 {
                     Number = DataBase.Instance.reader.GetInt32(0);
-                    StatusC = Status.EnCours;
+                    StatusC = StatusOfCycle.EnCours;
                     i++;
                 }
             }
@@ -128,9 +131,9 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteScalar() == null)
-                StatusC = Status.EnCours;
+                StatusC = StatusOfCycle.EnCours;
             else
-                StatusC = Status.Prevu;
+                StatusC = StatusOfCycle.Prevu;
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
@@ -263,12 +266,5 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Close();
             return res;
         }
-    }
-
-    public enum Status
-    {
-        EnCours,
-        Prevu,
-        Termine
     }
 }
