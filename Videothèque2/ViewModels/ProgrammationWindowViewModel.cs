@@ -154,9 +154,9 @@ namespace Videothèque2.ViewModels
                     break;
                 case "Découverte":
                     Discover d = new Discover();
-                    d = d.GetOneDiscover(Element.Id);
+                    d = d.GetOneWithId(Element.Id);
                     d.ToWatch = false;
-                    unprogramm = d.UpProgrammDiscover();
+                    unprogramm = d.UpadateToWatchDiscover();
                     break;
                 default:
                     MessageBox.Show("Je ne reconnais pas cette élément.");

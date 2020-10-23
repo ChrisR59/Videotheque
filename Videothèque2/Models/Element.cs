@@ -14,7 +14,7 @@ namespace Videothèque2.Models
      * Resume : 
      *      An element can be a Film or a Serie or a Discover
      */
-    public class Element
+    public class Element : INotifyPropertyChanged
     {
         private int id;
         private string title;
@@ -29,13 +29,15 @@ namespace Videothèque2.Models
         public int Id { get => id; set => id = value; }
         public string Title { get => title; set => title = value;  }
         public int Place { get => place; set => place = value; }
-        public bool ToWatch { get => toWatch; set => toWatch = value; }
+        public bool ToWatch { get => toWatch; set => toWatch = value; } 
         public string ToWatchString { get => toWatchString; set => toWatchString = value; }
         public string Comment { get => comment; set => comment = value; }
         public string Type { get => type; set => type = value; }
         public int NbElt { get => nbElt; set => nbElt = value; }
         public int IdCycle { get => idCycle; set => idCycle = value; }
         private ObservableCollection<Element> ListElt { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /*
          * Resume :
@@ -202,7 +204,7 @@ namespace Videothèque2.Models
          *      Removes an element Discover from a cycle
          * Return True is successfull
          */
-        public Boolean UnWatchDiscover()
+        public Boolean UpadateToWatchDiscover()
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE Discover SET ToWatch = @ToWatch WHERE Id = @Id", DataBase.Instance.connection);

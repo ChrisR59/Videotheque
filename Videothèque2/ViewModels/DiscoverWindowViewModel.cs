@@ -92,7 +92,7 @@ namespace Videothèque2.ViewModels
             {
                 if (Title != null && ReleaseDate != null)
                 {
-                    if (Discover.EditOneDiscover())
+                    if (Discover.UpdateOne())
                     {
                         MessageBox.Show(Discover.Title + " a bien été modifié.");
                         ListDiscover = Discover.GetAll();
@@ -116,7 +116,7 @@ namespace Videothèque2.ViewModels
                 if (Discover != null)
                 {
                     Discover.ToWatch = true;
-                    Discover.UpProgrammDiscover();
+                    Discover.UpadateToWatchDiscover();
                     MessageBox.Show(Discover.Title + " a bien été programmé.");
                     ListDiscover = Discover.GetAll();
                     RaisePropertyChanged("ListDiscover");
@@ -137,7 +137,7 @@ namespace Videothèque2.ViewModels
             {
                 if (Discover.Id != 0)
                 {
-                    if (Discover.DeleteOneDiscover())
+                    if (Discover.DeleteOne())
                     {
                         MessageBox.Show(Discover.Title + " a bien été supprimé.");
                         ListDiscover = Discover.GetAll();

@@ -145,7 +145,8 @@ namespace Videothèque2.ViewModels
             switch (CycleC.Type)
             {
                 case "Film":
-                    Film f = CycleC.GetOneFilm();
+                    Film f = new Film();
+                    f = f.GetOneWithId(CycleC.IdElt);
                     f.LastView = DateTime.Now;
                     f.NbView++;
                     f.ToWatch = false;
@@ -153,7 +154,8 @@ namespace Videothèque2.ViewModels
                     resCycle = CycleC.UpdateToWatch();
                     break;
                 case "Serie":
-                    Serie s = CycleC.GetOneSerie();
+                    Serie s = new Serie();
+                    s = s.GetOneWithId(CycleC.IdElt);
                     s.LastView = DateTime.Now;
                     s.NbView++;
                     s.ToWatch = false;

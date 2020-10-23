@@ -9,19 +9,11 @@ using Videothèque2.Tools;
 
 namespace Videothèque2.Models
 {
-    public class Discover
+    public class Discover : Element
     {
-        private int id;
-        private string title;
         private string releaseDate;
-        private Boolean toWatch;
-        private string comment;
 
-        public int Id { get => id; set => id = value; }
-        public string Title { get => title; set => title = value; }
         public string ReleaseDate { get => releaseDate; set => releaseDate = value; }
-        public bool ToWatch { get => toWatch; set => toWatch = value; }
-        public string Comment { get => comment; set => comment = value; }
 
         /**
          * Resume :
@@ -85,7 +77,7 @@ namespace Videothèque2.Models
          *      Get one serie with his Id
          * Return an Discover object 
          */
-        public Discover GetOneDiscover(int idFilm)
+        public Discover GetOneWithId(int idFilm)
         {
             Discover d = new Discover();
             DataBase.Instance.command = new SqlCommand("SELECT Id,Title,ToWatch FROM Discover WHERE Id = @Id", DataBase.Instance.connection);
@@ -113,7 +105,7 @@ namespace Videothèque2.Models
          *      Edit fields of the Discover
          * Return true if update is successful
          */
-        public Boolean EditOneDiscover()
+        public Boolean UpdateOne()
         {
             bool res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE Discover SET Title = @Title, ReleaseDate = @ReleaseDate, ToWatch = @ToWatch, Comment = @Comment WHERE Id = @Id",
@@ -139,38 +131,12 @@ namespace Videothèque2.Models
             return res;
         }
 
-
-        /**
-         * Resume :
-         *      Edit one Discover for program or deprogram
-         * Return true if update is successful
-         */
-        public Boolean UpProgrammDiscover()
-        {
-            bool res = false;
-            string req = "UPDATE Discover SET ToWatch = @ToWatch WHERE id = @Id";
-            DataBase.Instance.command = new SqlCommand(req, DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@ToWatch", ToWatch));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
-            DataBase.Instance.connection.Open();
-
-            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
-                res = true;
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            return res;
-        }
-
         /**
          * Resume :
          *      Delete a Discover
          * Return true if delete is successful
          */
-        public Boolean DeleteOneDiscover()
+        public Boolean DeleteOne()
         {
             bool res = false;
 
