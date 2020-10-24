@@ -53,7 +53,6 @@ namespace Videothèque2.Models
         public ObservableCollection<CycleStatus> GetAll()
         {
             ObservableCollection<CycleStatus> l = new ObservableCollection<CycleStatus>();
-
             DataBase.Instance.command = new SqlCommand("SELECT Id,Number,Status FROM CycleStatus", DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
             DataBase.Instance.reader = DataBase.Instance.command.ExecuteReader();
@@ -143,7 +142,7 @@ namespace Videothèque2.Models
          * Resume :
          *      Get total number of cycles
          */
-        public void GetNumberCycle()
+        public void GetOneNumberCycle()
         {
             DataBase.Instance.command = new SqlCommand("SELECT Number FROM CycleStatus ORDER BY Number DESC",DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
@@ -204,7 +203,7 @@ namespace Videothèque2.Models
          *      Edit "Status" of a cycle
          * Return true if update is successful
          */
-        public Boolean EditStatusCycle()
+        public Boolean UpdateStatusCycle()
         {
             Boolean res = false;
             DataBase.Instance.command = new SqlCommand("UPDATE CycleStatus SET Status = @Status WHERE Number = @Number", DataBase.Instance.connection);
@@ -213,33 +212,7 @@ namespace Videothèque2.Models
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
                 res = true;
-            }
-
-            DataBase.Instance.command.Dispose();
-            DataBase.Instance.connection.Close();
-
-            return res;
-        }
-
-        /*
-         * Resume :
-         *      Edit "Status" of a cycle
-         * Return true if update is successful
-         */
-        public Boolean UpdateCycleStatus()
-        {
-            Boolean res = false;
-            DataBase.Instance.command = new SqlCommand("UPDATE CycleStatus SET Status = @Status WHERE id = @Id", DataBase.Instance.connection);
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Status", StatusC));
-            DataBase.Instance.command.Parameters.Add(new SqlParameter("@Id", Id));
-            DataBase.Instance.connection.Open();
-
-            if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
-                res = true;
-            }
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();

@@ -202,15 +202,15 @@ namespace Videothèque2.ViewModels
         {
             if (CycleEnd)
             {
-                CycleS.StatusC = Status.Termine;
+                CycleS.StatusC = StatusOfCycle.Termine;
 
-                if (CycleS.EditStatusCycle())
+                if (CycleS.UpdateStatusCycle())
                     MessageBox.Show("Cycle Terminé");
 
                 CycleS = new CycleStatus();
                 IdCycle = CycleS.GetNewCycle();
 
-                if (CycleS.EditStatusCycle())
+                if (CycleS.UpdateStatusCycle())
                     MessageBox.Show("Nouveau cycle chargé");
             }
         }

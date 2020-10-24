@@ -105,7 +105,7 @@ namespace Videothèque2.ViewModels
             MessageBoxResult messageBoxResult = MessageBox.Show("Voulez-vous vraiment modifier le status du cycle ?", "Confirmation modification", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                if(Cycle.UpdateCycleStatus())
+                if(Cycle.UpdateStatusCycle())
                 {
                     MessageBox.Show("Le Status du cycle " + Cycle.Id + " a bien été modifié.");
                     ListCycles = Cycle.GetAll();
@@ -121,7 +121,7 @@ namespace Videothèque2.ViewModels
         private void NewCycle()
         {
             Cycle.CheckCycleExist();
-            Cycle.GetNumberCycle();
+            Cycle.GetOneNumberCycle();
 
             if (Cycle.Add())
             {

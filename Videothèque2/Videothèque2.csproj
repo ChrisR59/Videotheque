@@ -111,6 +111,7 @@
     <Compile Include="Models\Element.cs" />
     <Compile Include="Tools\Rating.cs" />
     <Compile Include="Tools\SerieStatus.cs" />
+    <Compile Include="Tools\StatusOfCycle.cs" />
     <Compile Include="ViewModels\DiscoverWindowViewModel.cs" />
     <Compile Include="ViewModels\GestionCycleWindowViewModel.cs" />
     <Compile Include="ViewModels\ListCycleViewModel.cs" />

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Videothèque2.Models;
+using Videothèque2.Tools;
 
 namespace Videothèque2.ViewModels
 {
@@ -40,7 +41,7 @@ namespace Videothèque2.ViewModels
             }
         }
         public int IdCycle { get => idCycle; set => idCycle = value; }       
-        public Status Status
+        public StatusOfCycle Status
         {
             get => CycleS.StatusC;
             set
