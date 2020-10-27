@@ -74,7 +74,9 @@ namespace Videothèque2.Models
 
         /*
          * Resume :
-         *      Get a Id of a Cycle
+         *      Get a Number of a Cycle 'Encours'
+         * Return
+         *      a attribut Number
          */
         public int GetIdCycle()
         {
@@ -93,7 +95,7 @@ namespace Videothèque2.Models
 
         /*
          * Resume :
-         *      Get one cycle
+         *      Get one cycle 'Prevue'
          * Return
          *      a attribut Number
          */
@@ -126,13 +128,12 @@ namespace Videothèque2.Models
          */
         public void CheckCycleExist()
         {
+            StatusC = StatusOfCycle.Prevu;
             DataBase.Instance.command = new SqlCommand("SELECT Id FROM CycleStatus WHERE Status = '0'",DataBase.Instance.connection);
             DataBase.Instance.connection.Open();
 
             if (DataBase.Instance.command.ExecuteScalar() == null)
                 StatusC = StatusOfCycle.EnCours;
-            else
-                StatusC = StatusOfCycle.Prevu;
 
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
@@ -231,10 +232,10 @@ namespace Videothèque2.Models
             DataBase.Instance.command = new SqlCommand("DELETE FROM CycleStatus WHERE id = @id", DataBase.Instance.connection);
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@id", Id));
             DataBase.Instance.connection.Open();
+
             if (DataBase.Instance.command.ExecuteNonQuery() > 0)
-            {
                 res = true;
-            }
+
             DataBase.Instance.command.Dispose();
             DataBase.Instance.connection.Close();
             return res;

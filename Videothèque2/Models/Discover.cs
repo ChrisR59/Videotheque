@@ -29,6 +29,7 @@ namespace Videothèque2.Models
             DataBase.Instance.command.Parameters.Add(new SqlParameter("@ReleaseDate", ReleaseDate));
             DataBase.Instance.connection.Open();
             Id = (int)DataBase.Instance.command.ExecuteScalar();
+
             if (Id > 0)
                 res = true;
 
@@ -57,9 +58,11 @@ namespace Videothèque2.Models
                 d.Title = DataBase.Instance.reader.GetString(1);
                 d.ReleaseDate = DataBase.Instance.reader.GetString(2);
                 d.ToWatch = false;
-                int w = DataBase.Instance.reader.GetInt32(3);
-                if (w == 1)
+                int watch = DataBase.Instance.reader.GetInt32(3);
+
+                if (watch == 1)
                     d.ToWatch = true;
+
                 if (!DataBase.Instance.reader.IsDBNull(4))
                     d.Comment = DataBase.Instance.reader.GetString(4);
 
@@ -89,9 +92,9 @@ namespace Videothèque2.Models
             {
                 d.Id = DataBase.Instance.reader.GetInt32(0);
                 d.Title = DataBase.Instance.reader.GetString(1);
+                int watch = DataBase.Instance.reader.GetInt32(2);
 
-                int w = DataBase.Instance.reader.GetInt32(2);
-                if (w == 1)
+                if (watch == 1)
                     d.ToWatch = true;
             }
             DataBase.Instance.command.Dispose();

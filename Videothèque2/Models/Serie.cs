@@ -119,8 +119,9 @@ namespace Videothèque2.Models
             {
                 s.Id = DataBase.Instance.reader.GetInt32(0);
                 s.Title = DataBase.Instance.reader.GetString(1);
-                int w = DataBase.Instance.reader.GetInt32(2);
-                if (w == 1)
+
+                int watch = DataBase.Instance.reader.GetInt32(2);
+                if (watch == 1)
                     s.ToWatch = true;
             }
             DataBase.Instance.command.Dispose();
@@ -283,19 +284,23 @@ namespace Videothèque2.Models
             s.DateAdd = DataBase.Instance.reader.GetDateTime(11);
             s.DateAddFormated = s.DateAdd.ToString("dd/MM/yyyy");
             s.LastViewFormated = "Pas visionné";
+
             if (!DataBase.Instance.reader.IsDBNull(12))
             {
                 s.LastView = DataBase.Instance.reader.GetDateTime(12);
                 s.LastViewFormated = s.LastView.ToString("dd/MM/yyyy");
             }
+
             s.NbView = DataBase.Instance.reader.GetInt32(13);
-            int w = DataBase.Instance.reader.GetInt32(14);
+            int watch = DataBase.Instance.reader.GetInt32(14);
             s.ToWatchString = "Non programmé";
-            if (w == 1)
+
+            if (watch == 1)
             {
                 s.ToWatch = true;
                 s.ToWatchString = "Programmé";
             }
+
             if (!DataBase.Instance.reader.IsDBNull(15))
                 s.Comment = DataBase.Instance.reader.GetString(15);
 

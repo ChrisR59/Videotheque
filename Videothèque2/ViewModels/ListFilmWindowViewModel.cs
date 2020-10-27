@@ -239,10 +239,9 @@ namespace Videothèque2.ViewModels
         private void EditPoster()
         {
             OpenFileDialog open = new OpenFileDialog();
+
             if (open.ShowDialog() == true)
-            {
                 Poster = MoveImageToImageFolder(open.FileName);
-            }
         }
 
         /**
@@ -343,10 +342,10 @@ namespace Videothèque2.ViewModels
          */
         private void SearchFilm()
         {
+            ListFilms = Film.GetSearch(SearchTitleFilm);
+
             if (SearchTitleFilm == "" || SearchTitleFilm == null)
                 ListFilms = Film.GetAll();
-            else
-                ListFilms = Film.GetSearch(SearchTitleFilm);
 
             SearchTitleFilm = null;
         }
@@ -358,9 +357,8 @@ namespace Videothèque2.ViewModels
         private string MoveImageToImageFolder(string urlToMove)
         {
             if (!Directory.Exists("posters"))
-            {
                 Directory.CreateDirectory("posters");
-            }
+
             string urlAfterMove = Path.Combine(Directory.GetCurrentDirectory(), "posters", Path.GetFileName(urlToMove));
             File.Copy(urlToMove, urlAfterMove, true);
             return urlAfterMove;

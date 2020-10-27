@@ -107,13 +107,12 @@ namespace Videothèque2.ViewModels
                 CycleC.NbElt = Element.NbElt;
                 CycleC.IdElt = Element.Id;
                 CycleC.Comment = Element.Comment;
+
                 if (Element.Comment == null)
                     CycleC.Comment = "";
 
                 if (CycleC.AddElement() && Element != null)
-                {
                     UnprogramElement();
-                }
             }
         }
 

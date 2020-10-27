@@ -134,9 +134,9 @@ namespace Videothèque2.Models
                 if (!DataBase.Instance.reader.IsDBNull(2))
                     e.nbElt = DataBase.Instance.reader.GetInt32(2);
 
-                int w = DataBase.Instance.reader.GetInt32(3);
+                int watch = DataBase.Instance.reader.GetInt32(3);
 
-                if (w == 1)
+                if (watch == 1)
                     e.ToWatch = true;
 
                 if (!DataBase.Instance.reader.IsDBNull(4))
@@ -166,9 +166,9 @@ namespace Videothèque2.Models
                 e.Title = DataBase.Instance.reader.GetString(1);
                 e.Type = "Serie";
                 e.nbElt = DataBase.Instance.reader.GetInt32(2);
-                int w = DataBase.Instance.reader.GetInt32(3);
+                int watch = DataBase.Instance.reader.GetInt32(3);
 
-                if (w == 1)
+                if (watch == 1)
                     e.ToWatch = true;
 
                 if (!DataBase.Instance.reader.IsDBNull(4))
@@ -198,9 +198,9 @@ namespace Videothèque2.Models
                 e.Title = DataBase.Instance.reader.GetString(1);
                 e.Type = "Découverte";
                 e.NbElt = 0;
-                int w = DataBase.Instance.reader.GetInt32(2);
+                int watch = DataBase.Instance.reader.GetInt32(2);
 
-                if (w == 1)
+                if (watch == 1)
                     e.ToWatch = true;
 
                 if (!DataBase.Instance.reader.IsDBNull(3))

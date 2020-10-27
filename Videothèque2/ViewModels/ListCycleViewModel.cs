@@ -61,7 +61,6 @@ namespace Videothèque2.ViewModels
         public ICommand EditCycleCommand { get; set; }
         public ICommand CreateCycleCommand { get; set; }
 
-
         /*
          * Resume :
          *      Initialize a Cycle

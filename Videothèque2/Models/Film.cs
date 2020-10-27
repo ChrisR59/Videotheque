@@ -114,8 +114,9 @@ namespace Videothèque2.Models
             {
                 f.Id = DataBase.Instance.reader.GetInt32(0);
                 f.Title = DataBase.Instance.reader.GetString(1);
-                int w = DataBase.Instance.reader.GetInt32(2);
-                if (w == 1)
+                int watch = DataBase.Instance.reader.GetInt32(2);
+
+                if (watch == 1)
                     f.ToWatch = true;
             }
 
@@ -279,10 +280,10 @@ namespace Videothèque2.Models
             }
 
             f.NbView = DataBase.Instance.reader.GetInt32(12);
-            int w = DataBase.Instance.reader.GetInt32(13);
+            int watch = DataBase.Instance.reader.GetInt32(13);
             f.ToWatchString = "Non programmé";
 
-            if (w == 1)
+            if (watch == 1)
             {
                 f.ToWatch = true;
                 f.ToWatchString = "Programmé";

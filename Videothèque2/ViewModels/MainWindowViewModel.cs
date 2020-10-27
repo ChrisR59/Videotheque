@@ -184,9 +184,7 @@ namespace Videothèque2.ViewModels
             foreach (CycleContent c in ListCycleContent)
             {
                 if (!c.ToWatch)
-                {
                     CycleEnd = false;
-                }
             }
 
             return CycleEnd;
